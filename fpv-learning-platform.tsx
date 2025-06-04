@@ -1107,7 +1107,7 @@ export default function Component() {
                   className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
                 >
                   <FileText className="h-4 w-4" />
-                  Handbuch
+                  Handbuch: Step by Step Guide for FPV Beginners
                 </Link>
               </div>
             </div>
