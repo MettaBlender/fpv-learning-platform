@@ -9,30 +9,34 @@ import { Separator } from "@/components/ui/separator"
 import { ExternalLink, Play, FileText, ShoppingCart, Zap, Radio, Camera, Cpu } from "lucide-react"
 import Image from "next/image"
 import Link from "next/link"
+import { link } from "fs"
 
 // Komponenten-Daten für den Builder
 const droneComponents = {
   frame: [
     {
-      name: "Armattan Marmotte",
-      price: 99,
-      shop: "drone-fpv.ch",
+      name: "Axisflying MANTA 6 Dead Cat Frame Kit",
+      price: 74.90,
+      shop: "dronefactory.ch",
       description: "5 Zoll Freestyle Frame",
-      imageUrl: "https://drone-fpv.ch/shop/frames/5-frames/armattan-marmotte-5-fpv-frame/",
+      link: "https://www.dronefactory.ch/produkt/axisflying-manta-6-dead-cat-frame-kit/",
+      imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2025/03/Axisflying-MANTA-6-Dead-Cat-Frame-Kit-DroneFactory1.jpg",
     },
     {
       name: "TBS Source One V5",
       price: 79,
-      shop: "FPVFrame.ch",
+      shop: "FPVRacing.ch",
       description: "Budget Freestyle Frame",
-      imageUrl: "https://fpvframe.ch/tbs-source-one-v5-frame",
+      link: "https://fpvracing.ch/de/frames/4068-impulserc-echo-5-frame-kit-blackbird.html",
+      imageUrl: "https://fpvracing.ch/18023-large_default/impulserc-echo-5-frame-kit-blackbird.jpg",
     },
     {
       name: "iFlight Nazgul5 V3",
       price: 109,
-      shop: "dronefactory.ch",
-      description: "Ready to Fly Frame",
-      imageUrl: "https://dronefactory.ch/iflight-nazgul5-v3-analog-bnf/",
+      shop: "fpv24.ch",
+      description: "Der SpeedyBee Mario 5 XH Frame O4 Advanced Version ist ein leichter und robuster FPV-Rahmen, der speziell für Racing- und Freestyle-Piloten entwickelt wurde. Mit einer Radstandlänge von 226 mm und einer hochwertigen T300 3K Carbon-Konstruktion bietet er maximale Stabilität und Widerstandsfähigkeit. Dank der luftfahrttauglichen Aluminiumlegierung ist die Kamera optimal geschützt, während die verstärkten 6 mm dicken Arme für minimale Torsion und verbesserte Flugstabilität sorgen. Die Anti-Rutsch-Batteriehalterung aus 3 mm Silikon sorgt zudem für einen sicheren Sitz der Akkus, selbst bei intensiven Manövern.Mit seinen vielseitigen Montagemöglichkeiten für FC, VTX und GPS ist der Mario 5 XH Frame ideal für individuelle Setups und kompatibel mit DJI O4 und anderen FPV-Systemen.",
+      link: "https://www.fpv24.com/de/speedy-bee/speedybee-mario-5-xh-frame-o4-advanced-version",
+      imageUrl: "https://cdnc.meilon.de/img/product/ru/run-sb-mario5-frame-xh-o4-adv/run-sb-mario5-frame-xh-o4-adv-b0b352_l.jpg",
     },
   ],
   motors: [
@@ -155,6 +159,7 @@ const droneComponents = {
 export default function Component() {
   const [selectedComponents, setSelectedComponents] = useState({})
   const [activeComponent, setActiveComponent] = useState(null)
+  const [expandedDescriptions, setExpandedDescriptions] = useState({})
 
   const handleComponentSelect = (componentType, component) => {
     setSelectedComponents((prev) => ({
@@ -166,6 +171,18 @@ export default function Component() {
 
   const getTotalPrice = () => {
     return Object.values(selectedComponents).reduce((total, component) => total + (component?.price || 0), 0)
+  }
+
+  const openShop = (e, shop) => {
+    e.stopPropagation()
+    window.open(shop, "_blank", "noopener,noreferrer")
+  }
+
+  const toggleDescription = (componentIndex) => {
+    setExpandedDescriptions(prev => ({
+      ...prev,
+      [componentIndex]: !prev[componentIndex]
+    }))
   }
 
   return (
@@ -873,16 +890,46 @@ export default function Component() {
                                 className="flex flex-col lg:flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
                                 onClick={() => handleComponentSelect(activeComponent, component)}
                               >
-                                <div className="text-center lg:text-left">
-                                  <h4 className="font-medium">{component.name}</h4>
-                                  <p className="text-sm text-gray-600">{component.description}</p>
-                                  <p className="text-xs text-gray-500">Shop: {component.shop}</p>
+                                <div className="flex items-center w-full">
+                                  <Image
+                                    src={component.imageUrl}
+                                    alt={component.name}
+                                    width={80}
+                                    height={80}
+                                    className="w-16 h-16 lg:w-20 lg:h-20 rounded-lg mb-2 lg:mb-0 lg:mr-4 flex-shrink-0"
+                                  />
+                                  <div className="text-center lg:text-left flex-1">
+                                    <h4 className="font-medium">{component.name}</h4>
+                                    <p className="text-xs text-gray-500">Shop: {component.shop}</p>
+                                    {component.description && (
+                                      <div className="mt-2">
+                                        <p className={`text-sm text-gray-600 transition-all duration-200 ${
+                                          expandedDescriptions[index]
+                                            ? 'line-clamp-none'
+                                            : 'line-clamp-2'
+                                        }`}>
+                                          {component.description}
+                                        </p>
+                                        {component.description.length > 100 && (
+                                          <button
+                                            onClick={(e) => {
+                                              e.stopPropagation()
+                                              toggleDescription(index)
+                                            }}
+                                            className="text-xs text-blue-500 hover:underline mt-1"
+                                          >
+                                            {expandedDescriptions[index] ? 'Weniger anzeigen' : 'Mehr anzeigen'}
+                                          </button>
+                                        )}
+                                      </div>
+                                    )}
+                                  </div>
                                 </div>
                                 <Button
                                   size="sm"
                                   variant="outline"
-                                  onClick={() => window.open(component.imageUrl, "_blank")}
-                                  className="mt-2 lg:mt-0"
+                                  onClick={(e) => openShop(e, component.link)}
+                                  className="mt-2 ml-2 lg:mt-0 flex-shrink-0"
                                 >
                                   <ExternalLink className="h-3 w-3 mr-1" />
                                   Shop
@@ -951,11 +998,11 @@ export default function Component() {
                         <CardContent>
                           <div className="space-y-2 text-sm">
                             <div className="flex justify-between">
-                              <span>drone-fpv.ch</span>
+                              <span>fpvracing.ch</span>
                               <Button
                                 size="sm"
                                 variant="ghost"
-                                onClick={() => window.open("https://drone-fpv.ch", "_blank")}
+                                onClick={() => window.open("https://fpvracing.ch", "_blank")}
                               >
                                 <ExternalLink className="h-3 w-3" />
                               </Button>
@@ -981,11 +1028,11 @@ export default function Component() {
                               </Button>
                             </div>
                             <div className="flex justify-between">
-                              <span>dronesolutions.ch</span>
+                              <span>fpv24.ch</span>
                               <Button
                                 size="sm"
                                 variant="ghost"
-                                onClick={() => window.open("https://dronesolutions.ch/shop", "_blank")}
+                                onClick={() => window.open("https://www.fpv24.com/de", "_blank")}
                               >
                                 <ExternalLink className="h-3 w-3" />
                               </Button>
