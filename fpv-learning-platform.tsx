@@ -8,6 +8,7 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { ExternalLink, Play, FileText, ShoppingCart, Zap, Radio, Camera, Cpu } from "lucide-react"
 import Image from "next/image"
+import Link from "next/link"
 
 // Komponenten-Daten für den Builder
 const droneComponents = {
@@ -171,12 +172,22 @@ export default function Component() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">FPV Drohnen Lernplattform</h1>
+          <div className="flex flex-row-reverse justify-center items-center gap-4 mb-2">
+            <h1 className="text-4xl font-bold text-gray-900">FPV Drohnen Lernplattform</h1>
+            <Image
+              src="/logo.png"
+              alt="DJI FPV Remote Controller 3"
+              width={200}
+              height={200
+              }
+              className="h-[5rem] w-auto rounded-lg"
+            />
+          </div>
           <p className="text-xl text-gray-600">Alles was du über FPV-Drohnen wissen musst</p>
         </div>
 
-        <Tabs defaultValue="goggles" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 mb-8">
+        <Tabs defaultValue="goggles" className="w-full h-fit">
+          <TabsList className="grid w-full md:grid-cols-4 mb-8 h-fit">
             <TabsTrigger value="goggles">DJI Goggles</TabsTrigger>
             <TabsTrigger value="controller">RC Controller</TabsTrigger>
             <TabsTrigger value="components">Komponenten</TabsTrigger>
@@ -196,7 +207,7 @@ export default function Component() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <Image
-                    src="/placeholder.svg?height=200&width=300"
+                    src="https://dronesolutions.ch/wp-content/uploads/2024/04/goggles-3-von-vorne.webp"
                     alt="DJI Goggles 3"
                     width={300}
                     height={200}
@@ -209,18 +220,28 @@ export default function Component() {
                       <li>• 100Hz Bildwiederholrate</li>
                       <li>• Integrierte Antennen</li>
                       <li>• Head Tracking</li>
-                      <li>• 2 Stunden Akkulaufzeit</li>
+                      <li>• 3 Stunden Akkulaufzeit</li>
                     </ul>
                   </div>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline">
-                      <Play className="h-4 w-4 mr-1" />
+                    <Link
+                      href="https://www.youtube.com/watch?v=YXVRuKTDnz4"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                    >
+                      <Play className="h-4 w-4" />
                       Video Tutorial
-                    </Button>
-                    <Button size="sm" variant="outline">
-                      <FileText className="h-4 w-4 mr-1" />
+                    </Link>
+                    <Link
+                      href="https://dl.djicdn.com/downloads/DJI_Goggles_3/DJI_Goggles_3_User_Manual_DE.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                    >
+                      <FileText className="h-4 w-4" />
                       Handbuch
-                    </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
@@ -235,7 +256,7 @@ export default function Component() {
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <Image
-                    src="/placeholder.svg?height=200&width=300"
+                    src="https://dronesolutions.ch/wp-content/uploads/2025/01/dji-goggles-N-3-Brille.1.webp"
                     alt="DJI Goggles 3N"
                     width={300}
                     height={200}
@@ -244,7 +265,7 @@ export default function Component() {
                   <div className="space-y-2">
                     <h4 className="font-semibold">Technische Daten:</h4>
                     <ul className="text-sm space-y-1">
-                      <li>• 720p LCD Display</li>
+                      <li>• 1080p LCD Display</li>
                       <li>• 60Hz Bildwiederholrate</li>
                       <li>• Externe Antennen</li>
                       <li>• Leichter und günstiger</li>
@@ -252,14 +273,24 @@ export default function Component() {
                     </ul>
                   </div>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="outline">
-                      <Play className="h-4 w-4 mr-1" />
+                    <Link
+                      href="https://www.youtube.com/watch?v=XsCCcQk3z0o"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                    >
+                      <Play className="h-4 w-4" />
                       Video Tutorial
-                    </Button>
-                    <Button size="sm" variant="outline">
-                      <FileText className="h-4 w-4 mr-1" />
+                    </Link>
+                    <Link
+                      href="https://dl.djicdn.com/downloads/DJI_Goggles_N3/DJI_Goggles_N3_User_Manual_de.pdf"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                    >
+                      <FileText className="h-4 w-4" />
                       Handbuch
-                    </Button>
+                    </Link>
                   </div>
                 </CardContent>
               </Card>
@@ -283,12 +314,12 @@ export default function Component() {
                       <tr className="border-b">
                         <td className="p-2">Display</td>
                         <td className="p-2">1080p Micro-OLED</td>
-                        <td className="p-2">720p LCD</td>
+                        <td className="p-2">1080 LCD</td>
                       </tr>
                       <tr className="border-b">
                         <td className="p-2">Preis (ca.)</td>
-                        <td className="p-2">CHF 649</td>
-                        <td className="p-2">CHF 449</td>
+                        <td className="p-2">CHF 608</td>
+                        <td className="p-2">CHF 262</td>
                       </tr>
                       <tr className="border-b">
                         <td className="p-2">Zielgruppe</td>
@@ -298,6 +329,15 @@ export default function Component() {
                     </tbody>
                   </table>
                 </div>
+                <Link
+                  href="https://www.youtube.com/watch?v=Pe2KBUw_QE8"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                >
+                  <Play className="h-4 w-4" />
+                  Video Tutorial
+                </Link>
               </CardContent>
             </Card>
           </TabsContent>
@@ -316,8 +356,8 @@ export default function Component() {
                 <div className="grid md:grid-cols-2 gap-6">
                   <div>
                     <Image
-                      src="/placeholder.svg?height=300&width=400"
-                      alt="DJI RC Controller 3"
+                      src="https://dronesolutions.ch/wp-content/uploads/2024/04/remote-controller-3.webp"
+                      alt="DJI FPV Remote Controller 3"
                       width={400}
                       height={300}
                       className="w-full rounded-lg"
@@ -407,7 +447,7 @@ export default function Component() {
                       </CardHeader>
                       <CardContent className="space-y-2">
                         <Image
-                          src="/placeholder.svg?height=120&width=160"
+                          src="https://www.hebu-shop.ch/wp-content/uploads/2025/03/445178-843-DJI-O4-Air-Unit-Pro-b1.jpg"
                           alt="DJI Air Unit 4"
                           width={160}
                           height={120}
@@ -416,6 +456,26 @@ export default function Component() {
                         <p className="text-xs">Zentrale Einheit für Video-Übertragung und Aufzeichnung</p>
                         <Badge variant="secondary">CHF 299</Badge>
                         <p className="text-xs text-gray-600">Verbaut: Zentral im Frame</p>
+                        <div className="flex gap-2">
+                          <Link
+                            href="https://www.youtube.com/watch?v=yyOULp6pCO0"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                          >
+                            <Play className="h-4 w-4" />
+                            Video Tutorial
+                          </Link>
+                          <Link
+                            href="https://www.youtube.com/shorts/ILR8Iloq-K8?feature=share"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                          >
+                            <Play className="h-4 w-4" />
+                            Video Tutorial
+                          </Link>
+                        </div>
                       </CardContent>
                     </Card>
 
@@ -425,7 +485,7 @@ export default function Component() {
                       </CardHeader>
                       <CardContent className="space-y-2">
                         <Image
-                          src="/placeholder.svg?height=120&width=160"
+                          src="https://m.media-amazon.com/images/I/61sdGFXVyjL._AC_UF894,1000_QL80_.jpg"
                           alt="FPV Frame"
                           width={160}
                           height={120}
@@ -443,7 +503,7 @@ export default function Component() {
                       </CardHeader>
                       <CardContent className="space-y-2">
                         <Image
-                          src="/placeholder.svg?height=120&width=160"
+                          src="https://m.media-amazon.com/images/I/51UkA2m8XVL._AC_UF1000,1000_QL80_.jpg"
                           alt="FPV Motors"
                           width={160}
                           height={120}
@@ -461,7 +521,7 @@ export default function Component() {
                       </CardHeader>
                       <CardContent className="space-y-2">
                         <Image
-                          src="/placeholder.svg?height=120&width=160"
+                          src="https://www.dronefactory.ch/wp-content/uploads/2019/10/HobbyWing-XRotor-Micro-60A-4in1-BLHeli32-6S-DroneFactory.ch_-300x300.jpg"
                           alt="ESC"
                           width={160}
                           height={120}
@@ -479,7 +539,7 @@ export default function Component() {
                       </CardHeader>
                       <CardContent className="space-y-2">
                         <Image
-                          src="/placeholder.svg?height=120&width=160"
+                          src="https://img-va.myshopline.com/image/store/1715652130323/tmotor-f7-30-5x30-5-fpv-drones-flight-controller-t-motor-1_1445x.png?w=1000&h=1000&q=100"
                           alt="Flight Controller"
                           width={160}
                           height={120}
@@ -497,7 +557,7 @@ export default function Component() {
                       </CardHeader>
                       <CardContent className="space-y-2">
                         <Image
-                          src="/placeholder.svg?height=120&width=160"
+                          src="https://cdnc.meilon.de/img/product/ge/gem-pmpc5136-3b/GEM-PMPC5136-3B_sy.jpg"
                           alt="Propellers"
                           width={160}
                           height={120}
@@ -515,7 +575,7 @@ export default function Component() {
                       </CardHeader>
                       <CardContent className="space-y-2">
                         <Image
-                          src="/placeholder.svg?height=120&width=160"
+                          src="https://www.swaytronic.ch/media/13/b8/f8/1636597942/SWAY_FPV_LiPo_3S_11.1V_450mAh_60C120C_JST_7640182626129_Web.jpg"
                           alt="LiPo Battery"
                           width={160}
                           height={120}
@@ -524,24 +584,6 @@ export default function Component() {
                         <p className="text-xs">4S LiPo, 1300-1550mAh für 5" Drohnen</p>
                         <Badge variant="secondary">CHF 25-35</Badge>
                         <p className="text-xs text-gray-600">Verbaut: Unten am Frame mit Strap</p>
-                      </CardContent>
-                    </Card>
-
-                    <Card className="border-2">
-                      <CardHeader className="pb-2">
-                        <CardTitle className="text-sm">Antennen</CardTitle>
-                      </CardHeader>
-                      <CardContent className="space-y-2">
-                        <Image
-                          src="/placeholder.svg?height=120&width=160"
-                          alt="Antennas"
-                          width={160}
-                          height={120}
-                          className="w-full rounded"
-                        />
-                        <p className="text-xs">2.4GHz Antennen für O4 System</p>
-                        <Badge variant="secondary">CHF 15-25</Badge>
-                        <p className="text-xs text-gray-600">Verbaut: Oben am Frame, möglichst frei</p>
                       </CardContent>
                     </Card>
                   </div>
@@ -627,7 +669,7 @@ export default function Component() {
                         {/* Arme vom Frame zu den Motoren */}
                         <line
                           x1="150"
-                          y1="130"
+                          y1="150"
                           x2="80"
                           y2="80"
                           stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
@@ -883,11 +925,11 @@ export default function Component() {
                       <CardContent>
                         <div className="space-y-2 text-sm">
                           <div className="flex justify-between">
-                            <span>drone-fpv.ch</span>
+                            <span>fpvracing.ch</span>
                             <Button
                               size="sm"
                               variant="ghost"
-                              onClick={() => window.open("https://drone-fpv.ch", "_blank")}
+                              onClick={() => window.open("https://fpvracing.ch", "_blank")}
                             >
                               <ExternalLink className="h-3 w-3" />
                             </Button>
@@ -908,6 +950,16 @@ export default function Component() {
                               size="sm"
                               variant="ghost"
                               onClick={() => window.open("https://dronefactory.ch", "_blank")}
+                            >
+                              <ExternalLink className="h-3 w-3" />
+                            </Button>
+                          </div>
+                          <div className="flex justify-between">
+                            <span>dronesolutions.ch</span>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => window.open("https://dronesolutions.ch/shop", "_blank")}
                             >
                               <ExternalLink className="h-3 w-3" />
                             </Button>
