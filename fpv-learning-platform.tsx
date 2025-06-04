@@ -41,25 +41,28 @@ const droneComponents = {
   ],
   motors: [
     {
-      name: "T-Motor F60 Pro V",
-      price: 35,
-      shop: "drone-fpv.ch",
-      description: "2207 1750KV Motor",
-      imageUrl: "https://drone-fpv.ch/shop/motoren/einzelmotoren/t-motor-f60-pro-v-2207-1750kv-motor/",
-    },
-    {
-      name: "BrotherHobby Avenger 2207",
-      price: 29,
-      shop: "FPVFrame.ch",
-      description: "2207 2550KV Motor",
-      imageUrl: "https://fpvframe.ch/brotherhobby-avenger-2207-2550kv",
-    },
-    {
-      name: "iFlight Xing2 2306",
-      price: 32,
+      name: "Axis BlackBird V3",
+      price: 29.90,
       shop: "dronefactory.ch",
-      description: "2306 2450KV Motor",
-      imageUrl: "https://dronefactory.ch/iflight-xing2-2306-motor/",
+      description: "Axis BlackBird V3 BB2207 2725kv",
+      link: "https://www.dronefactory.ch/produkt/axis-blackbird-v3-bb2207-2725kv",
+      imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2022/07/Axis-BlackBird-V3-BB2207-DroneFactory.ch_.jpg",
+    },
+    {
+      name: "iFlight XING R5",
+      price: 25.90,
+      shop: "fpvracing.ch",
+      description: "iFlight XING R5 2207 2100Kv",
+      link: "https://fpvracing.ch/de/motoren/4052-iflight-xing-r5-2207-2100kv.html",
+      imageUrl: "https://fpvracing.ch/17880-large_default/iflight-xing-r5-2207-2100kv.jpg",
+    },
+    {
+      name: "T-Motor",
+      price: 24.90,
+      shop: "fpv24.com",
+      description: "T-Motor F2004 3000KV Schwarz Blau FPV Motor",
+      link: "https://www.fpv24.com/de/t-motor/t-motor-f2004-3000kv-schwarz-rot-fpv-motor",
+      imageUrl: "https://cdnc.meilon.de/img/product/tm/tmo-afd01010161/t-motor-f2004_l.jpg",
     },
   ],
   esc: [
@@ -1048,15 +1051,66 @@ export default function Component() {
 
           </TabsContent>
           <TabsContent value="tutorial" className="space-y-6">
-            <Link
-              href="https://www.youtube.com/watch?v=YPBy5JtkfTshttps://www.youtube.com/watch?v=V35DnyukOgY"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
-            >
-              <Play className="h-4 w-4" />
-              Video Tutorial (Wir bauen die DJI O4 AIR UNIT Lite auf einen MICRO COPTER (er fliegt))
-            </Link>
+            <div className="w-full grid md:grid-cols-2 gap-0">
+              <div>
+                <Link
+                  href="https://www.youtube.com/watch?v=YPBy5JtkfTshttps://www.youtube.com/watch?v=V35DnyukOgY"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                >
+                  <Play className="h-4 w-4" />
+                  Video Tutorial (Wir bauen die DJI O4 AIR UNIT Lite auf einen MICRO COPTER (er fliegt))
+                </Link>
+                <Link
+                  href="https://www.youtube.com/watch?v=h1rkLJwKXps"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                >
+                  <Play className="h-4 w-4" />
+                  Video Tutorial (Die Grundlagen zu LiPo Akkus! - FPV Grundlagen #6)
+                </Link>
+                <Link
+                  href="https://www.youtube.com/watch?v=OH0RHBeMr4k"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                >
+                  <Play className="h-4 w-4" />
+                  Video Tutorial (Die coolsten 5" Motoren? 🚀)
+                </Link>
+                <Link
+                  href="https://www.youtube.com/watch?v=E6nsJpuaTQc"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                >
+                  <Play className="h-4 w-4" />
+                  Video Tutorial (How do you choose motor KV for a build? - FPV Questions)
+                </Link>
+                <Link
+                  href="https://www.youtube.com/watch?v=RXW3I5SRrJs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                >
+                  <Play className="h-4 w-4" />
+                  Video Tutorial (Motoren - Teil 05: FPV Copter Technik Quickies)
+                </Link>
+              </div>
+              <div>
+                <Link
+                  href="https://fpvframe.ch/learn-to-fly/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                >
+                  <FileText className="h-4 w-4" />
+                  Handbuch
+                </Link>
+              </div>
+            </div>
           </TabsContent>
         </Tabs>
       </div>
