@@ -187,11 +187,12 @@ export default function Component() {
         </div>
 
         <Tabs defaultValue="goggles" className="w-full h-fit">
-          <TabsList className="grid w-full md:grid-cols-4 mb-8 h-fit">
+          <TabsList className="grid w-full md:grid-cols-5 mb-8 h-fit">
             <TabsTrigger value="goggles">DJI Goggles</TabsTrigger>
             <TabsTrigger value="controller">RC Controller</TabsTrigger>
             <TabsTrigger value="components">Komponenten</TabsTrigger>
             <TabsTrigger value="builder">Drohnen Builder</TabsTrigger>
+            <TabsTrigger value="tutorial">Weitere Tutorials</TabsTrigger>
           </TabsList>
 
           {/* Section 1: DJI Goggles */}
@@ -366,12 +367,10 @@ export default function Component() {
                   <div className="space-y-4">
                     <h4 className="font-semibold">Hauptmerkmale:</h4>
                     <ul className="space-y-2 text-sm">
-                      <li>• Hall-Sensor Gimbals für präzise Kontrolle</li>
                       <li>• Anpassbare Stick-Spannung</li>
                       <li>• 2.4GHz O4 Übertragung</li>
                       <li>• Bis zu 13km Reichweite</li>
-                      <li>• Integriertes 2.8" Display</li>
-                      <li>• 3 Stunden Akkulaufzeit</li>
+                      <li>• 10 Stunden Akkulaufzeit</li>
                     </ul>
 
                     <Separator />
@@ -379,14 +378,33 @@ export default function Component() {
                     <div>
                       <h4 className="font-semibold mb-2">Setup & Konfiguration:</h4>
                       <div className="flex gap-2">
-                        <Button size="sm" variant="outline">
-                          <Play className="h-4 w-4 mr-1" />
-                          Setup Video
-                        </Button>
-                        <Button size="sm" variant="outline">
-                          <FileText className="h-4 w-4 mr-1" />
-                          Anleitung
-                        </Button>
+                         <Link
+                          href="https://www.youtube.com/watch?v=3tMREwYGh7A&pp=ygUQZGppIGZwdiByZW1vdGUgMw%3D%3D"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                        >
+                          <Play className="h-4 w-4" />
+                          Video Tutorial
+                        </Link>
+                        <Link
+                          href="https://www.youtube.com/watch?v=YPBy5JtkfTs"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                        >
+                          <Play className="h-4 w-4" />
+                          Video Tutorial
+                        </Link>
+                        <Link
+                          href="https://dl.djicdn.com/downloads/DJI_FPV_RC_3/UM/DJI_FPV_Remote_Controller_3_User_Manual_v1.0_DE.pdf"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                        >
+                          <FileText className="h-4 w-4" />
+                          Handbuch
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -971,6 +989,17 @@ export default function Component() {
                 </div>
               </CardContent>
             </Card>
+          </TabsContent>
+          <TabsContent value="tutorial" className="space-y-6">
+            <Link
+              href="https://www.youtube.com/watch?v=YPBy5JtkfTshttps://www.youtube.com/watch?v=V35DnyukOgY"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+            >
+              <Play className="h-4 w-4" />
+              Video Tutorial (Wir bauen die DJI O4 AIR UNIT Lite auf einen MICRO COPTER (er fliegt))
+            </Link>
           </TabsContent>
         </Tabs>
       </div>
