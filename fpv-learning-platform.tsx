@@ -670,9 +670,14 @@ export default function Component() {
                 <div className="grid lg:grid-cols-2 gap-8">
                   {/* 2D Drohnen-Ansicht */}
                   <div className="space-y-4">
-                    <h3 className="font-semibold">Drohnen-Konfiguration</h3>
-                    <div className="relative bg-gray-50 rounded-lg p-8 min-h-[400px] flex items-center justify-center">
-                      <svg width="300" height="300" viewBox="0 0 300 300" className="border rounded">
+                    <h3 className="font-semibold text-center lg:text-left">Drohnen-Konfiguration</h3>
+                    <div className="relative bg-gray-50 rounded-lg p-4 lg:p-8 min-h-[300px] lg:min-h-[400px] flex items-center justify-center">
+                      <svg
+                        width="250"
+                        height="250"
+                        viewBox="0 0 300 300"
+                        className="border rounded w-full max-w-[300px] h-auto"
+                      >
                         {/* Frame mit Armen */}
                         <rect
                           x="130"
@@ -851,7 +856,7 @@ export default function Component() {
                     {activeComponent && (
                       <Card>
                         <CardHeader>
-                          <CardTitle className="text-lg">
+                          <CardTitle className="text-lg text-center lg:text-left">
                             {activeComponent === "frame" && "Frame auswählen"}
                             {activeComponent === "motors" && "Motoren auswählen"}
                             {activeComponent === "esc" && "ESC auswählen"}
@@ -865,10 +870,10 @@ export default function Component() {
                             {droneComponents[activeComponent]?.map((component, index) => (
                               <div
                                 key={index}
-                                className="flex items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
+                                className="flex flex-col lg:flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
                                 onClick={() => handleComponentSelect(activeComponent, component)}
                               >
-                                <div>
+                                <div className="text-center lg:text-left">
                                   <h4 className="font-medium">{component.name}</h4>
                                   <p className="text-sm text-gray-600">{component.description}</p>
                                   <p className="text-xs text-gray-500">Shop: {component.shop}</p>
@@ -877,6 +882,7 @@ export default function Component() {
                                   size="sm"
                                   variant="outline"
                                   onClick={() => window.open(component.imageUrl, "_blank")}
+                                  className="mt-2 lg:mt-0"
                                 >
                                   <ExternalLink className="h-3 w-3 mr-1" />
                                   Shop
@@ -889,106 +895,110 @@ export default function Component() {
                     )}
                   </div>
 
-                  {/* Konfiguration & Einkaufsliste */}
-                  <div className="space-y-4">
-                    <h3 className="font-semibold">Deine Konfiguration</h3>
+                  <div className="flex flex-col gap-2">
+                    {/* Konfiguration & Einkaufsliste */}
+                    <div className="space-y-4">
+                      <h3 className="font-semibold text-center lg:text-left">Deine Konfiguration</h3>
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-lg flex items-center justify-between">
+                            Einkaufsliste
+                            <Badge variant="outline">Total: CHF {getTotalPrice()}</Badge>
+                          </CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-3">
+                            {Object.entries(selectedComponents).map(([type, component]) => (
+                              <div key={type} className="flex flex-col lg:flex-row items-center justify-between p-2 border rounded">
+                                <div className="text-center lg:text-left">
+                                  <h4 className="font-medium text-sm">{component.name}</h4>
+                                  <p className="text-xs text-gray-600">{component.shop}</p>
+                                </div>
+                                <div className="text-right mt-2 lg:mt-0">
+                                  <p className="font-bold text-sm">CHF {component.price}</p>
+                                  <Button size="sm" variant="ghost" className="h-6 text-xs">
+                                    <ShoppingCart className="h-3 w-3 mr-1" />
+                                    Kaufen
+                                  </Button>
+                                </div>
+                              </div>
+                            ))}
 
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-lg flex items-center justify-between">
-                          Einkaufsliste
-                          <Badge variant="outline">Total: CHF {getTotalPrice()}</Badge>
-                        </CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-3">
-                          {Object.entries(selectedComponents).map(([type, component]) => (
-                            <div key={type} className="flex items-center justify-between p-2 border rounded">
-                              <div>
-                                <h4 className="font-medium text-sm">{component.name}</h4>
-                                <p className="text-xs text-gray-600">{component.shop}</p>
-                              </div>
-                              <div className="text-right">
-                                <p className="font-bold text-sm">CHF {component.price}</p>
-                                <Button size="sm" variant="ghost" className="h-6 text-xs">
-                                  <ShoppingCart className="h-3 w-3 mr-1" />
-                                  Kaufen
-                                </Button>
-                              </div>
+                            {Object.keys(selectedComponents).length === 0 && (
+                              <p className="text-gray-500 text-center py-4">
+                                Klicke auf die Komponenten in der Drohnen-Ansicht um sie auszuwählen
+                              </p>
+                            )}
+                          </div>
+
+                          {Object.keys(selectedComponents).length > 0 && (
+                            <div className="mt-4 pt-4 border-t">
+                              <Button className="w-full">
+                                <ShoppingCart className="h-4 w-4 mr-2" />
+                                Alle Komponenten kaufen (CHF {getTotalPrice()})
+                              </Button>
                             </div>
-                          ))}
-
-                          {Object.keys(selectedComponents).length === 0 && (
-                            <p className="text-gray-500 text-center py-4">
-                              Klicke auf die Komponenten in der Drohnen-Ansicht um sie auszuwählen
-                            </p>
                           )}
-                        </div>
+                        </CardContent>
+                      </Card>
+                    </div>
 
-                        {Object.keys(selectedComponents).length > 0 && (
-                          <div className="mt-4 pt-4 border-t">
-                            <Button className="w-full">
-                              <ShoppingCart className="h-4 w-4 mr-2" />
-                              Alle Komponenten kaufen (CHF {getTotalPrice()})
-                            </Button>
+                    <div className="space-y-4">
+                      <Card>
+                        <CardHeader>
+                          <CardTitle className="text-lg">Schweizer FPV Shops</CardTitle>
+                        </CardHeader>
+                        <CardContent>
+                          <div className="space-y-2 text-sm">
+                            <div className="flex justify-between">
+                              <span>drone-fpv.ch</span>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => window.open("https://drone-fpv.ch", "_blank")}
+                              >
+                                <ExternalLink className="h-3 w-3" />
+                              </Button>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>FPVFrame.ch</span>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => window.open("https://fpvframe.ch", "_blank")}
+                              >
+                                <ExternalLink className="h-3 w-3" />
+                              </Button>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>dronefactory.ch</span>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => window.open("https://dronefactory.ch", "_blank")}
+                              >
+                                <ExternalLink className="h-3 w-3" />
+                              </Button>
+                            </div>
+                            <div className="flex justify-between">
+                              <span>dronesolutions.ch</span>
+                              <Button
+                                size="sm"
+                                variant="ghost"
+                                onClick={() => window.open("https://dronesolutions.ch/shop", "_blank")}
+                              >
+                                <ExternalLink className="h-3 w-3" />
+                              </Button>
+                            </div>
                           </div>
-                        )}
-                      </CardContent>
-                    </Card>
-
-                    <Card>
-                      <CardHeader>
-                        <CardTitle className="text-lg">Schweizer FPV Shops</CardTitle>
-                      </CardHeader>
-                      <CardContent>
-                        <div className="space-y-2 text-sm">
-                          <div className="flex justify-between">
-                            <span>fpvracing.ch</span>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => window.open("https://fpvracing.ch", "_blank")}
-                            >
-                              <ExternalLink className="h-3 w-3" />
-                            </Button>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>FPVFrame.ch</span>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => window.open("https://fpvframe.ch", "_blank")}
-                            >
-                              <ExternalLink className="h-3 w-3" />
-                            </Button>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>dronefactory.ch</span>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => window.open("https://dronefactory.ch", "_blank")}
-                            >
-                              <ExternalLink className="h-3 w-3" />
-                            </Button>
-                          </div>
-                          <div className="flex justify-between">
-                            <span>dronesolutions.ch</span>
-                            <Button
-                              size="sm"
-                              variant="ghost"
-                              onClick={() => window.open("https://dronesolutions.ch/shop", "_blank")}
-                            >
-                              <ExternalLink className="h-3 w-3" />
-                            </Button>
-                          </div>
-                        </div>
-                      </CardContent>
-                    </Card>
+                        </CardContent>
+                      </Card>
+                    </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
+
           </TabsContent>
           <TabsContent value="tutorial" className="space-y-6">
             <Link
