@@ -2,10 +2,8 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
-  generator: 'v0.dev',
-}
+  title: 'fpv learning platform',
+  description: 'A platform to learn about FPV drones',
 
 export default function RootLayout({
   children,
