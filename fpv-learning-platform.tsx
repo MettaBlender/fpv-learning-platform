@@ -1098,6 +1098,15 @@ export default function Component() {
                   <Play className="h-4 w-4" />
                   Video Tutorial (Motoren - Teil 05: FPV Copter Technik Quickies)
                 </Link>
+<Link
+                  href="https://www.youtube.com/watch?v=RXW3I5SRrJs"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                >
+                  <Play className="h-4 w-4" />
+                  Video Tutorial (DJI air unit 4)
+                </Link>
               </div>
               <div>
                 <Link
@@ -1108,6 +1117,15 @@ export default function Component() {
                 >
                   <FileText className="h-4 w-4" />
                   Handbuch: Step by Step Guide for FPV Beginners
+                </Link>
+<Link
+                  href="https://youtu.be/NoiqODFwU68?feature=shared"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                >
+                  <Play className="h-4 w-4" />
+                  Video Tutorial (esc)
                 </Link>
               </div>
             </div>
