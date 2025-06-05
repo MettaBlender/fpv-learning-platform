@@ -1054,7 +1054,7 @@ export default function Component() {
             <div className="w-full grid md:grid-cols-2 gap-0">
               <div>
                 <Link
-                  href="https://www.youtube.com/watch?v=YPBy5JtkfTshttps://www.youtube.com/watch?v=V35DnyukOgY"
+                  href="https://youtu.be/V35DnyukOgY"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
