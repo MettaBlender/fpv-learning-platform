@@ -1204,6 +1204,15 @@ export default function Component() {
                   <Play className="h-4 w-4" />
                   Video Tutorial (FPV motors and what you need to know!)
                 </Link>
+                <Link
+                  href="https://www.youtube.com/watch?v=25gTVz6ocQ0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                >
+                  <Play className="h-4 w-4" />
+                  Video Tutorial (Quadmula Djinn F25 SP + DJI O4: Tutorial zum Bau // MurdersFPV)
+                </Link>
               </div>
               <div className="space-y-2">
                 <Link
