@@ -67,94 +67,164 @@ const droneComponents = {
   ],
   esc: [
     {
-      name: "T-Motor F55A Pro II",
-      price: 49,
-      shop: "drone-fpv.ch",
-      description: "3-6S 55A ESC",
-      imageUrl: "https://drone-fpv.ch/shop/esc/einzel-esc/t-motor-f55a-pro-ii-3-6s-55a-esc/",
+      name: "Speedybee V3 BL32 50A ESC 3-6S",
+      price: 74.90,
+      shop: "fpvracing.ch",
+      description: "Der SpeedyBee 50A 128K ESC bietet 50A Leistung und ist mit einem schützenden CNC-Kühlkörper für Überhitzungsschutz ausgestattet.",
+      link: "https://fpvracing.ch/de/esc/3342-speedybee-v3-bl32-50a-esc-3-6s.html",
+      imageUrl: "https://fpvracing.ch/14870-large_default/speedybee-v3-bl32-50a-esc-3-6s.jpg",
     },
     {
-      name: "HGLRC Zeus55 Pro",
-      price: 45,
-      shop: "FPVFrame.ch",
-      description: "3-6S 55A ESC",
-      imageUrl: "https://fpvframe.ch/hglrc-zeus55-pro-blheli_32-55a-esc",
+      name: "Speedybee BLS 60A ESC 3-6S",
+      price: 52.90,
+      shop: "fpvracing.ch",
+      description: "Der SpeedyBee BLS 60A 4-in-1 ESC kombiniert hochleistungsmerkmale zu einem erschwinglichen Preis.",
+      link: "https://fpvracing.ch/de/esc/3825-speedybee-bls-60a-esc-3-6s.html",
+      imageUrl: "https://fpvracing.ch/16292-large_default/speedybee-bls-60a-esc-3-6s.jpg",
     },
     {
-      name: "Foxeer Reaper Mini",
-      price: 39,
-      shop: "dronefactory.ch",
-      description: "3-6S 45A ESC",
-      imageUrl: "https://dronefactory.ch/foxeer-reaper-mini-45a-blheli_32-3-6s-esc/",
+      name: "Tiger Motor F45A Mini BLHeli32 ESC 3-6S",
+      price: 82.90,
+      shop: "fpvracing.ch",
+      description: "Der T-Motor Mini F45A 6S BLHeli32 4-in-1-Regler biete viel Power in einem 20x20-ESC!",
+      link: "https://fpvracing.ch/de/esc/3342-foxeer-reaper-mini-45a-blheli-32-3-6s-esc.html",
+      imageUrl: "https://fpvracing.ch/12281-large_default/tiger-motor-f45a-mini-blheli32-esc-3-6s.jpg",
     },
   ],
   fc: [
     {
-      name: "BrainFPV Radix 2",
-      price: 89,
-      shop: "drone-fpv.ch",
-      description: "STM32F722 Flight Controller",
-      imageUrl: "https://drone-fpv.ch/shop/flight-controller/brainfpv-radix-2-flight-controller/",
+      name: "Speedybee F7 V3 Flight Controller",
+      price: 74.9,
+      shop: "fpvracing.ch",
+      description: "Die SpeedyBee F7 V3 FC ist eine F722 FC mit einem BMP280 Barometer, OSD, 500MB Memory Blackbox, eingebauten FC LiPo Überwachungssystem und vielen weiteren Funktionen.",
+      link: "https://fpvracing.ch/de/flight-controller/3343-speedybee-tx600-f7-v2-flight-controller.html",
+      imageUrl: "https://fpvracing.ch/14873-large_default/speedybee-tx600-f7-v2-flight-controller.jpg",
     },
     {
-      name: "iFlight Beast F7",
-      price: 69,
+      name: "GOKU GN 745 45A AIO 32bit MPU6000 V3 (AM32)",
+      price: 105,
       shop: "FPVFrame.ch",
-      description: "BLHeli_32 45A AIO",
-      imageUrl: "https://fpvframe.ch/iflight-beast-f7-aio",
+      description: "GOKU GN 745 45A AIO 32bit MPU6000 V3 (AM32)",
+      link: "https://fpvframe.ch/product/goku-gn-745-45a-aio-32bit-mpu6000-v3-am32/",
+      imageUrl: "https://i0.wp.com/fpvframe.ch/wp-content/uploads/2025/01/goku-gn-745-45a-aio-32bit-mpu600.jpg?fit=800%2C800&ssl=1",
     },
     {
-      name: "HGLRC Zeus F722",
-      price: 59,
+      name: "iFlight BLITZ F7 Pro Flight Controlle",
+      price: 99,
       shop: "dronefactory.ch",
-      description: "F722 Flight Controller",
-      imageUrl: "https://dronefactory.ch/hglrc-zeus-f722-mini-flight-controller/",
+      description: `Features
+      Improved circuit design, better components, and lower electrical noise!
+      DJI HD VTX Connector (Plug-and-Play / No soldering required)
+      FC indicator LEDs for visual debugging
+      512MB BlackBox
+      With LC filter
+      Specifications
+      Mount pattern: 35*35mm/ 4mm PCB hole diameter
+      Smartaudio / IRC Tramp VTX protocol supported
+      Firmware target: IFLIGHT_BLITZ_F7_PRO
+      Input Voltage: 14.8V-34V (4S-8S LIPO)
+      Motor outputs: 4x (SH1.25 connector)
+      Flash: 512MB (Blackbox flash)
+      I2C serial: SDA / SLA pads
+      Dimensions: 41*41.5mm
+      Barometer: DPS310
+      OSD Chip: AT7456E
+      LED controller: Yes
+      MCU: STM32 F722
+      Weight: 17g (±2)
+      Beeper pad: Yes
+      Gyro: MPU6000
+      UARTS: 4`,
+      link: "https://www.dronefactory.ch/produkt/iflight-blitz-f7-pro-flight-controller/",
+      imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2023/01/BLITZ-F7-Pro-Flight-Controller-DroneFactory.ch_.png.webp",
     },
   ],
   props: [
     {
-      name: "HQProp Ethix S5",
-      price: 6,
-      shop: "drone-fpv.ch",
-      description: "5.1x3.1x3 Propeller",
-      imageUrl: "https://drone-fpv.ch/shop/propeller/5-propeller/hqprop-ethix-s5-watermelon-props-5-1x3-1x3/",
+      name: "GEMFAN 6032 Triblade",
+      price: 3.5,
+      shop: "fpvframe.ch",
+      description:'6" Propeller',
+      link: "https://fpvframe.ch/product/gemfan-6030-triblade/",
+      imageUrl: "https://i0.wp.com/fpvframe.ch/wp-content/uploads/2020/11/51466-scaled.jpg?fit=2560%2C2560&ssl=1",
     },
     {
-      name: "Gemfan Hurricane 51466",
-      price: 5,
-      shop: "FPVFrame.ch",
-      description: "5.1 Inch Prop",
-      imageUrl: "https://fpvframe.ch/gemfan-hurricane-51466-propeller",
+      name: "iFlight Nazgul R5 V2 Propeller",
+      price: 3.5,
+      shop: "fpvracing.ch",
+      description: '5.1" Propeller',
+      link: "https://fpvracing.ch/de/propeller/4053-iflight-nazgul-r5-v2-propeller.html",
+      imageUrl: "https://fpvracing.ch/17886-large_default/iflight-nazgul-r5-v2-propeller.jpg",
     },
     {
-      name: "Azure Power V2",
-      price: 7,
+      name: "HQ MCK Prop Light Blue",
+      price: 3.9,
       shop: "dronefactory.ch",
-      description: "5 Inch Propeller",
-      imageUrl: "https://dronefactory.ch/azure-power-v2-5-inch-propeller/",
+      description: '5.1" Propeller',
+      link: "https://www.dronefactory.ch/produkt/hq-mck-prop-light-blue",
+      imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2025/03/MCK-Prop-04.jpg",
     },
   ],
   battery: [
     {
-      name: "Tattu R-Line 1300mAh",
-      price: 29,
-      shop: "drone-fpv.ch",
-      description: "4S 120C Lipo",
-      imageUrl: "https://drone-fpv.ch/shop/akkus/4s/tattu-r-line-1300mah-4s-120c-lipo-akku/",
-    },
-    {
-      name: "CNHL Black Series 1300mAh",
+      name: "4S 1500mAh CNHL",
       price: 25,
-      shop: "FPVFrame.ch",
-      description: "4S 130C Lipo",
-      imageUrl: "https://fpvframe.ch/cnhl-black-series-1300mah-4s-130c-lipo-akku",
+      shop: "fpvframe.ch",
+      description: "Black Series 100C – XT60",
+      link: "https://fpvframe.ch/product/4s-1500mah-cnhl/",
+      imageUrl: "https://i0.wp.com/fpvframe.ch/wp-content/uploads/2024/05/CNHL_4S_1500.jpg?fit=800%2C800&ssl=1",
     },
     {
-      name: "GNB 1100mAh",
-      price: 22,
+      name: "Bonka 6S 1100mAh",
+      price: 43.00,
+      shop: "fpvframe.ch",
+      description: "Bonka U2 130C XT60",
+      link: "https://fpvframe.ch/product/bonka-6s-1100mah/",
+      imageUrl: "https://i0.wp.com/fpvframe.ch/wp-content/uploads/2023/08/275c2b36dadd5c6.jpg?fit=1812%2C1812&ssl=1",
+    },
+    {
+      name: "Tattu R-Line Version 3.0 2000mAh 14.8V 120C 4S1P Lipo mit XT60",
+      price: 48.90,
       shop: "dronefactory.ch",
-      description: "4S 120C Lipo",
-      imageUrl: "https://dronefactory.ch/gnb-1100mah-4s-120c-lipo-akku/",
+      description: `Tattu R-Line Version 3.0 2000mAh 14.8V 120C 4S1P LiPo battery pack is the updated version of R-Line series in 2019.
+      With More Punch, Lower Internal Resistance and Less weight, Tattu R-line V3 definitely dominate all your races.
+      What is R-Line R-Line is a brand new product line specifically designed for professional FPV racing competitions.
+      It’s the selling version of Toppilot batteries. It’s also a subsidiary of the Tattu brand.
+      It’s got higher capacity, lower internal resistance, and lower landing temperatures. They are more powerful than any graphene battery.
+      Generally, R-Line batteries have the same specs as our popular Toppilot batteries.
+      There are different R-Line versions for the needs of different FPV racing competitions.`,
+      link: "https://www.dronefactory.ch/produkt/tattu-r-line-version-3-0-2000mah-14-8v-120c-4s1p-lipo-mit-xt60",
+      imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2023/07/Tattu-R-Line-Version-3.0-2000mAh-14.8V-120C-4S1P-Lipo-mit-XT60-DroneFactory5.jpg",
+    },
+    {
+      name: "Tattu R-Line Version 5.0 1550mAh 22.2V 150C 6S1P XT60",
+      price: 50,
+      shop: "dronefactory.ch",
+      description: `Tattu R-Line Version 5.0 1550mAh 22.2V 150C 6S1P LiPo battery pack is the updated version of R-Line series in 2022.
+      With More Punch, Lower Internal Resistance and Less weight, Tattu R-line V4 definitely dominate all your races.
+      What is R-Line? R-Line is a brand new product line specifically designed for professional FPV racing competitions.
+      It’s the selling version of Toppilot batteries. It’s also a subsidiary of the Tattu brand.
+      It’s got higher capacity, lower internal resistance, and lower landing temperatures.
+      They are more powerful than any graphene battery. Generally, R-Line batteries have the same specs as our popular Toppilot batteries.
+      There are different R-Line versions for the needs of different FPV racing competitions.`,
+      link: "https://www.dronefactory.ch/produkt/tattu-r-line-version-5-0-1550mah-22-2v-150c-6s1p-xt60/",
+      imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2024/08/Tattu-R-Line-Version-5.0-1550mAh-22.2V-150C-6S1P-XT60-dronefactory.png",
+    },
+    {
+      name: "TATTU R-Line 1300mAh 4S 120C V4.0 (XT60)",
+      price: 33.90,
+      shop: "fpvracing.ch",
+      description: "Tattu R-Line 1300mAh 120C 4S1P LiPo - für FPV Racing.",
+      link: "https://fpvracing.ch/de/4s/3733-tattu-r-line-1300mah-4s-120c-v30-xt60-6928493302903.html",
+      imageUrl: "https://fpvracing.ch/15708-large_default/tattu-r-line-1300mah-4s-120c-v30-xt60.jpg",
+    },
+    {
+      name: "GEPRC Storm 3300mAh 6S 95C (XT60)",
+      price: 99,
+      shop: "fpvracing.ch",
+      description: 'GepRC Storm 3300mAh 95C 6S1P LiPo - ideal für 7" Long Range.',
+      link: "https://fpvracing.ch/de/6s/4061-geprc-storm-3300mah-6s-95c-xt60.html",
+      imageUrl: "https://fpvracing.ch/17961-large_default/geprc-storm-3300mah-6s-95c-xt60.jpg",
     },
   ],
 }
@@ -699,183 +769,404 @@ export default function Component() {
                   <div className="space-y-4">
                     <h3 className="font-semibold text-center lg:text-left">Drohnen-Konfiguration</h3>
                     <div className="relative bg-gray-50 rounded-lg p-4 lg:p-8 min-h-[300px] lg:min-h-[400px] flex items-center justify-center">
-                      <svg
-                        width="250"
-                        height="250"
-                        viewBox="0 0 300 300"
-                        className="border rounded w-full max-w-[300px] h-auto"
+                      {/* Tooltip that appears on hover */}
+                      <div
+                      id="component-tooltip"
+                      className="absolute bg-black text-white px-2 py-1 rounded text-xs pointer-events-none opacity-0 transition-opacity"
+                      style={{ top: '10px', left: '50%', transform: 'translateX(-50%)' }}
                       >
-                        {/* Frame mit Armen */}
-                        <rect
-                          x="130"
-                          y="130"
-                          width="40"
-                          height="40"
-                          fill={selectedComponents.frame ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("frame")}
-                        />
+                      Component name
+                      </div>
 
-                        {/* Arme vom Frame zu den Motoren */}
-                        <line
-                          x1="150"
-                          y1="150"
-                          x2="80"
-                          y2="80"
-                          stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
-                          strokeWidth="4"
-                          className="cursor-pointer hover:stroke-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("frame")}
-                        />
-                        <line
-                          x1="150"
-                          y1="150"
-                          x2="220"
-                          y2="80"
-                          stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
-                          strokeWidth="4"
-                          className="cursor-pointer hover:stroke-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("frame")}
-                        />
-                        <line
-                          x1="150"
-                          y1="150"
-                          x2="80"
-                          y2="220"
-                          stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
-                          strokeWidth="4"
-                          className="cursor-pointer hover:stroke-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("frame")}
-                        />
-                        <line
-                          x1="150"
-                          y1="150"
-                          x2="220"
-                          y2="220"
-                          stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
-                          strokeWidth="4"
-                          className="cursor-pointer hover:stroke-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("frame")}
-                        />
+                      <svg
+                      width="250"
+                      height="250"
+                      viewBox="0 0 300 300"
+                      className="border rounded w-full max-w-[300px] h-auto"
+                      onMouseOut={() => {
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) tooltip.style.opacity = '0';
+                      }}
+                      >
+                      {/* Frame mit Armen */}
+                      <rect
+                        x="130"
+                        y="130"
+                        width="40"
+                        height="40"
+                        fill={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors frame-element"
+                        onClick={() => setActiveComponent("frame")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('frame-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Frame';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('frame-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                        }}
+                      />
 
-                        {/* Motoren */}
-                        <circle
-                          cx="80"
-                          cy="80"
-                          r="15"
-                          fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("motors")}
-                        />
-                        <circle
-                          cx="220"
-                          cy="80"
-                          r="15"
-                          fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("motors")}
-                        />
-                        <circle
-                          cx="80"
-                          cy="220"
-                          r="15"
-                          fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("motors")}
-                        />
-                        <circle
-                          cx="220"
-                          cy="220"
-                          r="15"
-                          fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("motors")}
-                        />
+                      {/* Arme vom Frame zu den Motoren */}
+                      <line
+                        x1="150"
+                        y1="150"
+                        x2="80"
+                        y2="80"
+                        stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                        strokeWidth="4"
+                        className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                        onClick={() => setActiveComponent("frame")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('frame-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Frame';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('frame-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                        }}
+                      />
+                      <line
+                        x1="150"
+                        y1="150"
+                        x2="220"
+                        y2="80"
+                        stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                        strokeWidth="4"
+                        className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                        onClick={() => setActiveComponent("frame")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('frame-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Frame';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('frame-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                        }}
+                      />
+                      <line
+                        x1="150"
+                        y1="150"
+                        x2="80"
+                        y2="220"
+                        stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                        strokeWidth="4"
+                        className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                        onClick={() => setActiveComponent("frame")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('frame-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Frame';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('frame-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                        }}
+                      />
+                      <line
+                        x1="150"
+                        y1="150"
+                        x2="220"
+                        y2="220"
+                        stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                        strokeWidth="4"
+                        className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                        onClick={() => setActiveComponent("frame")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('frame-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Frame';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('frame-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                        }}
+                      />
 
-                        {/* ESC */}
-                        <rect
-                          x="140"
-                          y="140"
-                          width="20"
-                          height="20"
-                          fill={selectedComponents.esc ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("esc")}
-                        />
+                      {/* Motoren */}
+                      <circle
+                        cx="80"
+                        cy="80"
+                        r="15"
+                        fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                        onClick={() => setActiveComponent("motors")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('motors-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Motoren';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('motors-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                        }}
+                      />
+                      <circle
+                        cx="220"
+                        cy="80"
+                        r="15"
+                        fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                        onClick={() => setActiveComponent("motors")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('motors-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Motoren';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('motors-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                        }}
+                      />
+                      <circle
+                        cx="80"
+                        cy="220"
+                        r="15"
+                        fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                        onClick={() => setActiveComponent("motors")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('motors-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Motoren';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('motors-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                        }}
+                      />
+                      <circle
+                        cx="220"
+                        cy="220"
+                        r="15"
+                        fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                        onClick={() => setActiveComponent("motors")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('motors-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Motoren';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('motors-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                        }}
+                      />
 
-                        {/* Flight Controller */}
-                        <rect
-                          x="145"
-                          y="145"
-                          width="10"
-                          height="10"
-                          fill={selectedComponents.fc ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("fc")}
-                        />
+                      {/* ESC */}
+                      <rect
+                        x="140"
+                        y="140"
+                        width="20"
+                        height="20"
+                        fill={selectedComponents.esc ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors esc-element"
+                        onClick={() => setActiveComponent("esc")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('esc-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'ESC';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('esc-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                        }}
+                      />
 
-                        {/* Propeller */}
-                        <ellipse
-                          cx="80"
-                          cy="80"
-                          rx="25"
-                          ry="8"
-                          fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("props")}
-                        />
-                        <ellipse
-                          cx="220"
-                          cy="80"
-                          rx="25"
-                          ry="8"
-                          fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("props")}
-                        />
-                        <ellipse
-                          cx="80"
-                          cy="220"
-                          rx="25"
-                          ry="8"
-                          fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("props")}
-                        />
-                        <ellipse
-                          cx="220"
-                          cy="220"
-                          rx="25"
-                          ry="8"
-                          fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("props")}
-                        />
+                      {/* Flight Controller */}
+                      <rect
+                        x="145"
+                        y="145"
+                        width="10"
+                        height="10"
+                        fill={selectedComponents.fc ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors fc-element"
+                        onClick={() => setActiveComponent("fc")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('fc-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Flight Controller';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('fc-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                        }}
+                      />
 
-                        {/* Akku */}
-                        <rect
-                          x="125"
-                          y="180"
-                          width="50"
-                          height="15"
-                          fill={selectedComponents.battery ? "#10b981" : "#6b7280"}
-                          className="cursor-pointer hover:fill-blue-500 transition-colors"
-                          onClick={() => setActiveComponent("battery")}
-                        />
+                      {/* Propeller */}
+                      <ellipse
+                        cx="80"
+                        cy="80"
+                        rx="25"
+                        ry="8"
+                        fill={selectedComponents.props ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                        onClick={() => setActiveComponent("props")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('props-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Propeller';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('props-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                        }}
+                      />
+                      <ellipse
+                        cx="220"
+                        cy="80"
+                        rx="25"
+                        ry="8"
+                        fill={selectedComponents.props ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                        onClick={() => setActiveComponent("props")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('props-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Propeller';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('props-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                        }}
+                      />
+                      <ellipse
+                        cx="80"
+                        cy="220"
+                        rx="25"
+                        ry="8"
+                        fill={selectedComponents.props ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                        onClick={() => setActiveComponent("props")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('props-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Propeller';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('props-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                        }}
+                      />
+                      <ellipse
+                        cx="220"
+                        cy="220"
+                        rx="25"
+                        ry="8"
+                        fill={selectedComponents.props ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                        onClick={() => setActiveComponent("props")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('props-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Propeller';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('props-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                        }}
+                      />
 
-                        {/* Labels */}
-                        <text x="150" y="125" textAnchor="middle" className="text-xs fill-gray-700">
-                          Frame
-                        </text>
-                        <text x="80" y="50" textAnchor="middle" className="text-xs fill-gray-700">
-                          Motor
-                        </text>
-                        <text x="150" y="210" textAnchor="middle" className="text-xs fill-gray-700">
-                          ESC/FC
-                        </text>
-                        <text x="150" y="220" textAnchor="middle" className="text-xs fill-gray-700">
-                          Akku
-                        </text>
+                      {/* Akku */}
+                      <rect
+                        x="125"
+                        y="180"
+                        width="50"
+                        height="15"
+                        fill={selectedComponents.battery ? "#10b981" : "#6b7280"}
+                        className="cursor-pointer hover:fill-blue-500 transition-colors battery-element"
+                        onClick={() => setActiveComponent("battery")}
+                        onMouseOver={() => {
+                        const elements = document.getElementsByClassName('battery-element');
+                        Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                        const tooltip = document.getElementById('component-tooltip');
+                        if (tooltip) {
+                          tooltip.textContent = 'Akku';
+                          tooltip.style.opacity = '1';
+                        }
+                        }}
+                        onMouseOut={() => {
+                        const elements = document.getElementsByClassName('battery-element');
+                        Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                        }}
+                      />
+
+                      {/* Labels */}
+                      <text x="150" y="125" textAnchor="middle" className="text-xs fill-gray-700">
+                        Frame
+                      </text>
+                      <text x="80" y="50" textAnchor="middle" className="text-xs fill-gray-700">
+                        Motor
+                      </text>
+                      <text x="150" y="210" textAnchor="middle" className="text-xs fill-gray-700">
+                        ESC/FC
+                      </text>
+                      <text x="150" y="220" textAnchor="middle" className="text-xs fill-gray-700">
+                        Akku
+                      </text>
                       </svg>
                     </div>
 
