@@ -72,7 +72,16 @@ const Builder = () => {
     keys.forEach((key) => {
       optionsByKey[key] = [
         ...new Set(allOptions.filter((option) => option[key]).map((option) => option[key])),
-      ];
+      ].sort((a, b) => {
+        // Numerische Sortierung, wenn beide Werte Zahlen sind
+        const numA = parseFloat(a);
+        const numB = parseFloat(b);
+        if (!isNaN(numA) && !isNaN(numB)) {
+          return numA - numB;
+        }
+        // Alphabetische Sortierung für Strings
+        return a.localeCompare(b);
+      });
     });
 
     return { keys, optionsByKey };
@@ -713,6 +722,16 @@ const Builder = () => {
                           size="sm"
                           variant="ghost"
                           onClick={() => window.open("https://www.fpv24.com/de", "_blank")}
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                        </Button>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>quadmula.com</span>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => window.open("https://quadmula.com/", "_blank")}
                         >
                           <ExternalLink className="h-3 w-3" />
                         </Button>

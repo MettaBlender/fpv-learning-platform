@@ -9,7 +9,7 @@ export const droneComponents = {
       link: "https://www.dronefactory.ch/produkt/axisflying-manta-6-dead-cat-frame-kit/",
       imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2025/03/Axisflying-MANTA-6-Dead-Cat-Frame-Kit-DroneFactory1.jpg",
       options: [
-        { grösse: "4 Zoll" },
+        { grösse: "5 Zoll" },
         { marke: "Axisflying" },
       ],
     },
@@ -35,6 +35,18 @@ export const droneComponents = {
       options: [
         { grösse: "5 Zoll" },
         { marke: "iFlight" },
+      ],
+    },
+    {
+      name: "Siren F35 Split",
+      price: 48,
+      shop: "quadmula.com",
+      description: "The QUADMULA Siren F3 series has received a lot of praise from consumers in the market. We truly appreciate this hard-earned recognition, so we spent a considerable amount of time testing and verifying the performance of the Siren F35 to ensure it stands out in the market.",
+      link: "https://quadmula.com/products/siren-f35-splitn",
+      imageUrl: "https://quadmula.com/cdn/shop/files/SF35_R.2.jpg?v=1702263313&width=1000",
+      options: [
+        { grösse: "3.5 Zoll" },
+        { marke: "Quadmula" },
       ],
     },
   ],
