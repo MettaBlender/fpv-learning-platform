@@ -1,0 +1,636 @@
+import { useState } from "react"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { Button } from "@/components/ui/button"
+import { Badge } from "@/components/ui/badge"
+import { ExternalLink, Play, FileText, ShoppingCart, Zap, Radio, Camera, Cpu, AppWindow } from "lucide-react"
+import Image from "next/image"
+import {droneComponents} from "@/components/tabs/DroneData" // Assuming you have a JSON file with your components data
+
+const Builder = () => {
+
+  const [selectedComponents, setSelectedComponents] = useState({})
+  const [activeComponent, setActiveComponent] = useState(null)
+  const [expandedDescriptions, setExpandedDescriptions] = useState({})
+
+  const handleComponentSelect = (componentType, component) => {
+    setSelectedComponents((prev) => ({
+      ...prev,
+      [componentType]: component,
+    }))
+    setActiveComponent(null)
+  }
+
+  const getTotalPrice = () => {
+    return Object.values(selectedComponents).reduce((total, component) => total + (component?.price || 0), 0)
+  }
+
+  const openShop = (e, shop) => {
+    e.stopPropagation()
+    window.open(shop, "_blank", "noopener,noreferrer")
+  }
+
+  const toggleDescription = (componentIndex) => {
+    setExpandedDescriptions(prev => ({
+      ...prev,
+      [componentIndex]: !prev[componentIndex]
+    }))
+  }
+
+  return (
+    <>
+      <Card>
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <Zap className="h-5 w-5" />
+            FPV Drohnen Builder
+          </CardTitle>
+          <CardDescription>Klicke auf die Komponenten um deine Drohne zu konfigurieren</CardDescription>
+        </CardHeader>
+        <CardContent>
+          <div className="grid lg:grid-cols-2 gap-8">
+            {/* 2D Drohnen-Ansicht */}
+            <div className="space-y-4">
+              <h3 className="font-semibold text-center lg:text-left">Drohnen-Konfiguration</h3>
+              <div className="relative bg-gray-50 rounded-lg p-4 lg:p-8 min-h-[300px] lg:min-h-[400px] flex items-center justify-center">
+                {/* Tooltip that appears on hover */}
+                <div
+                id="component-tooltip"
+                className="absolute bg-black text-white px-2 py-1 rounded text-xs pointer-events-none opacity-0 transition-opacity"
+                style={{ top: '10px', left: '50%', transform: 'translateX(-50%)' }}
+                >
+                Component name
+                </div>
+
+                <svg
+                width="250"
+                height="250"
+                viewBox="0 0 300 300"
+                className="border rounded w-full max-w-[300px] h-auto"
+                onMouseOut={() => {
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) tooltip.style.opacity = '0';
+                }}
+                >
+                {/* Frame mit Armen */}
+                <rect
+                  x="130"
+                  y="130"
+                  width="40"
+                  height="40"
+                  fill={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors frame-element"
+                  onClick={() => setActiveComponent("frame")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('frame-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Frame';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('frame-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                  }}
+                />
+
+                {/* Arme vom Frame zu den Motoren */}
+                <line
+                  x1="150"
+                  y1="150"
+                  x2="80"
+                  y2="80"
+                  stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                  strokeWidth="4"
+                  className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                  onClick={() => setActiveComponent("frame")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('frame-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Frame';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('frame-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                  }}
+                />
+                <line
+                  x1="150"
+                  y1="150"
+                  x2="220"
+                  y2="80"
+                  stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                  strokeWidth="4"
+                  className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                  onClick={() => setActiveComponent("frame")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('frame-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Frame';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('frame-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                  }}
+                />
+                <line
+                  x1="150"
+                  y1="150"
+                  x2="80"
+                  y2="220"
+                  stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                  strokeWidth="4"
+                  className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                  onClick={() => setActiveComponent("frame")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('frame-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Frame';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('frame-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                  }}
+                />
+                <line
+                  x1="150"
+                  y1="150"
+                  x2="220"
+                  y2="220"
+                  stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                  strokeWidth="4"
+                  className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                  onClick={() => setActiveComponent("frame")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('frame-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Frame';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('frame-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                  }}
+                />
+
+                {/* Motoren */}
+                <circle
+                  cx="80"
+                  cy="80"
+                  r="15"
+                  fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                  onClick={() => setActiveComponent("motors")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('motors-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Motoren';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('motors-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  }}
+                />
+                <circle
+                  cx="220"
+                  cy="80"
+                  r="15"
+                  fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                  onClick={() => setActiveComponent("motors")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('motors-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Motoren';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('motors-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  }}
+                />
+                <circle
+                  cx="80"
+                  cy="220"
+                  r="15"
+                  fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                  onClick={() => setActiveComponent("motors")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('motors-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Motoren';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('motors-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  }}
+                />
+                <circle
+                  cx="220"
+                  cy="220"
+                  r="15"
+                  fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                  onClick={() => setActiveComponent("motors")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('motors-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Motoren';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('motors-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  }}
+                />
+
+                {/* ESC */}
+                <rect
+                  x="140"
+                  y="140"
+                  width="20"
+                  height="20"
+                  fill={selectedComponents.esc ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors esc-element"
+                  onClick={() => setActiveComponent("esc")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('esc-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'ESC';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('esc-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  }}
+                />
+
+                {/* Flight Controller */}
+                <rect
+                  x="145"
+                  y="145"
+                  width="10"
+                  height="10"
+                  fill={selectedComponents.fc ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors fc-element"
+                  onClick={() => setActiveComponent("fc")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('fc-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Flight Controller';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('fc-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  }}
+                />
+
+                {/* Propeller */}
+                <ellipse
+                  cx="80"
+                  cy="80"
+                  rx="25"
+                  ry="8"
+                  fill={selectedComponents.props ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                  onClick={() => setActiveComponent("props")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('props-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Propeller';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('props-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  }}
+                />
+                <ellipse
+                  cx="220"
+                  cy="80"
+                  rx="25"
+                  ry="8"
+                  fill={selectedComponents.props ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                  onClick={() => setActiveComponent("props")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('props-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Propeller';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('props-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  }}
+                />
+                <ellipse
+                  cx="80"
+                  cy="220"
+                  rx="25"
+                  ry="8"
+                  fill={selectedComponents.props ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                  onClick={() => setActiveComponent("props")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('props-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Propeller';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('props-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  }}
+                />
+                <ellipse
+                  cx="220"
+                  cy="220"
+                  rx="25"
+                  ry="8"
+                  fill={selectedComponents.props ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                  onClick={() => setActiveComponent("props")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('props-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Propeller';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('props-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  }}
+                />
+
+                {/* Akku */}
+                <rect
+                  x="125"
+                  y="180"
+                  width="50"
+                  height="15"
+                  fill={selectedComponents.battery ? "#10b981" : "#6b7280"}
+                  className="cursor-pointer hover:fill-blue-500 transition-colors battery-element"
+                  onClick={() => setActiveComponent("battery")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('battery-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Akku';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('battery-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  }}
+                />
+
+                {/* Labels */}
+                <text x="150" y="125" textAnchor="middle" className="text-xs fill-gray-700">
+                  Frame
+                </text>
+                <text x="80" y="50" textAnchor="middle" className="text-xs fill-gray-700">
+                  Motor
+                </text>
+                <text x="150" y="210" textAnchor="middle" className="text-xs fill-gray-700">
+                  ESC/FC
+                </text>
+                <text x="150" y="220" textAnchor="middle" className="text-xs fill-gray-700">
+                  Akku
+                </text>
+                </svg>
+              </div>
+
+              {/* Komponenten-Auswahl */}
+              {activeComponent && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg text-center lg:text-left">
+                      {activeComponent === "frame" && "Frame auswählen"}
+                      {activeComponent === "motors" && "Motoren auswählen"}
+                      {activeComponent === "esc" && "ESC auswählen"}
+                      {activeComponent === "fc" && "Flight Controller auswählen"}
+                      {activeComponent === "props" && "Propeller auswählen"}
+                      {activeComponent === "battery" && "Akku auswählen"}
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {droneComponents[activeComponent]?.map((component, index) => (
+                        <div
+                          key={index}
+                          className="flex flex-col lg:flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
+                          onClick={() => handleComponentSelect(activeComponent, component)}
+                        >
+                          <div className="flex items-center w-full">
+                            <Image
+                              src={component.imageUrl}
+                              alt={component.name}
+                              width={80}
+                              height={80}
+                              className="w-16 h-16 lg:w-20 lg:h-20 rounded-lg mb-2 lg:mb-0 lg:mr-4 flex-shrink-0"
+                            />
+                            <div className="text-center lg:text-left flex-1">
+                              <h4 className="font-medium">{component.name}</h4>
+                              <p className="text-xs text-gray-500">Shop: {component.shop}</p>
+                              {component.description && (
+                                <div className="mt-2">
+                                  <p className={`text-sm text-gray-600 transition-all duration-200 ${
+                                    expandedDescriptions[index]
+                                      ? 'line-clamp-none'
+                                      : 'line-clamp-2'
+                                  }`}>
+                                    {component.description}
+                                  </p>
+                                  {component.description.length > 100 && (
+                                    <button
+                                      onClick={(e) => {
+                                        e.stopPropagation()
+                                        toggleDescription(index)
+                                      }}
+                                      className="text-xs text-blue-500 hover:underline mt-1"
+                                    >
+                                      {expandedDescriptions[index] ? 'Weniger anzeigen' : 'Mehr anzeigen'}
+                                    </button>
+                                  )}
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          <Button
+                            size="sm"
+                            variant="outline"
+                            onClick={(e) => openShop(e, component.link)}
+                            className="mt-2 ml-2 lg:mt-0 flex-shrink-0"
+                          >
+                            <ExternalLink className="h-3 w-3 mr-1" />
+                            Shop
+                          </Button>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-2">
+              {/* Konfiguration & Einkaufsliste */}
+              <div className="space-y-4">
+                <h3 className="font-semibold text-center lg:text-left">Deine Konfiguration</h3>
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg flex items-center justify-between">
+                      Einkaufsliste
+                      <Badge variant="outline">Total: CHF {getTotalPrice()}</Badge>
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-3">
+                      {Object.entries(selectedComponents).map(([type, component]) => (
+                        <div key={type} className="flex flex-col lg:flex-row items-center justify-between p-2 border rounded">
+                          <div className="text-center lg:text-left">
+                            <h4 className="font-medium text-sm">{component.name}</h4>
+                            <p className="text-xs text-gray-600">{component.shop}</p>
+                          </div>
+                          <div className="text-right mt-2 lg:mt-0">
+                            <p className="font-bold text-sm">CHF {component.price}</p>
+                            <Button size="sm" variant="ghost" className="h-6 text-xs">
+                              <ShoppingCart className="h-3 w-3 mr-1" />
+                              Kaufen
+                            </Button>
+                          </div>
+                        </div>
+                      ))}
+
+                      {Object.keys(selectedComponents).length === 0 && (
+                        <p className="text-gray-500 text-center py-4">
+                          Klicke auf die Komponenten in der Drohnen-Ansicht um sie auszuwählen
+                        </p>
+                      )}
+                    </div>
+
+                    {Object.keys(selectedComponents).length > 0 && (
+                      <div className="mt-4 pt-4 border-t">
+                        <Button className="w-full">
+                          <ShoppingCart className="h-4 w-4 mr-2" />
+                          Alle Komponenten kaufen (CHF {getTotalPrice()})
+                        </Button>
+                      </div>
+                    )}
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="space-y-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Schweizer FPV Shops</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 text-sm">
+                      <div className="flex justify-between">
+                        <span>fpvracing.ch</span>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => window.open("https://fpvracing.ch", "_blank")}
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                        </Button>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>FPVFrame.ch</span>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => window.open("https://fpvframe.ch", "_blank")}
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                        </Button>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>dronefactory.ch</span>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => window.open("https://dronefactory.ch", "_blank")}
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                        </Button>
+                      </div>
+                      <div className="flex justify-between">
+                        <span>fpv24.ch</span>
+                        <Button
+                          size="sm"
+                          variant="ghost"
+                          onClick={() => window.open("https://www.fpv24.com/de", "_blank")}
+                        >
+                          <ExternalLink className="h-3 w-3" />
+                        </Button>
+                      </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </>
+  )
+}
+
+export default Builder
