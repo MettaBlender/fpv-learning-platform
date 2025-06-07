@@ -1,14 +1,8 @@
 "use client"
 
-import { useState } from "react"
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import React, { useState } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import { Button } from "@/components/ui/button"
-import { Badge } from "@/components/ui/badge"
-import { Separator } from "@/components/ui/separator"
-import { ExternalLink, Play, FileText, ShoppingCart, Zap, Radio, Camera, Cpu } from "lucide-react"
 import Image from "next/image"
-import Link from "next/link"
 import Googles from "@/components/tabs/googles"
 import Controller from "@/components/tabs/controller"
 import Components from "@/components/tabs/components"
@@ -16,6 +10,16 @@ import Builder from "@/components/tabs/builder"
 import Tutorial from "@/components/tabs/tutorials"
 
 export default function Component() {
+
+  const [getTab, setGetTab] = useState(() => {
+    return localStorage.getItem('selectedTab') || 'goggles'; // Standardwert, falls nichts gespeichert ist
+  });
+
+  // Funktion zum Speichern des ausgewählten Tabs im Local Storage
+  const changeTab = (value: string) => {
+    localStorage.setItem('selectedTab', value);
+    setGetTab(value); // Aktualisiere den State, um die UI synchron zu halten
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -35,7 +39,7 @@ export default function Component() {
           <p className="text-xl text-gray-600">Alles was du über FPV-Drohnen wissen musst</p>
         </div>
 
-        <Tabs defaultValue="goggles" className="w-full h-fit">
+        <Tabs defaultValue={getTab} className="w-full h-fit" onValueChange={(value) => changeTab(value)}>
           <TabsList className="grid w-full md:grid-cols-5 mb-8 h-fit">
             <TabsTrigger value="goggles">DJI Goggles</TabsTrigger>
             <TabsTrigger value="controller">RC Controller</TabsTrigger>

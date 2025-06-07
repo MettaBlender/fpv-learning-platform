@@ -8,6 +8,10 @@ export const droneComponents = {
       description: "5 Zoll Freestyle Frame",
       link: "https://www.dronefactory.ch/produkt/axisflying-manta-6-dead-cat-frame-kit/",
       imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2025/03/Axisflying-MANTA-6-Dead-Cat-Frame-Kit-DroneFactory1.jpg",
+      options: [
+        { grösse: "4 Zoll" },
+        { marke: "Axisflying" },
+      ],
     },
     {
       name: "TBS Source One V5",
@@ -16,6 +20,10 @@ export const droneComponents = {
       description: "Budget Freestyle Frame",
       link: "https://fpvracing.ch/de/frames/4068-impulserc-echo-5-frame-kit-blackbird.html",
       imageUrl: "https://fpvracing.ch/18023-large_default/impulserc-echo-5-frame-kit-blackbird.jpg",
+      options: [
+        { grösse: "5 Zoll" },
+        { marke: "TBS" },
+      ],
     },
     {
       name: "iFlight Nazgul5 V3",
@@ -24,6 +32,10 @@ export const droneComponents = {
       description: "Der SpeedyBee Mario 5 XH Frame O4 Advanced Version ist ein leichter und robuster FPV-Rahmen, der speziell für Racing- und Freestyle-Piloten entwickelt wurde. Mit einer Radstandlänge von 226 mm und einer hochwertigen T300 3K Carbon-Konstruktion bietet er maximale Stabilität und Widerstandsfähigkeit. Dank der luftfahrttauglichen Aluminiumlegierung ist die Kamera optimal geschützt, während die verstärkten 6 mm dicken Arme für minimale Torsion und verbesserte Flugstabilität sorgen. Die Anti-Rutsch-Batteriehalterung aus 3 mm Silikon sorgt zudem für einen sicheren Sitz der Akkus, selbst bei intensiven Manövern.Mit seinen vielseitigen Montagemöglichkeiten für FC, VTX und GPS ist der Mario 5 XH Frame ideal für individuelle Setups und kompatibel mit DJI O4 und anderen FPV-Systemen.",
       link: "https://www.fpv24.com/de/speedy-bee/speedybee-mario-5-xh-frame-o4-advanced-version",
       imageUrl: "https://cdnc.meilon.de/img/product/ru/run-sb-mario5-frame-xh-o4-adv/run-sb-mario5-frame-xh-o4-adv-b0b352_l.jpg",
+      options: [
+        { grösse: "5 Zoll" },
+        { marke: "iFlight" },
+      ],
     },
   ],
   motors: [

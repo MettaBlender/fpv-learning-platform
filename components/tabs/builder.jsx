@@ -29,12 +29,56 @@ const Builder = () => {
     window.open(shop, "_blank", "noopener,noreferrer")
   }
 
-  const toggleDescription = (componentIndex) => {
-    setExpandedDescriptions(prev => ({
+  const [filters, setFilters] = useState({ size: '', marke: '' });
+
+  const toggleDescription = (index) => {
+    setExpandedDescriptions((prev) => ({
       ...prev,
-      [componentIndex]: !prev[componentIndex]
-    }))
-  }
+      [index]: !prev[index],
+    }));
+  };
+
+  // Einzigartige Optionen für die Dropdowns extrahieren
+  const getUniqueOptions = (key) => {
+    const options = droneComponents[activeComponent]
+      ?.flatMap((component) => component.options || [])
+      .filter((option) => option[key])
+      .map((option) => option[key]);
+    return [...new Set(options)]; // Entfernt Duplikate
+  };
+
+  const sizes = getUniqueOptions('size');
+  const marken = getUniqueOptions('marke');
+
+  // Gefilterte Komponenten basierend auf den ausgewählten Filtern
+  const filteredComponents = droneComponents[activeComponent]?.filter((component) => {
+    const hasOptions = component.options;
+    if (!hasOptions) return true; // Zeige Komponenten ohne Optionen (z. B. Motoren)
+    const matchesSize = filters.size
+      ? component.options.some((opt) => opt.size === filters.size)
+      : true;
+    const matchesMarke = filters.marke
+      ? component.options.some((opt) => opt.marke === filters.marke)
+      : true;
+    return matchesSize && matchesMarke;
+  });
+
+  const getOptionKeysAndValues = () => {
+    const allOptions = droneComponents[activeComponent]
+      ?.flatMap((component) => component.options || []);
+    const keys = [...new Set(allOptions?.map((option) => Object.keys(option)[0]) || [])];
+    const optionsByKey = {};
+
+    keys.forEach((key) => {
+      optionsByKey[key] = [
+        ...new Set(allOptions.filter((option) => option[key]).map((option) => option[key])),
+      ];
+    });
+
+    return { keys, optionsByKey };
+  };
+
+  const { keys, optionsByKey } = getOptionKeysAndValues();
 
   return (
     <>
@@ -468,7 +512,49 @@ const Builder = () => {
                   </CardHeader>
                   <CardContent>
                     <div className="space-y-3">
-                      {droneComponents[activeComponent]?.map((component, index) => (
+                      {droneComponents[activeComponent]?.some((component) => component.options) && (
+                        <div className="flex space-x-4 mb-4 flex-wrap">
+                          {keys.map((key) => (
+                            <div key={key} className="mb-2">
+                              <label
+                                htmlFor={`${key}-filter`}
+                                className="text-sm font-medium mr-2 capitalize"
+                              >
+                                {key}:
+                              </label>
+                              <select
+                                id={`${key}-filter`}
+                                className="p-2 border rounded-md"
+                                value={filters[key] || ''}
+                                onChange={(e) =>
+                                  setFilters({ ...filters, [key]: e.target.value || '' })
+                                }
+                              >
+                                <option value="">Alle {key.charAt(0).toUpperCase() + key.slice(1)}</option>
+                                {optionsByKey[key]?.map((value, i) => (
+                                  <option key={i} value={value}>
+                                    {value}
+                                  </option>
+                                ))}
+                              </select>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+
+                      {/* Komponentenliste */}
+                      {droneComponents[activeComponent]
+                      ?.filter((component) => {
+                        const hasOptions = component.options;
+                        if (!hasOptions) return true; // Zeige Komponenten ohne Optionen (z.B. Motoren)
+                        return keys.every((key) => {
+                          const filterValue = filters[key];
+                          return filterValue
+                            ? component.options.some((opt) => opt[key] === filterValue)
+                            : true;
+                        });
+                      })
+                      .map((component, index) => (
                         <div
                           key={index}
                           className="flex flex-col lg:flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
@@ -485,20 +571,30 @@ const Builder = () => {
                             <div className="text-center lg:text-left flex-1">
                               <h4 className="font-medium">{component.name}</h4>
                               <p className="text-xs text-gray-500">Shop: {component.shop}</p>
+                              <p className="text-xs text-gray-500">Preis: ${component.price}</p>
+                              {component.options && (
+                                <p className="text-sm text-gray-600">
+                                  {component.options.map((option, i) => (
+                                    <span key={i} className="inline-block mr-2">
+                                      {Object.values(option)[0]}
+                                    </span>
+                                  ))}
+                                </p>
+                              )}
                               {component.description && (
                                 <div className="mt-2">
-                                  <p className={`text-sm text-gray-600 transition-all duration-200 ${
-                                    expandedDescriptions[index]
-                                      ? 'line-clamp-none'
-                                      : 'line-clamp-2'
-                                  }`}>
+                                  <p
+                                    className={`text-sm text-gray-600 transition-all duration-200 ${
+                                      expandedDescriptions[index] ? 'line-clamp-none' : 'line-clamp-2'
+                                    }`}
+                                  >
                                     {component.description}
                                   </p>
                                   {component.description.length > 100 && (
                                     <button
                                       onClick={(e) => {
-                                        e.stopPropagation()
-                                        toggleDescription(index)
+                                        e.stopPropagation();
+                                        toggleDescription(index);
                                       }}
                                       className="text-xs text-blue-500 hover:underline mt-1"
                                     >
