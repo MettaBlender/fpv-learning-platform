@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import Image from "next/image"
 import Googles from "@/components/tabs/googles"
@@ -11,14 +11,24 @@ import Tutorial from "@/components/tabs/tutorials"
 
 export default function Component() {
 
-  const [getTab, setGetTab] = useState(() => {
-    return localStorage.getItem('selectedTab') || 'goggles'; // Standardwert, falls nichts gespeichert ist
-  });
+  const [getTab, setGetTab] = useState('googles');
+
+  useEffect(() => {
+    // Prüfe, ob localStorage verfügbar ist (Browser-Umgebung)
+    if (typeof window !== 'undefined' && window.localStorage) {
+      const savedTab = localStorage.getItem('selectedTab');
+      if (savedTab) {
+        setGetTab(savedTab); // Setze gespeicherten Tab-Wert
+      }
+    }
+  }, []);
 
   // Funktion zum Speichern des ausgewählten Tabs im Local Storage
-  const changeTab = (value: string) => {
-    localStorage.setItem('selectedTab', value);
-    setGetTab(value); // Aktualisiere den State, um die UI synchron zu halten
+  const changeTab = (value) => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+      localStorage.setItem('selectedTab', value);
+    }
+    setGetTab(value); // Aktualisiere den State
   };
 
   return (
