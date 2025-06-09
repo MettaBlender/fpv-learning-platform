@@ -10,26 +10,21 @@ import Builder from "@/components/tabs/builder"
 import Tutorial from "@/components/tabs/tutorials"
 
 export default function Component() {
+  const [selectedTab, setSelectedTab] = useState('goggles')
 
-  const [getTab, setGetTab] = useState('googles');
-
+  // Load saved tab from localStorage on component mount
   useEffect(() => {
-    // Prüfe, ob localStorage verfügbar ist (Browser-Umgebung)
-    if (typeof window !== 'undefined' && window.localStorage) {
-      const savedTab = localStorage.getItem('selectedTab');
-      if (savedTab) {
-        setGetTab(savedTab); // Setze gespeicherten Tab-Wert
-      }
+    const savedTab = localStorage.getItem('selectedTab')
+    if (savedTab) {
+      setSelectedTab(savedTab)
     }
-  }, []);
+  }, [])
 
   // Funktion zum Speichern des ausgewählten Tabs im Local Storage
   const changeTab = (value: string) => {
-    if (typeof window !== 'undefined' && window.localStorage) {
-      localStorage.setItem('selectedTab', value);
-    }
-    setGetTab(value); // Aktualisiere den State
-  };
+    setSelectedTab(value)
+    localStorage.setItem('selectedTab', value)
+  }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100">
@@ -49,7 +44,7 @@ export default function Component() {
           <p className="text-xl text-gray-600">Alles was du über FPV-Drohnen wissen musst</p>
         </div>
 
-        <Tabs defaultValue={getTab} className="w-full h-fit" onValueChange={(value) => changeTab(value)}>
+        <Tabs value={selectedTab} className="w-full h-fit" onValueChange={changeTab}>
           <TabsList className="grid w-full md:grid-cols-5 mb-8 h-fit">
             <TabsTrigger value="goggles">DJI Goggles</TabsTrigger>
             <TabsTrigger value="controller">RC Controller</TabsTrigger>
