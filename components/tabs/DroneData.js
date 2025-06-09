@@ -292,4 +292,31 @@ export const droneComponents = {
       imageUrl: "https://fpvracing.ch/17961-large_default/geprc-storm-3300mah-6s-95c-xt60.jpg",
     },
   ],
+  camera: [
+    {
+      name: "DJI O4 Air Unit",
+      price: 119,
+      shop: "fpvracing.ch",
+      description: `Die DJI O4 Air Unit Serie stellt einen neuen Meilenstein in der Videotransmissionstechnologie
+      dar und bietet eine hochmoderne digitale Lösung mit höherer Auflösung, geringerer
+      Latenz und erweiterter Reichweite. Mit einem Gewicht von nur 8.2 Gramm ist die DJI O4 Air Unit mit
+      einem 1/2-Zoll-Bildsensor ausgestattet, der in der Lage ist, Videos in 4K/60fps aufzunehmen.
+      Dies vereint Tragbarkeit und Vielseitigkeit in einem kompakten Design.`,
+      link: "https://fpvracing.ch/de/dji/3946-dji-o4-air-unit.html",
+      imageUrl: "https://fpvracing.ch/17001-large_default/dji-o4-air-unit.jpg",
+    },
+    {
+      name: "DJI O4 Air Unit Pro",
+      price: 249,
+      shop: "fpvracing.ch",
+      description: `Die DJI O4 Air Unit PRO Serie stellt einen neuen Meilenstein in der
+      Videotransmissionstechnologie dar und bietet eine hochmoderne digitale Lösung mit
+      höherer Auflösung, geringerer Latenz und erweiterter Reichweite. Die DJI O4 Air Unit PRO
+      ist mit einem Gewicht von 32 Gramm schwerer als die die DJI O4 Air Unit, ist dafür mit einem
+      1/1.3-Zoll-Bildsensor ausgestattet, der in der Lage ist, Videos in 4K/120fps aufzunehmen.
+      Dies vereint Tragbarkeit und Vielseitigkeit in einem kompakten Design.`,
+      link: "https://fpvracing.ch/de/dji/3947-dji-o4-air-unit-pro.html",
+      imageUrl: "https://fpvracing.ch/17010-large_default/dji-o4-air-unit-pro.jpg",
+    },
+  ],
 }

@@ -9,7 +9,7 @@ import {droneComponents} from "@/components/tabs/DroneData" // Assuming you have
 const Builder = () => {
 
   const [selectedComponents, setSelectedComponents] = useState({})
-  const [activeComponent, setActiveComponent] = useState(null)
+  const [activeComponent, setActiveComponent] = useState("frame")
   const [expandedDescriptions, setExpandedDescriptions] = useState({})
 
   const handleComponentSelect = (componentType, component) => {
@@ -17,7 +17,30 @@ const Builder = () => {
       ...prev,
       [componentType]: component,
     }))
-    setActiveComponent(null)
+    switch (componentType) {
+      case "frame":
+        setActiveComponent("fc")
+        break
+      case "motors":
+        setActiveComponent("props")
+        break
+      case "esc":
+        setActiveComponent("motors")
+        break
+      case "fc":
+        setActiveComponent("esc")
+        break
+      case "props":
+        setActiveComponent("battery")
+        break
+      case "battery":
+        setActiveComponent("camera")
+        break
+      case "camera":
+        setActiveComponent(null)
+      default:
+        setActiveComponent(null)
+    }
   }
 
   const getTotalPrice = () => {
@@ -671,7 +694,7 @@ const Builder = () => {
                       <div className="mt-4 pt-4 border-t">
                         <Button className="w-full">
                           <ShoppingCart className="h-4 w-4 mr-2" />
-                          Alle Komponenten kaufen (CHF {getTotalPrice()})
+                          Totaler Preis CHF {getTotalPrice()}
                         </Button>
                       </div>
                     )}
@@ -736,6 +759,27 @@ const Builder = () => {
                           <ExternalLink className="h-3 w-3" />
                         </Button>
                       </div>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+              <div className="space-y-4">
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="text-lg">Shop ablauf</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="space-y-2 text-sm">
+                      <ul className="pl-4">
+                        <li className="list-disc">Frame</li>
+                        <li className="list-disc">Flight Controller (FC)</li>
+                        <li className="list-disc">Electronic Speed Controller (ESC)</li>
+                        <li className="list-disc">Motoren</li>
+                        <li className="list-disc">Propeller</li>
+                        <li className="list-disc">Akku</li>
+                        <li className="list-disc">FPV-System (Kamer und Videoübertragung)</li>
+                        <li className="list-disc">Empfänger</li>
+                      </ul>
                     </div>
                   </CardContent>
                 </Card>
