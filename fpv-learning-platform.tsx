@@ -24,7 +24,7 @@ export default function Component() {
   }, []);
 
   // Funktion zum Speichern des ausgewählten Tabs im Local Storage
-  const changeTab = (value) => {
+  const changeTab = (value: string) => {
     if (typeof window !== 'undefined' && window.localStorage) {
       localStorage.setItem('selectedTab', value);
     }
