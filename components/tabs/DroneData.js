@@ -49,6 +49,60 @@ export const droneComponents = {
         { marke: "Quadmula" },
       ],
     },
+    {
+      name: "Djinn F25 SP",
+      price: 50,
+      shop: "quadmula.com",
+      description: `The Djinn F25 has become a trusted favorite among QUADMULA enthusiasts since its release.
+      Its unique design and exceptional performance have earned widespread recognition, making it an indispensable tool for our team across all scenarios.
+      We proudly introduce the Djinn F25 SP, engineered to work seamlessly with the Dji O4 Pro.
+      This new model builds on its predecessor's strengths while elevating performance to new heights.`,
+      link: "https://quadmula.com/products/djinn-f25-sp",
+      imageUrl: "https://quadmula.com/cdn/shop/files/DF25SP_Render.bip.5.jpg?v=1736354857&width=1000",
+      options: [
+        { grösse: "2.5 Zoll" },
+        { marke: "Quadmula" },
+      ],
+    },
+    {
+      name: "Siren F3 Split",
+      price: 45,
+      shop: "quadmula.com",
+      description: `Siren F3 Split is a 3" freestyle frame that focuses on a lightweight and compatibility body.
+      It has a better thrust-to-weight ratio, making the thrust response more agile during intense flight and cinematic shots.`,
+      link: "https://quadmula.com/products/siren-f3-split",
+      imageUrl: "https://quadmula.com/cdn/shop/products/SF3.2.jpg?v=1667028490&width=1000",
+      options: [
+        { grösse: "3 Zoll" },
+        { marke: "Quadmula" },
+      ],
+    },
+    {
+      name: "Siren F5 Split",
+      price: 75,
+      shop: "quadmula.com",
+      description: `The Siren F5 Split is a 5" freestyle frame designed with a focus on lightweight and compatibility.
+      Its improved thrust-to-weight ratio enhances the agility of thrust response during intense flight.`,
+      link: "https://quadmula.com/products/quadmula-siren-f5-split-freestyle-frame",
+      imageUrl: "https://quadmula.com/cdn/shop/files/SF5_Render_2024.4.jpg?v=1710607551&width=1000",
+      options: [
+        { grösse: "5 Zoll" },
+        { marke: "Quadmula" },
+      ],
+    },
+    {
+      name: "Siren F5 S2",
+      price: 78,
+      shop: "quadmula.com",
+      description: `The Siren F5 S2 is the latest evolution of our popular 5" freestyle frame,
+      optimized for modern FPV standards while maintaining the lightweight agility pilots love.`,
+      link: "https://quadmula.com/products/siren-f5-s2",
+      imageUrl: "https://quadmula.com/cdn/shop/files/SF5S2_render.1.jpg?v=1745298390&width=1000",
+      options: [
+        { grösse: "5 Zoll" },
+        { marke: "Quadmula" },
+      ],
+    },
   ],
   motors: [
     {
