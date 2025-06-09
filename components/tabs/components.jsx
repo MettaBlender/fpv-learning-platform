@@ -173,6 +173,49 @@ const Components = () => {
                   <p className="text-xs text-gray-600">Verbaut: Unten am Frame mit Strap</p>
                 </CardContent>
               </Card>
+
+              <Card className="border-2">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm">Akku Tasche</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <Image
+                    src="https://fpvracing.ch/12060-large_default/betafpv-lipo-sicherheitstasche-165x90x120.jpg"
+                    alt="LiPo Battery"
+                    width={160}
+                    height={120}
+                    className="w-full rounded"
+                  />
+                  <p className="text-xs">Feuerfeste Aufbewahrungstasche für LiPo-Battterien. Ideal zum Laden von LiPo's, für den Transport und Reisen. </p>
+                  <Badge variant="secondary">CHF 9</Badge>
+                </CardContent>
+              </Card>
+
+              <Card className="border-2">
+                <CardHeader className="pb-2">
+                  <CardTitle className="text-sm">Betaflight</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-2">
+                  <Image
+                    src="https://dl.flathub.org/media/io/github/betaflight.BetaflightConfigurator.desktop/d365efa464cecb095818db74d063ca60/screenshots/image-3_orig.webp"
+                    alt="LiPo Battery"
+                    width={160}
+                    height={120}
+                    className="w-full rounded"
+                  />
+                  <p className="text-xs">Betaflight is the world's leading multi-rotor flight control software.</p>
+                  <Badge variant="secondary">CHF 0</Badge>
+                  <Link
+                    href="https://www.youtube.com/playlist?list=PLwoDb7WF6c8nT4jjsE4VENEmwu9x8zDiE"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                  >
+                    <Play className="h-4 w-4" />
+                    Video Tutorial (Betaflight 4.3 Complete Walkthrough)
+                  </Link>
+                </CardContent>
+              </Card>
             </div>
           </CardContent>
         </Card>
