@@ -16,5 +16,9 @@ export const videoTutorials = [
   { video: "https://www.youtube.com/watch?v=17eIl9JDoXI", titel: "FPV motors and what you need to know!" },
   { video: "https://www.youtube.com/watch?v=25gTVz6ocQ0", titel: "Quadmula Djinn F25 SP + DJI O4: Tutorial zum Bau // MurdersFPV" },
   { video: "https://www.youtube.com/watch?v=cBV8wpNmnpY", titel: "Camera Sensor Size Explained" },
-  { video: "https://www.youtube.com/watch?v=YojL7UQTVhc", titel: "Camera Basics - Aperture" }
+  { video: "https://www.youtube.com/watch?v=YojL7UQTVhc", titel: "Camera Basics - Aperture" },
+  { video: "https://www.youtube.com/watch?v=mghJezFe4J0", titel: "Choosing Flight Controllers for FPV" },
+  { video: "https://www.youtube.com/watch?v=zSN06-tkQJo", titel: "DJI O4 Air Unit Series｜Flight Controller Settings" },
+  { video: "https://www.youtube.com/watch?v=GSMLCWwMLjI", titel: "How to bind DJI RC Controller to Betaflight" },
+  { video: "https://www.youtube.com/watch?v=U1jpAsAxDT8", titel: "DJI O4 vs. Walksnail - Who has better range?" },
 ];

@@ -153,6 +153,15 @@ const Components = () => {
                   <p className="text-xs">F7 Prozessor mit Betaflight Firmware</p>
                   <Badge variant="secondary">CHF 40-50</Badge>
                   <p className="text-xs text-gray-600">Verbaut: Zentral, über dem ESC</p>
+                  <Link
+                    href="https://www.youtube.com/watch?v=xSOaeSd1AlM"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                  >
+                    <Play className="h-4 w-4" />
+                    Video Tutorial (Flight controller basics for beginners)
+                  </Link>
                 </CardContent>
               </Card>
 
@@ -171,6 +180,15 @@ const Components = () => {
                   <p className="text-xs">5" Propeller, meist 5x4.3x3 für Racing</p>
                   <Badge variant="secondary">CHF 10-15</Badge>
                   <p className="text-xs text-gray-600">Verbaut: Auf den Motoren</p>
+                  <Link
+                    href="https://www.youtube.com/watch?v=epJ6L9MaXOQ"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                  >
+                    <Play className="h-4 w-4" />
+                    Video Tutorial (How to choose the right props for your quadcopter: FPV Freestyle, Racing, and Long Range)
+                  </Link>
                 </CardContent>
               </Card>
 
@@ -189,6 +207,15 @@ const Components = () => {
                   <p className="text-xs">4S LiPo, 1300-1550mAh für 5" Drohnen</p>
                   <Badge variant="secondary">CHF 25-35</Badge>
                   <p className="text-xs text-gray-600">Verbaut: Unten am Frame mit Strap</p>
+                  <Link
+                    href="https://www.youtube.com/watch?v=h1rkLJwKXps"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                  >
+                    <Play className="h-4 w-4" />
+                    Video Tutorial (Die Grundlagen zu LiPo Akkus! - FPV Grundlagen #6)
+                  </Link>
                 </CardContent>
               </Card>
 
@@ -206,6 +233,15 @@ const Components = () => {
                   />
                   <p className="text-xs">Feuerfeste Aufbewahrungstasche für LiPo-Battterien. Ideal zum Laden von LiPo's, für den Transport und Reisen. </p>
                   <Badge variant="secondary">CHF 9</Badge>
+                  <Link
+                    href="https://www.youtube.com/watch?v=K2QQ2boHmZw"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                  >
+                    <Play className="h-4 w-4" />
+                    Video Tutorial (Brandgefahr! Drohnen Akkus sicher aufbewahren mit dem Lipo Safe Bag z.B. DJI Mini 2 Lipo FPV Akkus)
+                  </Link>
                 </CardContent>
               </Card>
 
