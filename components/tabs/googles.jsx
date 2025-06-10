@@ -143,7 +143,7 @@ const Googles = () => {
             href="https://www.youtube.com/watch?v=Pe2KBUw_QE8"
             target="_blank"
             rel="noopener noreferrer"
-            className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+            className="border rounded-lg px-3 py-2 mt-1 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
           >
             <Play className="h-4 w-4" />
             Video Tutorial

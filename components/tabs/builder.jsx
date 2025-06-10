@@ -131,17 +131,18 @@ const Builder = () => {
                 {/* Tooltip that appears on hover */}
                 <div
                 id="component-tooltip"
-                className="absolute bg-gray-300 text-black px-2 py-1 rounded text-xs pointer-events-none opacity-0 transition-opacity"
+                className="absolute bg-gray-300 text-black px-2 py-1 rounded text-xs pointer-events-none opacity-0 transition-opacity z-10"
                 style={{ top: '10px', left: '50%', transform: 'translateX(-50%)' }}
                 >
                 Component name
                 </div>
 
                 <svg
-                width="250"
-                height="250"
+                width="100%"
+                height="100%"
                 viewBox="0 0 300 300"
-                className="border-none rounded w-full max-w-[300px] h-auto"
+                className="border-none rounded w-full h-full min-h-[300px] max-h-[500px]"
+                preserveAspectRatio="xMidYMid meet"
                 onMouseOut={() => {
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) tooltip.style.opacity = '0';
@@ -154,11 +155,11 @@ const Builder = () => {
                   width="40"
                   height="40"
                   fill={selectedComponents.frame ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors frame-element"
+                  className="cursor-pointer hover:stroke-[#82a8cd] transition-colors frame-element"
                   onClick={() => setActiveComponent("frame")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('frame-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]', 'stroke-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Frame';
@@ -167,7 +168,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('frame-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]', 'stroke-[#82a8cd]'));
                   }}
                 />
 
@@ -179,11 +180,11 @@ const Builder = () => {
                   y2="80"
                   stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
                   strokeWidth="4"
-                  className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                  className="cursor-pointer hover:stroke-[#82a8cd] transition-colors frame-element"
                   onClick={() => setActiveComponent("frame")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('frame-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]', 'stroke-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Frame';
@@ -192,7 +193,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('frame-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]', 'stroke-[#82a8cd]'));
                   }}
                 />
                 <line
@@ -202,11 +203,11 @@ const Builder = () => {
                   y2="80"
                   stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
                   strokeWidth="4"
-                  className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                  className="cursor-pointer hover:stroke-[#82a8cd] transition-colors frame-element"
                   onClick={() => setActiveComponent("frame")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('frame-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]', 'stroke-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Frame';
@@ -215,7 +216,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('frame-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]', 'stroke-[#82a8cd]'));
                   }}
                 />
                 <line
@@ -225,11 +226,11 @@ const Builder = () => {
                   y2="220"
                   stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
                   strokeWidth="4"
-                  className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                  className="cursor-pointer hover:stroke-[#82a8cd] transition-colors frame-element"
                   onClick={() => setActiveComponent("frame")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('frame-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]', 'stroke-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Frame';
@@ -238,7 +239,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('frame-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]', 'stroke-[#82a8cd]'));
                   }}
                 />
                 <line
@@ -248,11 +249,11 @@ const Builder = () => {
                   y2="220"
                   stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
                   strokeWidth="4"
-                  className="cursor-pointer hover:stroke-blue-500 transition-colors frame-element"
+                  className="cursor-pointer hover:stroke-[#82a8cd] transition-colors frame-element"
                   onClick={() => setActiveComponent("frame")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('frame-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500', 'stroke-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]', 'stroke-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Frame';
@@ -261,7 +262,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('frame-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500', 'stroke-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]', 'stroke-[#82a8cd]'));
                   }}
                 />
 
@@ -271,11 +272,11 @@ const Builder = () => {
                   cy="80"
                   r="15"
                   fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors motors-element"
                   onClick={() => setActiveComponent("motors")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('motors-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Motoren';
@@ -284,7 +285,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('motors-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
                   }}
                 />
                 <circle
@@ -292,11 +293,11 @@ const Builder = () => {
                   cy="80"
                   r="15"
                   fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors motors-element"
                   onClick={() => setActiveComponent("motors")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('motors-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Motoren';
@@ -305,7 +306,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('motors-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
                   }}
                 />
                 <circle
@@ -313,11 +314,11 @@ const Builder = () => {
                   cy="220"
                   r="15"
                   fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors motors-element"
                   onClick={() => setActiveComponent("motors")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('motors-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Motoren';
@@ -326,7 +327,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('motors-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
                   }}
                 />
                 <circle
@@ -334,11 +335,11 @@ const Builder = () => {
                   cy="220"
                   r="15"
                   fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors motors-element"
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors motors-element"
                   onClick={() => setActiveComponent("motors")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('motors-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Motoren';
@@ -347,7 +348,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('motors-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
                   }}
                 />
 
@@ -358,11 +359,11 @@ const Builder = () => {
                   width="20"
                   height="20"
                   fill={selectedComponents.esc ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors esc-element"
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors esc-element"
                   onClick={() => setActiveComponent("esc")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('esc-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'ESC';
@@ -371,7 +372,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('esc-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
                   }}
                 />
 
@@ -382,11 +383,11 @@ const Builder = () => {
                   width="10"
                   height="10"
                   fill={selectedComponents.fc ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors fc-element"
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors fc-element"
                   onClick={() => setActiveComponent("fc")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('fc-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Flight Controller';
@@ -395,7 +396,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('fc-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
                   }}
                 />
 
@@ -406,11 +407,11 @@ const Builder = () => {
                   rx="25"
                   ry="8"
                   fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors props-element"
                   onClick={() => setActiveComponent("props")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Propeller';
@@ -419,7 +420,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
                   }}
                 />
                 <ellipse
@@ -428,11 +429,11 @@ const Builder = () => {
                   rx="25"
                   ry="8"
                   fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors props-element"
                   onClick={() => setActiveComponent("props")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Propeller';
@@ -441,7 +442,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
                   }}
                 />
                 <ellipse
@@ -450,11 +451,11 @@ const Builder = () => {
                   rx="25"
                   ry="8"
                   fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors props-element"
                   onClick={() => setActiveComponent("props")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Propeller';
@@ -463,7 +464,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
                   }}
                 />
                 <ellipse
@@ -472,11 +473,11 @@ const Builder = () => {
                   rx="25"
                   ry="8"
                   fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors props-element"
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors props-element"
                   onClick={() => setActiveComponent("props")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Propeller';
@@ -485,22 +486,22 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
                   }}
                 />
 
                 {/* Akku */}
                 <rect
                   x="125"
-                  y="180"
+                  y="190"
                   width="50"
                   height="15"
                   fill={selectedComponents.battery ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-blue-500 transition-colors battery-element"
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors battery-element"
                   onClick={() => setActiveComponent("battery")}
                   onMouseOver={() => {
                   const elements = document.getElementsByClassName('battery-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) {
                     tooltip.textContent = 'Akku';
@@ -509,7 +510,7 @@ const Builder = () => {
                   }}
                   onMouseOut={() => {
                   const elements = document.getElementsByClassName('battery-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-blue-500'));
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
                   }}
                 />
 
@@ -520,7 +521,7 @@ const Builder = () => {
                 <text x="80" y="50" textAnchor="middle" className="text-xs fill-gray-700">
                   Motor
                 </text>
-                <text x="150" y="210" textAnchor="middle" className="text-xs fill-gray-700">
+                <text x="200" y="155" textAnchor="middle" className="text-xs fill-gray-700">
                   ESC/FC
                 </text>
                 <text x="150" y="220" textAnchor="middle" className="text-xs fill-gray-700">
