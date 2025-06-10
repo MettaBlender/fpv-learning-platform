@@ -72,6 +72,15 @@ const Components = () => {
                   <p className="text-xs">Carbon-Rahmen, meist 5" für Racing/Freestyle</p>
                   <Badge variant="secondary">CHF 75-95</Badge>
                   <p className="text-xs text-gray-600">Basis: Alle Komponenten werden hier montiert</p>
+                  <Link
+                    href="https://www.youtube.com/shorts/X9s9U7uVI5M"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                  >
+                    <Play className="h-4 w-4" />
+                    Video Tutorial (Which drone frame is better?)
+                  </Link>
                 </CardContent>
               </Card>
 
@@ -117,6 +126,15 @@ const Components = () => {
                   <p className="text-xs">4-in-1 ESC für Motorsteuerung, meist 45A</p>
                   <Badge variant="secondary">CHF 55-70</Badge>
                   <p className="text-xs text-gray-600">Verbaut: Unter dem Flight Controller</p>
+                  <Link
+                    href="https://www.youtube.com/watch?v=NoiqODFwU68"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+                  >
+                    <Play className="h-4 w-4" />
+                    Video Tutorial (How Do I Pick An ESC For My Flight Controller? - FPV Questions)
+                  </Link>
                 </CardContent>
               </Card>
 

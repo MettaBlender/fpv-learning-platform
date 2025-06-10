@@ -33,7 +33,7 @@ const Googles = () => {
                 <li>• 3 Stunden Akkulaufzeit</li>
               </ul>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2">
               <Link
                 href="https://www.youtube.com/watch?v=YXVRuKTDnz4"
                 target="_blank"
@@ -82,7 +82,7 @@ const Googles = () => {
                 <li>• 2.5 Stunden Akkulaufzeit</li>
               </ul>
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col gap-2">
               <Link
                 href="https://www.youtube.com/watch?v=XsCCcQk3z0o"
                 target="_blank"

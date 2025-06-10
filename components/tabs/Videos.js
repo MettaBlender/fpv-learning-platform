@@ -1,0 +1,20 @@
+export const videoTutorials = [
+  { video: "https://youtu.be/V35DnyukOgY", titel: "Wir bauen die DJI O4 AIR UNIT Lite auf einen MICRO COPTER er fliegt" },
+  { video: "https://www.youtube.com/watch?v=h1rkLJwKXps", titel: "Die Grundlagen zu LiPo Akkus! - FPV Grundlagen #6" },
+  { video: "https://www.youtube.com/watch?v=OH0RHBeMr4k", titel: "Die coolsten 5\" Motoren? 🚀" },
+  { video: "https://www.youtube.com/watch?v=E6nsJpuaTQc", titel: "How do you choose motor KV for a build? - FPV Questions" },
+  { video: "https://www.youtube.com/watch?v=RXW3I5SRrJs", titel: "Motoren - Teil 05: FPV Copter Technik Quickies" },
+  { video: "https://youtu.be/NoiqODFwU68", titel: "How Do I Pick An ESC For My Flight Controller? - FPV Questions" },
+  { video: "https://www.youtube.com/watch?v=1jtcI5UXcAU", titel: "Sub250g FPV Drone Build - 04 - DJI O4 Lite Install and Setup" },
+  { video: "https://www.youtube.com/watch?v=ksAHQfZGU6E", titel: "So installieren Sie die DJI O4 Air Unit und O4 Air Unit Pro" },
+  { video: "https://www.youtube.com/watch?v=nX8vQ_faSes", titel: "So you want to build your first FPV drone? // DJI O4 Pro // Quadmula Djinn F25 SP //sub250g" },
+  { video: "https://www.youtube.com/watch?v=ExzR0098mgI", titel: "Build A Expensive DJI 04 FPV Drone That Is Practically Indestructible 🔥💪" },
+  { video: "https://www.youtube.com/watch?v=R78j6z2r9Lw", titel: "FPV props and what you need to know!" },
+  { video: "https://www.youtube.com/watch?v=2tUazE5SSd0", titel: "Propeller - Teil 06: FPV Copter Technik Quickies" },
+  { video: "https://www.youtube.com/watch?v=XLvBsL73un8", titel: "Propeller an FPV Quad richtig anbringen und testen und sich nicht zum Deppen machen" },
+  { video: "https://www.youtube.com/watch?v=epJ6L9MaXOQ", titel: "How to choose the right props for your quadcopter: FPV Freestyle, Racing, and Long Range" },
+  { video: "https://www.youtube.com/watch?v=17eIl9JDoXI", titel: "FPV motors and what you need to know!" },
+  { video: "https://www.youtube.com/watch?v=25gTVz6ocQ0", titel: "Quadmula Djinn F25 SP + DJI O4: Tutorial zum Bau // MurdersFPV" },
+  { video: "https://www.youtube.com/watch?v=cBV8wpNmnpY", titel: "Camera Sensor Size Explained" },
+  { video: "https://www.youtube.com/watch?v=YojL7UQTVhc", titel: "Camera Basics - Aperture" }
+];
