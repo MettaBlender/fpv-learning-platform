@@ -679,7 +679,7 @@ const Builder = () => {
                                   setFilters({ ...filters, [key]: e.target.value || '' })
                                 }
                               >
-                                <option value="">Alle {key.charAt(0).toUpperCase() + key.slice(1)}</option>
+                                <option value="">Alle</option>
                                 {optionsByKey[key]?.map((value, i) => (
                                   <option key={i} value={value}>
                                     {value}
@@ -690,81 +690,82 @@ const Builder = () => {
                           ))}
                         </div>
                       )}
-
-                      {/* Komponentenliste */}
-                      {droneComponents[activeComponent]
-                      ?.filter((component) => {
-                        const hasOptions = component.options;
-                        if (!hasOptions) return true; // Zeige Komponenten ohne Optionen (z.B. Motoren)
-                        return keys.every((key) => {
-                          const filterValue = filters[key];
-                          return filterValue
-                            ? component.options.some((opt) => opt[key] === filterValue)
-                            : true;
-                        });
-                      })
-                      .map((component, index) => (
-                        <div
-                          key={index}
-                          className="flex flex-col lg:flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50 shadow-sm hover:shadow-xl transition-all duration-100 cursor-pointer"
-                          onClick={() => handleComponentSelect(activeComponent, component)}
-                        >
-                          <div className="flex items-center w-full">
-                            <Image
-                              src={component.imageUrl}
-                              alt={component.name}
-                              width={80}
-                              height={80}
-                              className="w-16 h-16 lg:w-20 lg:h-20 rounded-lg mb-2 lg:mb-0 lg:mr-4 shrink-0"
-                            />
-                            <div className="text-center lg:text-left flex-1">
-                              <h4 className="font-medium">{component.name}</h4>
-                              <p className="text-xs text-gray-500">Shop: {component.shop}</p>
-                              <p className="text-xs text-gray-500">Preis: ${component.price}</p>
-                              {component.options && (
-                                <p className="text-sm text-gray-600">
-                                  {component.options.map((option, i) => (
-                                    <span key={i} className="inline-block mr-2">
-                                      {Object.values(option)[0]}
-                                    </span>
-                                  ))}
-                                </p>
-                              )}
-                              {component.description && (
-                                <div className="mt-2">
-                                  <p
-                                    className={`text-sm text-gray-600 transition-all duration-200 ${
-                                      expandedDescriptions[index] ? 'line-clamp-none' : 'line-clamp-2'
-                                    }`}
-                                  >
-                                    {component.description}
-                                  </p>
-                                  {component.description.length > 100 && (
-                                    <button
-                                      onClick={(e) => {
-                                        e.stopPropagation();
-                                        toggleDescription(index);
-                                      }}
-                                      className="text-xs text-blue-500 hover:underline mt-1"
-                                    >
-                                      {expandedDescriptions[index] ? 'Weniger anzeigen' : 'Mehr anzeigen'}
-                                    </button>
-                                  )}
-                                </div>
-                              )}
-                            </div>
-                          </div>
-                          <Button
-                            size="sm"
-                            variant="outline"
-                            onClick={(e) => openShop(e, component.link)}
-                            className="mt-2 ml-2 lg:mt-0 shrink-0"
+                      <div className="max-h-[80dvh] overflow-y-auto space-y-2">
+                        {/* Komponentenliste */}
+                        {droneComponents[activeComponent]
+                        ?.filter((component) => {
+                          const hasOptions = component.options;
+                          if (!hasOptions) return true; // Zeige Komponenten ohne Optionen (z.B. Motoren)
+                          return keys.every((key) => {
+                            const filterValue = filters[key];
+                            return filterValue
+                              ? component.options.some((opt) => opt[key] === filterValue)
+                              : true;
+                          });
+                        })
+                        .map((component, index) => (
+                          <div
+                            key={index}
+                            className="flex flex-col lg:flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50 shadow-sm hover:shadow-xl transition-all duration-100 cursor-pointer"
+                            onClick={() => handleComponentSelect(activeComponent, component)}
                           >
-                            <ExternalLink className="h-3 w-3 mr-1" />
-                            Shop
-                          </Button>
-                        </div>
-                      ))}
+                            <div className="flex items-center w-full">
+                              <Image
+                                src={component.imageUrl}
+                                alt={component.name}
+                                width={80}
+                                height={80}
+                                className="w-16 h-16 lg:w-20 lg:h-20 rounded-lg mb-2 lg:mb-0 lg:mr-4 shrink-0"
+                              />
+                              <div className="text-center lg:text-left flex-1">
+                                <h4 className="font-medium">{component.name}</h4>
+                                <p className="text-xs text-gray-500">Shop: {component.shop}</p>
+                                <p className="text-xs text-gray-500">Preis: ${component.price}</p>
+                                {component.options && (
+                                  <p className="text-sm text-gray-600">
+                                    {component.options.map((option, i) => (
+                                      <span key={i} className="inline-block mr-2">
+                                        {Object.values(option)[0]}
+                                      </span>
+                                    ))}
+                                  </p>
+                                )}
+                                {component.description && (
+                                  <div className="mt-2">
+                                    <p
+                                      className={`text-sm text-gray-600 transition-all duration-200 ${
+                                        expandedDescriptions[index] ? 'line-clamp-none' : 'line-clamp-2'
+                                      }`}
+                                    >
+                                      {component.description}
+                                    </p>
+                                    {component.description.length > 100 && (
+                                      <button
+                                        onClick={(e) => {
+                                          e.stopPropagation();
+                                          toggleDescription(index);
+                                        }}
+                                        className="text-xs text-blue-500 hover:underline mt-1"
+                                      >
+                                        {expandedDescriptions[index] ? 'Weniger anzeigen' : 'Mehr anzeigen'}
+                                      </button>
+                                    )}
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={(e) => openShop(e, component.link)}
+                              className="mt-2 ml-2 lg:mt-0 shrink-0"
+                            >
+                              <ExternalLink className="h-3 w-3 mr-1" />
+                              Shop
+                            </Button>
+                          </div>
+                        ))}
+                      </div>
                     </div>
                   </CardContent>
                 </Card>
