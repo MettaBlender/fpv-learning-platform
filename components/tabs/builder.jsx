@@ -154,7 +154,7 @@ const Builder = () => {
                   y="130"
                   width="40"
                   height="40"
-                  fill={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                  fill={selectedComponents.frame ? "#8ccd82" : activeComponent === "frame" ? "#4d87bf" : "#aebbc4"}
                   className="cursor-pointer hover:stroke-[#82a8cd] transition-colors frame-element"
                   onClick={() => setActiveComponent("frame")}
                   onMouseOver={() => {
@@ -178,7 +178,7 @@ const Builder = () => {
                   y1="150"
                   x2="80"
                   y2="80"
-                  stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                  stroke={selectedComponents.frame ? "#8ccd82" : activeComponent === "frame" ? "#4d87bf" : "#aebbc4"}
                   strokeWidth="4"
                   className="cursor-pointer hover:stroke-[#82a8cd] transition-colors frame-element"
                   onClick={() => setActiveComponent("frame")}
@@ -201,7 +201,7 @@ const Builder = () => {
                   y1="150"
                   x2="220"
                   y2="80"
-                  stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                  stroke={selectedComponents.frame ? "#8ccd82" : activeComponent === "frame" ? "#4d87bf" : "#aebbc4"}
                   strokeWidth="4"
                   className="cursor-pointer hover:stroke-[#82a8cd] transition-colors frame-element"
                   onClick={() => setActiveComponent("frame")}
@@ -224,7 +224,7 @@ const Builder = () => {
                   y1="150"
                   x2="80"
                   y2="220"
-                  stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                  stroke={selectedComponents.frame ? "#8ccd82" : activeComponent === "frame" ? "#4d87bf" : "#aebbc4"}
                   strokeWidth="4"
                   className="cursor-pointer hover:stroke-[#82a8cd] transition-colors frame-element"
                   onClick={() => setActiveComponent("frame")}
@@ -247,7 +247,7 @@ const Builder = () => {
                   y1="150"
                   x2="220"
                   y2="220"
-                  stroke={selectedComponents.frame ? "#10b981" : "#6b7280"}
+                  stroke={selectedComponents.frame ? "#8ccd82" : activeComponent === "frame" ? "#4d87bf" : "#aebbc4"}
                   strokeWidth="4"
                   className="cursor-pointer hover:stroke-[#82a8cd] transition-colors frame-element"
                   onClick={() => setActiveComponent("frame")}
@@ -271,7 +271,7 @@ const Builder = () => {
                   cx="80"
                   cy="80"
                   r="15"
-                  fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                  fill={selectedComponents.motors ? "#8ccd82" : activeComponent === "motors" ? "#4d87bf" : "#aebbc4"}
                   className="cursor-pointer hover:fill-[#82a8cd] transition-colors motors-element"
                   onClick={() => setActiveComponent("motors")}
                   onMouseOver={() => {
@@ -292,7 +292,7 @@ const Builder = () => {
                   cx="220"
                   cy="80"
                   r="15"
-                  fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                  fill={selectedComponents.motors ? "#8ccd82" : activeComponent === "motors" ? "#4d87bf" : "#aebbc4"}
                   className="cursor-pointer hover:fill-[#82a8cd] transition-colors motors-element"
                   onClick={() => setActiveComponent("motors")}
                   onMouseOver={() => {
@@ -313,7 +313,7 @@ const Builder = () => {
                   cx="80"
                   cy="220"
                   r="15"
-                  fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                  fill={selectedComponents.motors ? "#8ccd82" : activeComponent === "motors" ? "#4d87bf" : "#aebbc4"}
                   className="cursor-pointer hover:fill-[#82a8cd] transition-colors motors-element"
                   onClick={() => setActiveComponent("motors")}
                   onMouseOver={() => {
@@ -334,7 +334,7 @@ const Builder = () => {
                   cx="220"
                   cy="220"
                   r="15"
-                  fill={selectedComponents.motors ? "#10b981" : "#6b7280"}
+                  fill={selectedComponents.motors ? "#8ccd82" : activeComponent === "motors" ? "#4d87bf" : "#aebbc4"}
                   className="cursor-pointer hover:fill-[#82a8cd] transition-colors motors-element"
                   onClick={() => setActiveComponent("motors")}
                   onMouseOver={() => {
@@ -358,7 +358,7 @@ const Builder = () => {
                   y="140"
                   width="20"
                   height="20"
-                  fill={selectedComponents.esc ? "#10b981" : "#6b7280"}
+                  fill={selectedComponents.esc ? "#8ccd82" : activeComponent === "esc" ? "#4d87bf" : "#aebbc4"}
                   className="cursor-pointer hover:fill-[#82a8cd] transition-colors esc-element"
                   onClick={() => setActiveComponent("esc")}
                   onMouseOver={() => {
@@ -382,7 +382,7 @@ const Builder = () => {
                   y="145"
                   width="10"
                   height="10"
-                  fill={selectedComponents.fc ? "#10b981" : "#6b7280"}
+                  fill={selectedComponents.fc ? "#8ccd82": activeComponent === "fc" ? "#4d87bf" : "#aebbc4"}
                   className="cursor-pointer hover:fill-[#82a8cd] transition-colors fc-element"
                   onClick={() => setActiveComponent("fc")}
                   onMouseOver={() => {
@@ -401,94 +401,210 @@ const Builder = () => {
                 />
 
                 {/* Propeller */}
-                <ellipse
-                  cx="80"
-                  cy="80"
-                  rx="25"
-                  ry="8"
-                  fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors props-element"
-                  onClick={() => setActiveComponent("props")}
-                  onMouseOver={() => {
-                  const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
-                  const tooltip = document.getElementById('component-tooltip');
-                  if (tooltip) {
-                    tooltip.textContent = 'Propeller';
-                    tooltip.style.opacity = '1';
-                  }
-                  }}
-                  onMouseOut={() => {
-                  const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
-                  }}
-                />
-                <ellipse
-                  cx="220"
-                  cy="80"
-                  rx="25"
-                  ry="8"
-                  fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors props-element"
-                  onClick={() => setActiveComponent("props")}
-                  onMouseOver={() => {
-                  const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
-                  const tooltip = document.getElementById('component-tooltip');
-                  if (tooltip) {
-                    tooltip.textContent = 'Propeller';
-                    tooltip.style.opacity = '1';
-                  }
-                  }}
-                  onMouseOut={() => {
-                  const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
-                  }}
-                />
-                <ellipse
-                  cx="80"
-                  cy="220"
-                  rx="25"
-                  ry="8"
-                  fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors props-element"
-                  onClick={() => setActiveComponent("props")}
-                  onMouseOver={() => {
-                  const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
-                  const tooltip = document.getElementById('component-tooltip');
-                  if (tooltip) {
-                    tooltip.textContent = 'Propeller';
-                    tooltip.style.opacity = '1';
-                  }
-                  }}
-                  onMouseOut={() => {
-                  const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
-                  }}
-                />
-                <ellipse
-                  cx="220"
-                  cy="220"
-                  rx="25"
-                  ry="8"
-                  fill={selectedComponents.props ? "#10b981" : "#6b7280"}
-                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors props-element"
-                  onClick={() => setActiveComponent("props")}
-                  onMouseOver={() => {
-                  const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
-                  const tooltip = document.getElementById('component-tooltip');
-                  if (tooltip) {
-                    tooltip.textContent = 'Propeller';
-                    tooltip.style.opacity = '1';
-                  }
-                  }}
-                  onMouseOut={() => {
-                  const elements = document.getElementsByClassName('props-element');
-                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
-                  }}
-                />
+                <g transform="translate(80, 80) rotate(-5)">
+                  {/* Propeller-Blatt 1 */}
+                  <path
+                    d="M0 0 Q 35 -15 55 -35 Q 60 -40 55 -45 Q 30 -25 0 0 Z"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="cursor-pointer transition-colors props-element"
+                    onClick={() => setActiveComponent("props")}
+                    onMouseOver={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
+                      const tooltip = document.getElementById('component-tooltip');
+                      if (tooltip) {
+                        tooltip.textContent = 'Propeller';
+                        tooltip.style.opacity = '1';
+                      }
+                    }}
+                    onMouseOut={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
+                    }}
+                  />
+                  {/* Propeller-Blatt 2 (180° gedreht) */}
+                  <path
+                    d="M0 0 Q 35 -15 55 -35 Q 60 -40 55 -45 Q 30 -25 0 0 Z"
+                    transform="rotate(180)"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="cursor-pointer transition-colors props-element"
+                    onClick={() => setActiveComponent("props")}
+                    onMouseOver={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
+                      const tooltip = document.getElementById('component-tooltip');
+                      if (tooltip) {
+                        tooltip.textContent = 'Propeller';
+                        tooltip.style.opacity = '1';
+                      }
+                    }}
+                    onMouseOut={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
+                    }}
+                  />
+                  {/* Motorhalterung (kleiner Kreis) */}
+                  <circle
+                    cx="0"
+                    cy="0"
+                    r="4"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="props-element"
+                  />
+                </g>
+                <g transform="translate(220, 80) rotate(85)">
+                  {/* Propeller-Blatt 1 */}
+                  <path
+                    d="M0 0 Q 35 -15 55 -35 Q 60 -40 55 -45 Q 30 -25 0 0 Z"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="cursor-pointer transition-colors props-element"
+                    onClick={() => setActiveComponent("props")}
+                    onMouseOver={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
+                      const tooltip = document.getElementById('component-tooltip');
+                      if (tooltip) {
+                        tooltip.textContent = 'Propeller';
+                        tooltip.style.opacity = '1';
+                      }
+                    }}
+                    onMouseOut={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
+                    }}
+                  />
+                  {/* Propeller-Blatt 2 (180° gedreht) */}
+                  <path
+                    d="M0 0 Q 35 -15 55 -35 Q 60 -40 55 -45 Q 30 -25 0 0 Z"
+                    transform="rotate(180)"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="cursor-pointer transition-colors props-element"
+                    onClick={() => setActiveComponent("props")}
+                    onMouseOver={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
+                      const tooltip = document.getElementById('component-tooltip');
+                      if (tooltip) {
+                        tooltip.textContent = 'Propeller';
+                        tooltip.style.opacity = '1';
+                      }
+                    }}
+                    onMouseOut={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
+                    }}
+                  />
+                  {/* Motorhalterung (kleiner Kreis) */}
+                  <circle
+                    cx="0"
+                    cy="0"
+                    r="4"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="props-element"
+                  />
+                </g>
+                <g transform="translate(80, 220) rotate(-95)">
+                  {/* Propeller-Blatt 1 */}
+                  <path
+                    d="M0 0 Q 35 -15 55 -35 Q 60 -40 55 -45 Q 30 -25 0 0 Z"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="cursor-pointer transition-colors props-element"
+                    onClick={() => setActiveComponent("props")}
+                    onMouseOver={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
+                      const tooltip = document.getElementById('component-tooltip');
+                      if (tooltip) {
+                        tooltip.textContent = 'Propeller';
+                        tooltip.style.opacity = '1';
+                      }
+                    }}
+                    onMouseOut={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
+                    }}
+                  />
+                  {/* Propeller-Blatt 2 (180° gedreht) */}
+                  <path
+                    d="M0 0 Q 35 -15 55 -35 Q 60 -40 55 -45 Q 30 -25 0 0 Z"
+                    transform="rotate(180)"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="cursor-pointer transition-colors props-element"
+                    onClick={() => setActiveComponent("props")}
+                    onMouseOver={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
+                      const tooltip = document.getElementById('component-tooltip');
+                      if (tooltip) {
+                        tooltip.textContent = 'Propeller';
+                        tooltip.style.opacity = '1';
+                      }
+                    }}
+                    onMouseOut={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
+                    }}
+                  />
+                  {/* Motorhalterung (kleiner Kreis) */}
+                  <circle
+                    cx="0"
+                    cy="0"
+                    r="4"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="props-element"
+                  />
+                </g>
+                <g transform="translate(220, 220) rotate(-5)">
+                  {/* Propeller-Blatt 1 */}
+                  <path
+                    d="M0 0 Q 35 -15 55 -35 Q 60 -40 55 -45 Q 30 -25 0 0 Z"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="cursor-pointer transition-colors props-element"
+                    onClick={() => setActiveComponent("props")}
+                    onMouseOver={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
+                      const tooltip = document.getElementById('component-tooltip');
+                      if (tooltip) {
+                        tooltip.textContent = 'Propeller';
+                        tooltip.style.opacity = '1';
+                      }
+                    }}
+                    onMouseOut={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
+                    }}
+                  />
+                  {/* Propeller-Blatt 2 (180° gedreht) */}
+                  <path
+                    d="M0 0 Q 35 -15 55 -35 Q 60 -40 55 -45 Q 30 -25 0 0 Z"
+                    transform="rotate(180)"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="cursor-pointer transition-colors props-element"
+                    onClick={() => setActiveComponent("props")}
+                    onMouseOver={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
+                      const tooltip = document.getElementById('component-tooltip');
+                      if (tooltip) {
+                        tooltip.textContent = 'Propeller';
+                        tooltip.style.opacity = '1';
+                      }
+                    }}
+                    onMouseOut={() => {
+                      const elements = document.getElementsByClassName('props-element');
+                      Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
+                    }}
+                  />
+                  {/* Motorhalterung (kleiner Kreis) */}
+                  <circle
+                    cx="0"
+                    cy="0"
+                    r="4"
+                    fill={selectedComponents.props ? "#8ccd82" : activeComponent === "props" ? "#4d87bf" : "#aebbc4"}
+                    className="props-element"
+                  />
+                </g>
 
                 {/* Akku */}
                 <rect
@@ -496,7 +612,7 @@ const Builder = () => {
                   y="190"
                   width="50"
                   height="15"
-                  fill={selectedComponents.battery ? "#10b981" : "#6b7280"}
+                  fill={selectedComponents.battery ? "#8ccd82" : activeComponent === "battery" ? "#4d87bf" : "#aebbc4"}
                   className="cursor-pointer hover:fill-[#82a8cd] transition-colors battery-element"
                   onClick={() => setActiveComponent("battery")}
                   onMouseOver={() => {
@@ -515,16 +631,16 @@ const Builder = () => {
                 />
 
                 {/* Labels */}
-                <text x="150" y="125" textAnchor="middle" className="text-xs fill-gray-700">
+                <text x="150" y="125" textAnchor="middle" className="text-xs fill-black">
                   Frame
                 </text>
-                <text x="80" y="50" textAnchor="middle" className="text-xs fill-gray-700">
+                <text x="80" y="50" textAnchor="middle" className="text-xs fill-black">
                   Motor
                 </text>
-                <text x="200" y="155" textAnchor="middle" className="text-xs fill-gray-700">
+                <text x="200" y="155" textAnchor="middle" className="text-xs fill-black">
                   ESC/FC
                 </text>
-                <text x="150" y="220" textAnchor="middle" className="text-xs fill-gray-700">
+                <text x="150" y="220" textAnchor="middle" className="text-xs fill-black">
                   Akku
                 </text>
                 </svg>
@@ -670,9 +786,18 @@ const Builder = () => {
                     <div className="space-y-3">
                       {Object.entries(selectedComponents).map(([type, component]) => (
                         <div key={type} className="flex flex-col lg:flex-row items-center justify-between p-2 border rounded">
-                          <div className="text-center lg:text-left">
-                            <h4 className="font-medium text-sm">{component.name}</h4>
-                            <p className="text-xs text-gray-600">{component.shop}</p>
+                          <div className="flex items-center">
+                            <Image
+                                src={component.imageUrl}
+                                alt={component.name}
+                                width={80}
+                                height={80}
+                                className="w-16 h-16 lg:w-20 lg:h-20 rounded-lg mb-2 lg:mb-0 lg:mr-4 shrink-0"
+                            />
+                            <div className="text-center lg:text-left">
+                              <h4 className="font-medium text-sm">{component.name}</h4>
+                              <p className="text-xs text-gray-600">{component.shop}</p>
+                            </div>
                           </div>
                           <div className="text-right mt-2 lg:mt-0">
                             <p className="font-bold text-sm">CHF {component.price}</p>
