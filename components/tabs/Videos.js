@@ -21,4 +21,6 @@ export const videoTutorials = [
   { video: "https://www.youtube.com/watch?v=zSN06-tkQJo", titel: "DJI O4 Air Unit Series｜Flight Controller Settings" },
   { video: "https://www.youtube.com/watch?v=GSMLCWwMLjI", titel: "How to bind DJI RC Controller to Betaflight" },
   { video: "https://www.youtube.com/watch?v=U1jpAsAxDT8", titel: "DJI O4 vs. Walksnail - Who has better range?" },
+  { video: "https://www.youtube.com/watch?v=4dmrahCJonM", titel: "Flight Controller Basics for Complete Beginners" },
+  { video: "https://www.youtube.com/watch?v=lBgu9RHa4Kk", titel: "How to buy a drone Flight Controller - FPV Beginner Series" },
 ];
