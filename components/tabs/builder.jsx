@@ -598,7 +598,7 @@ const Builder = () => {
                               alt={component.name}
                               width={80}
                               height={80}
-                              className="w-16 h-16 lg:w-20 lg:h-20 rounded-lg mb-2 lg:mb-0 lg:mr-4 flex-shrink-0"
+                              className="w-16 h-16 lg:w-20 lg:h-20 rounded-lg mb-2 lg:mb-0 lg:mr-4 shrink-0"
                             />
                             <div className="text-center lg:text-left flex-1">
                               <h4 className="font-medium">{component.name}</h4>
@@ -641,7 +641,7 @@ const Builder = () => {
                             size="sm"
                             variant="outline"
                             onClick={(e) => openShop(e, component.link)}
-                            className="mt-2 ml-2 lg:mt-0 flex-shrink-0"
+                            className="mt-2 ml-2 lg:mt-0 shrink-0"
                           >
                             <ExternalLink className="h-3 w-3 mr-1" />
                             Shop
