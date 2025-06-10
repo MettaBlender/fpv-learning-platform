@@ -1,4 +1,4 @@
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
+import { CardHover, Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Play, FileText, ShoppingCart, Zap, Radio, Camera, Cpu, AppWindow } from "lucide-react"
 import Image from "next/image"
@@ -18,7 +18,7 @@ const Components = () => {
           </CardHeader>
           <CardContent>
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
-              <Card className="border-2">
+              <CardHover className="border-2">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm flex items-center gap-2">
                     <Camera className="h-4 w-4" />
@@ -55,9 +55,9 @@ const Components = () => {
                     Video Tutorial (How to Bind the DJI Goggles 3 to O4 Air Unit ‘lite’)
                   </Link>
                 </CardContent>
-              </Card>
+              </CardHover>
 
-              <Card className="border-2">
+              <CardHover className="border-2">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm">Frame (Rahmen)</CardTitle>
                 </CardHeader>
@@ -82,9 +82,9 @@ const Components = () => {
                     Video Tutorial (Which drone frame is better?)
                   </Link>
                 </CardContent>
-              </Card>
+              </CardHover>
 
-              <Card className="border-2">
+              <CardHover className="border-2">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm">Motoren (4x)</CardTitle>
                 </CardHeader>
@@ -109,9 +109,9 @@ const Components = () => {
                     Video Tutorial (How do you choose motor KV for a build? - FPV Questions)
                   </Link>
                 </CardContent>
-              </Card>
+              </CardHover>
 
-              <Card className="border-2">
+              <CardHover className="border-2">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm">ESC (Electronic Speed Controller)</CardTitle>
                 </CardHeader>
@@ -136,9 +136,9 @@ const Components = () => {
                     Video Tutorial (How Do I Pick An ESC For My Flight Controller? - FPV Questions)
                   </Link>
                 </CardContent>
-              </Card>
+              </CardHover>
 
-              <Card className="border-2">
+              <CardHover className="border-2">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm">Flight Controller</CardTitle>
                 </CardHeader>
@@ -163,9 +163,9 @@ const Components = () => {
                     Video Tutorial (Flight controller basics for beginners)
                   </Link>
                 </CardContent>
-              </Card>
+              </CardHover>
 
-              <Card className="border-2">
+              <CardHover className="border-2">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm">Propeller (4x)</CardTitle>
                 </CardHeader>
@@ -190,9 +190,9 @@ const Components = () => {
                     Video Tutorial (How to choose the right props for your quadcopter: FPV Freestyle, Racing, and Long Range)
                   </Link>
                 </CardContent>
-              </Card>
+              </CardHover>
 
-              <Card className="border-2">
+              <CardHover className="border-2">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm">LiPo Akku</CardTitle>
                 </CardHeader>
@@ -217,9 +217,9 @@ const Components = () => {
                     Video Tutorial (Die Grundlagen zu LiPo Akkus! - FPV Grundlagen #6)
                   </Link>
                 </CardContent>
-              </Card>
+              </CardHover>
 
-              <Card className="border-2">
+              <CardHover className="border-2">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm">Akku Tasche</CardTitle>
                 </CardHeader>
@@ -243,9 +243,9 @@ const Components = () => {
                     Video Tutorial (Brandgefahr! Drohnen Akkus sicher aufbewahren mit dem Lipo Safe Bag z.B. DJI Mini 2 Lipo FPV Akkus)
                   </Link>
                 </CardContent>
-              </Card>
+              </CardHover>
 
-              <Card className="border-2">
+              <CardHover className="border-2">
                 <CardHeader className="pb-2">
                   <CardTitle className="text-sm">Betaflight</CardTitle>
                 </CardHeader>
@@ -269,7 +269,7 @@ const Components = () => {
                     Video Tutorial (Betaflight 4.3 Complete Walkthrough)
                   </Link>
                 </CardContent>
-              </Card>
+              </CardHover>
             </div>
           </CardContent>
         </Card>

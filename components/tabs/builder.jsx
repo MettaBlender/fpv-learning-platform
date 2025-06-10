@@ -127,11 +127,11 @@ const Builder = () => {
             {/* 2D Drohnen-Ansicht */}
             <div className="space-y-4">
               <h3 className="font-semibold text-center lg:text-left">Drohnen-Konfiguration</h3>
-              <div className="relative bg-gray-50 rounded-lg p-4 lg:p-8 min-h-[300px] lg:min-h-[400px] flex items-center justify-center">
+              <div className="relative bg-transparent rounded-lg p-4 lg:p-8 min-h-[300px] lg:min-h-[400px] flex items-center justify-center">
                 {/* Tooltip that appears on hover */}
                 <div
                 id="component-tooltip"
-                className="absolute bg-black text-white px-2 py-1 rounded text-xs pointer-events-none opacity-0 transition-opacity"
+                className="absolute bg-gray-300 text-black px-2 py-1 rounded text-xs pointer-events-none opacity-0 transition-opacity"
                 style={{ top: '10px', left: '50%', transform: 'translateX(-50%)' }}
                 >
                 Component name
@@ -141,7 +141,7 @@ const Builder = () => {
                 width="250"
                 height="250"
                 viewBox="0 0 300 300"
-                className="border rounded w-full max-w-[300px] h-auto"
+                className="border-none rounded w-full max-w-[300px] h-auto"
                 onMouseOut={() => {
                   const tooltip = document.getElementById('component-tooltip');
                   if (tooltip) tooltip.style.opacity = '0';
@@ -589,7 +589,7 @@ const Builder = () => {
                       .map((component, index) => (
                         <div
                           key={index}
-                          className="flex flex-col lg:flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50 cursor-pointer"
+                          className="flex flex-col lg:flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50 shadow-sm hover:shadow-xl transition-all duration-100 cursor-pointer"
                           onClick={() => handleComponentSelect(activeComponent, component)}
                         >
                           <div className="flex items-center w-full">

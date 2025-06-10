@@ -14,7 +14,7 @@ const Tutorials = () => {
               href={video.video}
               target="_blank"
               rel="noopener noreferrer"
-              className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+              className="border rounded-lg px-3 py-2 shadow-sm text-sm text-black bg-[#f5f5f5] hover:bg-gray-300 border-[#bdc4cc]/10 hover:border-[#bdc4cc]/80 hover:shadow-xl flex items-center gap-1"
             >
               <Play className="h-4 w-4" />
               Video Tutorial: ({video.titel})
@@ -28,7 +28,7 @@ const Tutorials = () => {
               href={item.link}
               target="_blank"
               rel="noopener noreferrer"
-              className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
+              className="border rounded-lg px-3 py-2 shadow-sm text-sm text-black bg-[#f5f5f5] hover:bg-gray-300 border-[#bdc4cc]/10 hover:border-[#bdc4cc]/80 hover:shadow-xl flex items-center gap-1"
             >
               <FileText className="h-4 w-4" />
               Handbuch: ({item.titel})

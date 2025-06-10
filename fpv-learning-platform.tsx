@@ -27,11 +27,11 @@ export default function Component() {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-br from-blue-50 to-indigo-100">
+    <div className="min-h-screen bg-linear-to-b from-[#82a8cd] to-[#aebbc4]">
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
           <div className="flex flex-row-reverse justify-center items-center gap-4 mb-2">
-            <h1 className="text-4xl font-bold text-gray-900">FPV Drohnen Lernplattform</h1>
+            <h1 className="text-4xl font-bold text-white">FPV Drohnen Lernplattform</h1>
             <Image
               src="/logo.png"
               alt="DJI FPV Remote Controller 3"
@@ -41,11 +41,11 @@ export default function Component() {
               className="h-20 w-auto rounded-lg"
             />
           </div>
-          <p className="text-xl text-gray-600">Alles was du über FPV-Drohnen wissen musst</p>
+          <p className="text-xl text-gray-300">Alles was du über FPV-Drohnen wissen musst</p>
         </div>
 
         <Tabs value={selectedTab} className="w-full h-fit" onValueChange={changeTab}>
-          <TabsList className="grid w-full md:grid-cols-5 mb-8 h-fit">
+          <TabsList className="grid w-full md:grid-cols-5 mb-8 h-fit text-black">
             <TabsTrigger value="goggles">DJI Goggles</TabsTrigger>
             <TabsTrigger value="controller">RC Controller</TabsTrigger>
             <TabsTrigger value="components">Komponenten</TabsTrigger>
