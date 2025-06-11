@@ -47,7 +47,7 @@ const Controller = () => {
                     className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
                   >
                     <Play className="h-4 w-4" />
-                    Video Tutorial (DJI Controller 3 RICHTIG für FPV / MANUELL einstellen)
+                    Video Tutorial (DJI FPV Controller 3｜First Use)
                   </Link>
                   <Link
                     href="https://www.youtube.com/watch?v=YPBy5JtkfTs"
@@ -56,7 +56,7 @@ const Controller = () => {
                     className="border rounded-lg px-3 py-2 text-sm text-blue-500 hover:bg-gray-100 flex items-center gap-1"
                   >
                     <Play className="h-4 w-4" />
-                    Video Tutorial (DJI FPV Controller 3｜First Use)
+                    Video Tutorial (DJI Controller 3 RICHTIG für FPV / MANUELL einstellen)
                   </Link>
                   <Link
                     href="https://dl.djicdn.com/downloads/DJI_FPV_RC_3/UM/DJI_FPV_Remote_Controller_3_User_Manual_v1.0_DE.pdf"
