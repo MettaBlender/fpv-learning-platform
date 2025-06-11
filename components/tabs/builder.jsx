@@ -630,6 +630,30 @@ const Builder = () => {
                   }}
                 />
 
+                {/* Camera */}
+                <rect
+                  x="130"
+                  y="75"
+                  width="35"
+                  height="25"
+                  fill={selectedComponents.camera ? "#8ccd82" : activeComponent === "camera" ? "#4d87bf" : "#aebbc4"}
+                  className="cursor-pointer hover:fill-[#82a8cd] transition-colors camera-element"
+                  onClick={() => setActiveComponent("camera")}
+                  onMouseOver={() => {
+                  const elements = document.getElementsByClassName('camera-element');
+                  Array.from(elements).forEach(el => el.classList.add('fill-[#82a8cd]'));
+                  const tooltip = document.getElementById('component-tooltip');
+                  if (tooltip) {
+                    tooltip.textContent = 'Kamera';
+                    tooltip.style.opacity = '1';
+                  }
+                  }}
+                  onMouseOut={() => {
+                  const elements = document.getElementsByClassName('camera-element');
+                  Array.from(elements).forEach(el => el.classList.remove('fill-[#82a8cd]'));
+                  }}
+                />
+
                 {/* Labels */}
                 <text x="150" y="125" textAnchor="middle" className="text-xs fill-black">
                   Frame
@@ -642,6 +666,9 @@ const Builder = () => {
                 </text>
                 <text x="150" y="220" textAnchor="middle" className="text-xs fill-black">
                   Akku
+                </text>
+                <text x="147" y="70" textAnchor="middle" className="text-xs fill-black">
+                  Kamera
                 </text>
                 </svg>
               </div>

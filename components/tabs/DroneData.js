@@ -551,6 +551,10 @@ export const droneComponents = {
       description: "Axis BlackBird V3 BB2207 2725kv",
       link: "https://www.dronefactory.ch/produkt/axis-blackbird-v3-bb2207-2725kv",
       imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2022/07/Axis-BlackBird-V3-BB2207-DroneFactory.ch_.jpg",
+      options: [
+        { grösse: "2207" },
+        { marke: "Axis" },
+      ],
     },
     {
       name: "iFlight XING R5",
@@ -559,6 +563,10 @@ export const droneComponents = {
       description: "iFlight XING R5 2207 2100Kv",
       link: "https://fpvracing.ch/de/motoren/4052-iflight-xing-r5-2207-2100kv.html",
       imageUrl: "https://fpvracing.ch/17880-large_default/iflight-xing-r5-2207-2100kv.jpg",
+      options: [
+        { grösse: "2207" },
+        { marke: "iFlight" },
+      ],
     },
     {
       name: "T-Motor",
@@ -567,6 +575,10 @@ export const droneComponents = {
       description: "T-Motor F2004 3000KV Schwarz Blau FPV Motor",
       link: "https://www.fpv24.com/de/t-motor/t-motor-f2004-3000kv-schwarz-rot-fpv-motor",
       imageUrl: "https://cdnc.meilon.de/img/product/tm/tmo-afd01010161/t-motor-f2004_l.jpg",
+      options: [
+        { grösse: "2004" },
+        { marke: "T-Motor" },
+      ],
     },
   ],
   props: [
@@ -577,6 +589,10 @@ export const droneComponents = {
       description:'6" Propeller',
       link: "https://fpvframe.ch/product/gemfan-6030-triblade/",
       imageUrl: "https://i0.wp.com/fpvframe.ch/wp-content/uploads/2020/11/51466-scaled.jpg?fit=2560%2C2560&ssl=1",
+      options: [
+        { grösse: '6"' },
+        { marke: "GEMFAN" },
+      ],
     },
     {
       name: "iFlight Nazgul R5 V2 Propeller",
@@ -585,6 +601,10 @@ export const droneComponents = {
       description: '5.1" Propeller',
       link: "https://fpvracing.ch/de/propeller/4053-iflight-nazgul-r5-v2-propeller.html",
       imageUrl: "https://fpvracing.ch/17886-large_default/iflight-nazgul-r5-v2-propeller.jpg",
+      options: [
+        { grösse: '5.1"' },
+        { marke: "iFlight" },
+      ],
     },
     {
       name: "HQ MCK Prop Light Blue",
@@ -593,6 +613,10 @@ export const droneComponents = {
       description: '5.1" Propeller',
       link: "https://www.dronefactory.ch/produkt/hq-mck-prop-light-blue",
       imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2025/03/MCK-Prop-04.jpg",
+      options: [
+        { grösse: '5.1"' },
+        { marke: "HQ MCK" },
+      ],
     },
   ],
   battery: [
@@ -603,6 +627,10 @@ export const droneComponents = {
       description: "Black Series 100C – XT60",
       link: "https://fpvframe.ch/product/4s-1500mah-cnhl/",
       imageUrl: "https://i0.wp.com/fpvframe.ch/wp-content/uploads/2024/05/CNHL_4S_1500.jpg?fit=800%2C800&ssl=1",
+      options: [
+        { "C-Rate": "100C" },
+        { marke: "CNHL" },
+      ],
     },
     {
       name: "Bonka 6S 1100mAh",
@@ -611,6 +639,10 @@ export const droneComponents = {
       description: "Bonka U2 130C XT60",
       link: "https://fpvframe.ch/product/bonka-6s-1100mah/",
       imageUrl: "https://i0.wp.com/fpvframe.ch/wp-content/uploads/2023/08/275c2b36dadd5c6.jpg?fit=1812%2C1812&ssl=1",
+      options: [
+        { "C-Rate": "130C" },
+        { marke: "Bonka" },
+      ],
     },
     {
       name: "Tattu R-Line Version 3.0 2000mAh 14.8V 120C 4S1P Lipo mit XT60",
@@ -625,6 +657,10 @@ export const droneComponents = {
       There are different R-Line versions for the needs of different FPV racing competitions.`,
       link: "https://www.dronefactory.ch/produkt/tattu-r-line-version-3-0-2000mah-14-8v-120c-4s1p-lipo-mit-xt60",
       imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2023/07/Tattu-R-Line-Version-3.0-2000mAh-14.8V-120C-4S1P-Lipo-mit-XT60-DroneFactory5.jpg",
+      options: [
+        { "C-Rate": "120C" },
+        { marke: "Tattu" },
+      ],
     },
     {
       name: "Tattu R-Line Version 5.0 1550mAh 22.2V 150C 6S1P XT60",
@@ -639,6 +675,10 @@ export const droneComponents = {
       There are different R-Line versions for the needs of different FPV racing competitions.`,
       link: "https://www.dronefactory.ch/produkt/tattu-r-line-version-5-0-1550mah-22-2v-150c-6s1p-xt60/",
       imageUrl: "https://www.dronefactory.ch/wp-content/uploads/2024/08/Tattu-R-Line-Version-5.0-1550mAh-22.2V-150C-6S1P-XT60-dronefactory.png",
+      options: [
+        { "C-Rate": "150C" },
+        { marke: "Tattu" },
+      ],
     },
     {
       name: "TATTU R-Line 1300mAh 4S 120C V4.0 (XT60)",
@@ -647,6 +687,10 @@ export const droneComponents = {
       description: "Tattu R-Line 1300mAh 120C 4S1P LiPo - für FPV Racing.",
       link: "https://fpvracing.ch/de/4s/3733-tattu-r-line-1300mah-4s-120c-v30-xt60-6928493302903.html",
       imageUrl: "https://fpvracing.ch/15708-large_default/tattu-r-line-1300mah-4s-120c-v30-xt60.jpg",
+      options: [
+        { "C-Rate": "120C" },
+        { marke: "Tattu" },
+      ],
     },
     {
       name: "GEPRC Storm 3300mAh 6S 95C (XT60)",
@@ -655,6 +699,10 @@ export const droneComponents = {
       description: 'GepRC Storm 3300mAh 95C 6S1P LiPo - ideal für 7" Long Range.',
       link: "https://fpvracing.ch/de/6s/4061-geprc-storm-3300mah-6s-95c-xt60.html",
       imageUrl: "https://fpvracing.ch/17961-large_default/geprc-storm-3300mah-6s-95c-xt60.jpg",
+      options: [
+        { "C-Rate": "95C" },
+        { marke: "GEPRC" },
+      ],
     },
   ],
   camera: [
