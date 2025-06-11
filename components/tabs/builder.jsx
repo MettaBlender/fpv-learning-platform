@@ -2,7 +2,7 @@ import { useState } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Play, FileText, ShoppingCart, Zap, Radio, Camera, Cpu, AppWindow } from "lucide-react"
+import { ExternalLink, Play, FileText, ShoppingCart, Zap, X, Camera, Cpu, AppWindow } from "lucide-react"
 import Image from "next/image"
 import {droneComponents} from "@/components/tabs/DroneData" // Assuming you have a JSON file with your components data
 
@@ -40,6 +40,29 @@ const Builder = () => {
         setActiveComponent(null)
       default:
         setActiveComponent(null)
+    }
+  }
+
+  const handleComponentRemove = (componentType) => {
+    setSelectedComponents((prev) => {
+      const newComponents = { ...prev }
+      delete newComponents[componentType]
+      return newComponents
+    })
+    if (componentType === "frame") {
+      setActiveComponent("frame")
+    } else if (componentType === "motors") {
+      setActiveComponent("motors")
+    } else if (componentType === "esc") {
+      setActiveComponent("esc")
+    } else if (componentType === "fc") {
+      setActiveComponent("fc")
+    } else if (componentType === "props") {
+      setActiveComponent("props")
+    } else if (componentType === "battery") {
+      setActiveComponent("battery")
+    } else if (componentType === "camera") {
+      setActiveComponent("camera")
     }
   }
 
@@ -827,11 +850,25 @@ const Builder = () => {
                               <p className="text-xs text-gray-600">{component.shop}</p>
                             </div>
                           </div>
-                          <div className="text-right mt-2 lg:mt-0">
+                          <div className="text-right mt-2 lg:mt-0 flex items-center gap-2">
                             <p className="font-bold text-sm">CHF {component.price}</p>
-                            <Button size="sm" variant="ghost" className="h-6 text-xs">
+                            <Button
+                              size="sm"
+                              variant="outline"
+                              onClick={(e) => openShop(e, component.link)}
+                              className="mt-2 ml-2 lg:mt-0 shrink-0"
+                            >
                               <ShoppingCart className="h-3 w-3 mr-1" />
-                              Kaufen
+                              Shop
+                            </Button>
+                            <Button
+                              size="sm"
+                              variant="ghost"
+                              onClick={() => handleComponentRemove(type)}
+                              className="mt-2 ml-2 lg:mt-0 shrink-0"
+                            >
+                              <X className="h-3 w-3 mr-1" />
+                              Entfernen
                             </Button>
                           </div>
                         </div>
