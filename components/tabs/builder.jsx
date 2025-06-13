@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Play, FileText, ShoppingCart, Zap, X, Camera, Cpu, AppWindow } from "lucide-react"
 import Image from "next/image"
-import {droneComponents as defaultComponents} from "@/components/tabs/DroneData" // Assuming you have a JSON file with your components data
 
 const Builder = () => {
 
