@@ -41,12 +41,13 @@ export default function Component() {
 
   const handleLogout = () => {
     sessionStorage.removeItem("session")
+    localStorage.setItem('selectedTab', 'login')
     window.location.reload()
   }
 
   return (
     <div className="min-h-screen bg-linear-to-b from-[#82a8cd] to-[#aebbc4]">
-      <div className="absolute top-13 right-4">
+      <div className="absolute top-13 right-4 hidden md:block">
         {session ? (
          <Button variant={"outline"} onClick={handleLogout}>
           Logout
@@ -74,12 +75,15 @@ export default function Component() {
         </div>
 
         <Tabs value={selectedTab} className="w-full h-fit" onValueChange={changeTab}>
-          <TabsList className="grid w-full md:grid-cols-5 mb-8 h-fit text-black">
+          <TabsList className={`grid w-full ${session ? "md:grid-cols-6": "md:grid-cols-5"} mb-8 h-fit text-black`}>
             <TabsTrigger value="goggles">DJI Goggles</TabsTrigger>
             <TabsTrigger value="controller">RC Controller</TabsTrigger>
             <TabsTrigger value="components">Komponenten</TabsTrigger>
             <TabsTrigger value="builder">Drohnen Builder</TabsTrigger>
             <TabsTrigger value="tutorial">Weitere Tutorials</TabsTrigger>
+            {session && (<TabsTrigger value="geheimakten">Geheime Daten</TabsTrigger>)}
+            {session && <TabsTrigger value="login" className="md:hidden" onClick={handleLogout}>Logout</TabsTrigger>}
+            {!session && <TabsTrigger value="login" className="md:hidden">Login</TabsTrigger>}
           </TabsList>
 
           {/* Section 1: DJI Goggles */}
