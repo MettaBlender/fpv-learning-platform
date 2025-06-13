@@ -1,16 +1,41 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Play, FileText, ShoppingCart, Zap, X, Camera, Cpu, AppWindow } from "lucide-react"
 import Image from "next/image"
-import {droneComponents} from "@/components/tabs/DroneData" // Assuming you have a JSON file with your components data
+import {droneComponents as defaultComponents} from "@/components/tabs/DroneData" // Assuming you have a JSON file with your components data
 
 const Builder = () => {
 
   const [selectedComponents, setSelectedComponents] = useState({})
   const [activeComponent, setActiveComponent] = useState("frame")
   const [expandedDescriptions, setExpandedDescriptions] = useState({})
+
+  const [droneComponents, setDroneComponents] = useState({})
+
+  useEffect(() => {
+    const getData = async () => {
+      try {
+        const response = await fetch('/api');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        // Assuming data contains the drone components
+        console.log('Drone components fetched:', data.data[0].components[0]);
+
+        setDroneComponents(data.data[0].components[0]); // Adjust based on your API response structure
+        // You can set the initial state here if needed
+      } catch (error) {
+        console.error('Error fetching drone components:', error);
+      }
+    }
+
+    getData();
+
+  }, [])
+
 
   const handleComponentSelect = (componentType, component) => {
     setSelectedComponents((prev) => ({
@@ -761,7 +786,7 @@ const Builder = () => {
                           >
                             <div className="flex items-center w-full">
                               <Image
-                                src={component.imageUrl}
+                                src={component.imageurl}
                                 alt={component.name}
                                 width={80}
                                 height={80}
@@ -839,7 +864,7 @@ const Builder = () => {
                         <div key={type} className="flex flex-col lg:flex-row items-center justify-between p-2 border rounded">
                           <div className="flex items-center">
                             <Image
-                                src={component.imageUrl}
+                                src={component.imageurl}
                                 alt={component.name}
                                 width={80}
                                 height={80}
