@@ -81,7 +81,7 @@ export default function Component() {
             <TabsTrigger value="components">Komponenten</TabsTrigger>
             <TabsTrigger value="builder">Drohnen Builder</TabsTrigger>
             <TabsTrigger value="tutorial">Weitere Tutorials</TabsTrigger>
-            {session && (<TabsTrigger value="geheimakten">Geheime Daten</TabsTrigger>)}
+            {session && (<TabsTrigger value="admin">Geheime Daten</TabsTrigger>)}
             {session && <TabsTrigger value="login" className="md:hidden" onClick={handleLogout}>Logout</TabsTrigger>}
             {!session && <TabsTrigger value="login" className="md:hidden">Login</TabsTrigger>}
           </TabsList>
@@ -114,6 +114,18 @@ export default function Component() {
           <TabsContent value="login" className="space-y-6">
               <Login/>
           </TabsContent>
+
+          {session ? (
+            <TabsContent value="geheimakten" className="space-y-6">
+              <h2 className="text-2xl font-bold mb-4">Geheime Daten</h2>
+              <p className="text-gray-700">Hier findest du geheime Informationen, die nur für angemeldete Benutzer zugänglich sind.</p>
+              {/* Weitere geheime Inhalte hier */}
+            </TabsContent>
+          ) : (
+            <TabsContent value="admin" className="space-y-6 text-center text-white">
+              <h2 className="text-2xl font-bold mb-4 mt-50">Für diesen Tab must du Angemeldet sein 😉</h2>
+            </TabsContent>
+          )}
         </Tabs>
       </div>
     </div>
