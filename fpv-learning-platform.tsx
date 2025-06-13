@@ -8,9 +8,13 @@ import Controller from "@/components/tabs/controller"
 import Components from "@/components/tabs/components"
 import Builder from "@/components/tabs/builder"
 import Tutorial from "@/components/tabs/tutorials"
+import Login from "@/components/tabs/login"
+import { Button } from "./components/ui/button"
+import { decodeUserSession } from "./lib/session"
 
 export default function Component() {
   const [selectedTab, setSelectedTab] = useState('goggles')
+  const [session, setSession] = useState<any>(null)
 
   // Load saved tab from localStorage on component mount
   useEffect(() => {
@@ -18,6 +22,15 @@ export default function Component() {
     if (savedTab) {
       setSelectedTab(savedTab)
     }
+
+    const getSession = async () => {
+      const sessionkey = sessionStorage.getItem("session")
+      const sessionvalue = await decodeUserSession(sessionkey || "")
+      setSession(sessionvalue === 0 ? true : false)
+    }
+
+    getSession()
+
   }, [])
 
   // Funktion zum Speichern des ausgewählten Tabs im Local Storage
@@ -26,8 +39,24 @@ export default function Component() {
     localStorage.setItem('selectedTab', value)
   }
 
+  const handleLogout = () => {
+    sessionStorage.removeItem("session")
+    window.location.reload()
+  }
+
   return (
     <div className="min-h-screen bg-linear-to-b from-[#82a8cd] to-[#aebbc4]">
+      <div className="absolute top-13 right-4">
+        {session ? (
+         <Button variant={"outline"} onClick={handleLogout}>
+          Logout
+        </Button>) : (
+        <Button variant={"outline"} onClick={() => changeTab('login')}>
+          Login
+        </Button>
+        )}
+
+      </div>
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
           <div className="flex flex-row-reverse justify-center items-center gap-4 mb-2">
@@ -76,6 +105,10 @@ export default function Component() {
           {/* Section 5: Weitere Tutorials */}
           <TabsContent value="tutorial" className="space-y-6">
               <Tutorial/>
+          </TabsContent>
+
+          <TabsContent value="login" className="space-y-6">
+              <Login/>
           </TabsContent>
         </Tabs>
       </div>
