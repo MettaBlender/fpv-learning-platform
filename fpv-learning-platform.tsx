@@ -123,7 +123,10 @@ export default function Component() {
             </TabsContent>
           ) : (
             <TabsContent value="admin" className="space-y-6 text-center text-white">
-              <h2 className="text-2xl font-bold mb-4 mt-50">Für diesen Tab must du Angemeldet sein 😉</h2>
+              <h2 className="text-2xl font-bold mb-4 mt-45">Für diesen Tab must du Angemeldet sein 😉</h2>
+              <Button variant="outline" className="text-[hsl(205,16%,40%)]" onClick={() => changeTab('login')}>
+                Anmelden
+              </Button>
             </TabsContent>
           )}
         </Tabs>
