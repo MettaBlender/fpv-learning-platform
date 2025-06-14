@@ -286,10 +286,10 @@ const Panel = () => {
           <Collapsible
             open={isOpen.componentType}
             onOpenChange={setIsOpen.componentType}
-            className="flex w-full flex-col gap-2"
+            className="flex w-full flex-col gap-2 relative"
             key={index}
           >
-            <div className="flex items-center justify-between gap-4 px-4">
+            <div className="flex items-center justify-between gap-4 px-4 mb-1 sticky top-4 bg-white rounded-md">
               <h4 className="text-sm font-semibold">
                 {componentType.charAt(0).toUpperCase() + componentType.slice(1)}
               </h4>
@@ -300,7 +300,7 @@ const Panel = () => {
                 </Button>
               </CollapsibleTrigger>
             </div>
-            <CollapsibleContent className="flex flex-col gap-2 w-full">
+            <CollapsibleContent className="flex flex-col gap-2 w-full px-4">
               <div className="space-y-3">
                 {droneComponents[componentType]?.some((component) => component.options) && (
                   <div className="flex space-x-4 mb-4 flex-wrap">
