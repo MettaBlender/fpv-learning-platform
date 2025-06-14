@@ -18,6 +18,6 @@ export async function POST(request) {
         return NextResponse.json({ "message" : "Benutzername oder Passwort ist falsch!"}, { status: 400 })
     }
     const session = await setSessionUser(0)
-    console.log("Login successful for user:", session);
+    // console.log("Login successful for user:", session);
     return NextResponse.json({session: session}, { status: 200 })
 }

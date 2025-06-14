@@ -9,6 +9,7 @@ import Components from "@/components/tabs/components"
 import Builder from "@/components/tabs/builder"
 import Tutorial from "@/components/tabs/tutorials"
 import Login from "@/components/tabs/login"
+import Panel from "@/components/tabs/panel"
 import { Button } from "./components/ui/button"
 import { decodeUserSession } from "./lib/session"
 
@@ -81,7 +82,7 @@ export default function Component() {
             <TabsTrigger value="components">Komponenten</TabsTrigger>
             <TabsTrigger value="builder">Drohnen Builder</TabsTrigger>
             <TabsTrigger value="tutorial">Weitere Tutorials</TabsTrigger>
-            {session && (<TabsTrigger value="admin">Geheime Daten</TabsTrigger>)}
+            {session && (<TabsTrigger value="admin">Panel</TabsTrigger>)}
             {session && <TabsTrigger value="login" className="md:hidden" onClick={handleLogout}>Logout</TabsTrigger>}
             {!session && <TabsTrigger value="login" className="md:hidden">Login</TabsTrigger>}
           </TabsList>
@@ -116,10 +117,8 @@ export default function Component() {
           </TabsContent>
 
           {session ? (
-            <TabsContent value="geheimakten" className="space-y-6">
-              <h2 className="text-2xl font-bold mb-4">Geheime Daten</h2>
-              <p className="text-gray-700">Hier findest du geheime Informationen, die nur für angemeldete Benutzer zugänglich sind.</p>
-              {/* Weitere geheime Inhalte hier */}
+            <TabsContent value="admin" className="space-y-6">
+              <Panel/>
             </TabsContent>
           ) : (
             <TabsContent value="admin" className="space-y-6 text-center text-white">
