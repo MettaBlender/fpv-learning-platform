@@ -289,7 +289,7 @@ const Panel = () => {
             className="flex w-full flex-col gap-2 relative"
             key={index}
           >
-            <div className="flex items-center justify-between gap-4 px-4 mb-1 sticky top-4 bg-white rounded-md">
+            <div className="flex items-center justify-between gap-4 px-4 mb-1 sticky top-4 bg-white rounded-md ring-1 ring-black">
               <h4 className="text-sm font-semibold">
                 {componentType.charAt(0).toUpperCase() + componentType.slice(1)}
               </h4>
