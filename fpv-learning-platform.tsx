@@ -34,6 +34,20 @@ export default function Component() {
 
   }, [])
 
+  const [theme, setTheme] = useState('light');
+
+  useEffect(() => {
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }, [theme]);
+
+  const toggleTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  };
+
   // Funktion zum Speichern des ausgewählten Tabs im Local Storage
   const changeTab = (value: string) => {
     setSelectedTab(value)
@@ -48,7 +62,7 @@ export default function Component() {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-[#82a8cd] to-[#aebbc4]">
-      <div className="absolute top-13 right-4 hidden md:block">
+      <div className="absolute top-13 right-4 hidden md:flex p-2 bg-white rounded-lg shadow-md  gap-2">
         {session ? (
          <Button variant={"outline"} onClick={handleLogout}>
           Logout
@@ -57,7 +71,9 @@ export default function Component() {
           Login
         </Button>
         )}
-
+        <Button onClick={toggleTheme} className="p-2">
+          Theme wechseln
+        </Button>
       </div>
       <div className="container mx-auto px-4 py-8">
         <div className="text-center mb-8">
@@ -85,6 +101,7 @@ export default function Component() {
             {session && (<TabsTrigger value="admin">Panel</TabsTrigger>)}
             {session && <TabsTrigger value="login" className="md:hidden" onClick={handleLogout}>Logout</TabsTrigger>}
             {!session && <TabsTrigger value="login" className="md:hidden">Login</TabsTrigger>}
+            <TabsTrigger value="theme" className="md:hidden" onClick={toggleTheme}>Theme wechseln</TabsTrigger>
           </TabsList>
 
           {/* Section 1: DJI Goggles */}

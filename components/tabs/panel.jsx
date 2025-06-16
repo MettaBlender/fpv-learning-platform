@@ -25,7 +25,16 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
+import { Input } from '../ui/input'
+import { Label } from '../ui/label'
 import { toast } from "sonner"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const Panel = () => {
 
@@ -43,6 +52,7 @@ const Panel = () => {
     battery: true,
     camera: true,
   })
+  const [dialogeTab, setDialogTab] = useState("details")
 
   const componentGroup = ["frame", "motors", "esc", "fc", "props", "battery", "camera"]
 
@@ -191,15 +201,17 @@ const Panel = () => {
 
   const { keys, optionsByKey } = getOptionKeysAndValues();
 
-  const showComponentDetails = (component) => {
+  const showComponentDetails = (component, mode) => {
     setSelectedDetailComponent(component)
+    setDialogTab(mode || "details")
   }
 
   return (
     <div className='w-full'>
       <Tabs>
-        <TabsList>
+        <TabsList value='components'>
           <TabsTrigger value='components'>Alle Komponenten</TabsTrigger>
+          <TabsTrigger value='add'>Komponenten hinzufügen</TabsTrigger>
         </TabsList>
         <TabsContent value='components'>
           <div className="flex justify-between items-center mb-4 px-4">
@@ -208,77 +220,229 @@ const Panel = () => {
 
           <Dialog open={!!selectedDetailComponent} onOpenChange={() => setSelectedDetailComponent(null)}>
             <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-              <DialogHeader>
-                <DialogTitle>{selectedDetailComponent?.name}</DialogTitle>
-                <DialogDescription>
-                  Detaillierte Informationen zu dieser Komponente
-                </DialogDescription>
-              </DialogHeader>
-              {selectedDetailComponent && (
-                <div className="space-y-4">
-                  {selectedDetailComponent.imageurl && (
-                    <div className="flex justify-center">
-                      <Image
-                        src={selectedDetailComponent.imageurl}
-                        alt={selectedDetailComponent.name}
-                        width={200}
-                        height={200}
-                        className="rounded-md object-cover"
-                      />
-                    </div>
-                  )}
+              <Tabs className='relative' value={dialogeTab} onValueChange={setDialogTab}>
+                <div className='sticky w-[calc(100% + 3rem)] m-[-1.5rem] top-[-1.5rem] pt-6 pb-3 backdrop-blur-lg'>
+                  <TabsList className="w-[95%] mx-auto grid grid-cols-3 gap-2 mb-4 sticky top-0">
+                    <TabsTrigger value="details" className="flex items-center gap-2">Details</TabsTrigger>
+                    <TabsTrigger value="edit" className="flex items-center gap-2">Bearbeiten</TabsTrigger>
+                    <TabsTrigger value="delete" className="flex items-center gap-2">Löschen</TabsTrigger>
+                  </TabsList>
+                </div>
+                <TabsContent value="details" className="pt-5">
+                  <DialogHeader>
+                    <DialogTitle>{selectedDetailComponent?.name}</DialogTitle>
+                    <DialogDescription>
+                      Detaillierte Informationen zu dieser Komponente
+                    </DialogDescription>
+                  </DialogHeader>
+                  {selectedDetailComponent && (
+                    <div className="space-y-4">
+                      {selectedDetailComponent.imageurl && (
+                        <div className="flex justify-center">
+                          <Image
+                            src={selectedDetailComponent.imageurl}
+                            alt={selectedDetailComponent.name}
+                            width={200}
+                            height={200}
+                            className="rounded-md object-cover"
+                          />
+                        </div>
+                      )}
 
-                  <div className="space-y-3">
-                    <div>
-                      <h4 className="font-semibold text-lg">Beschreibung</h4>
-                      <p className="text-gray-600">{selectedDetailComponent.description}</p>
-                    </div>
+                      <div className="space-y-3">
+                        <div>
+                          <h4 className="font-semibold text-lg">Beschreibung</h4>
+                          <p className="text-gray-600">{selectedDetailComponent.description}</p>
+                        </div>
 
-                    <div>
-                      <h4 className="font-semibold text-lg">Preis</h4>
-                      <p className="text-2xl font-bold text-green-600">{selectedDetailComponent.price} €</p>
-                    </div>
+                        <div>
+                          <h4 className="font-semibold text-lg">Preis</h4>
+                          <p className="text-2xl font-bold text-green-600">{selectedDetailComponent.price} €</p>
+                        </div>
 
-                    {selectedDetailComponent.options && selectedDetailComponent.options.length > 0 && (
-                      <div>
-                        <h4 className="font-semibold text-lg">Verfügbare Optionen</h4>
-                        <div className="space-y-2">
-                          {selectedDetailComponent.options.map((option, i) => (
-                            <div key={i} className="bg-gray-50 p-3 rounded-lg">
-                              {Object.entries(option).map(([key, value]) => (
-                                <div key={key} className="flex justify-between">
-                                  <span className="font-medium capitalize">{key}:</span>
-                                  <span>{value}</span>
+                        {selectedDetailComponent.options && selectedDetailComponent.options.length > 0 && (
+                          <div>
+                            <h4 className="font-semibold text-lg">Verfügbare Optionen</h4>
+                            <div className="space-y-2">
+                              {selectedDetailComponent.options.map((option, i) => (
+                                <div key={i} className="bg-gray-50 p-3 rounded-lg">
+                                  {Object.entries(option).map(([key, value]) => (
+                                    <div key={key} className="flex justify-between">
+                                      <span className="font-medium capitalize">{key}:</span>
+                                      <span>{value}</span>
+                                    </div>
+                                  ))}
                                 </div>
                               ))}
                             </div>
-                          ))}
+                          </div>
+                        )}
+
+                        <div className="flex justify-between items-center pt-4 border-t">
+                          <Button
+                            variant="outline"
+                            onClick={(e) => openShop(e, selectedDetailComponent.shop)}
+                            className="gap-2"
+                          >
+                            <ExternalLink className="size-4" />
+                            Shop besuchen
+                          </Button>
+                          <Button
+                            onClick={() => {
+                              // Hier würden Sie die Komponente auswählen
+                              // handleComponentSelect wird in der Karte aufgerufen
+                              setSelectedDetailComponent(null)
+                            }}
+                          >
+                            Schließen
+                          </Button>
                         </div>
                       </div>
-                    )}
-
-                    <div className="flex justify-between items-center pt-4 border-t">
-                      <Button
-                        variant="outline"
-                        onClick={(e) => openShop(e, selectedDetailComponent.shop)}
-                        className="gap-2"
-                      >
-                        <ExternalLink className="size-4" />
-                        Shop besuchen
-                      </Button>
-                      <Button
-                        onClick={() => {
-                          // Hier würden Sie die Komponente auswählen
-                          // handleComponentSelect wird in der Karte aufgerufen
-                          setSelectedDetailComponent(null)
-                        }}
-                      >
-                        Schließen
-                      </Button>
                     </div>
-                  </div>
-                </div>
-              )}
+                  )}
+                </TabsContent>
+                <TabsContent value="edit" className="pt-5">
+                  <DialogHeader>
+                    <DialogTitle>Komponente bearbeiten</DialogTitle>
+                    <DialogDescription>
+                      Hier können Sie die Details der Komponente bearbeiten.
+                    </DialogDescription>
+                  </DialogHeader>
+                  {selectedDetailComponent && (
+                    <div className="space-y-4">
+                      <div className="space-y-3">
+                        <div>
+                          <label className="block text-sm font-medium mb-1">Name</label>
+                          <input
+                            type="text"
+                            value={selectedDetailComponent.name}
+                            onChange={(e) => {
+                              setSelectedDetailComponent((prev) => ({
+                                ...prev,
+                                name: e.target.value,
+                              }))
+                            }}
+                            className="w-full p-2 border rounded-md"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium mb-1">Beschreibung</label>
+                          <textarea
+                            value={selectedDetailComponent.description}
+                            onChange={(e) => {
+                              setSelectedDetailComponent((prev) => ({
+                                ...prev,
+                                description: e.target.value,
+                              }))
+                            }}
+                            className="w-full p-2 border rounded-md"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="block text-sm font-medium mb-1">Preis</label>
+                          <input
+                            type="number"
+                            value={selectedDetailComponent.price}
+                            onChange={(e) => {
+                              setSelectedDetailComponent((prev) => ({
+                                ...prev,
+                                price: parseFloat(e.target.value),
+                              }))
+                            }}
+                            className="w-full p-2 border rounded-md"
+                          />
+                        </div>
+
+                        {selectedDetailComponent.options && selectedDetailComponent.options.length > 0 && (
+                          <div>
+                            <h4 className="font-semibold text-lg">Verfügbare Optionen</h4>
+                            {selectedDetailComponent.options.map((option, i) => (
+                              <div key={i} className="bg-gray-50 p-3 rounded-lg mb-2">
+                                {Object.entries(option).map(([key, value]) => (
+                                  <div key={key} className="flex justify-between mb-1">
+                                    <span className="font-medium capitalize">{key}:</span>
+                                    <input
+                                      type="text"
+                                      value={value}
+                                      onChange={(e) => {
+                                        const newOptions = [...selectedDetailComponent.options]
+                                        newOptions[i][key] = e.target.value
+                                        setSelectedDetailComponent((prev) => ({
+                                          ...prev,
+                                          options: newOptions,
+                                        }))
+                                      }}
+                                      className="ml-2 p-1 border rounded-md"
+                                    />
+                                  </div>
+                                ))}
+                              </div>
+                            ))}
+                          </div>
+                        )}
+                        <div className="flex justify-end pt-4 border-t">
+                          <Button
+                            variant="outline"
+                            onClick={() => {
+                              // Hier würden Sie die Änderungen speichern
+                              toast.success("Änderungen gespeichert!")
+                              setSelectedDetailComponent(null)
+                            }}
+                          >
+                            Speichern
+                          </Button>
+                          <Button
+                            variant="destructive"
+                            onClick={() => {
+                              // Hier würden Sie die Komponente entfernen
+                              handleComponentRemove(selectedDetailComponent.name)
+                              toast.success("Komponente entfernt!")
+                              setSelectedDetailComponent(null)
+                            }}
+                            className="ml-2"
+                          >
+                            Entfernen
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </TabsContent>
+                <TabsContent value="delete" className="pt-5">
+                  <DialogHeader>
+                    <DialogTitle>Komponente entfernen</DialogTitle>
+                    <DialogDescription>
+                      Sind Sie sicher, dass Sie diese Komponente entfernen möchten?
+                    </DialogDescription>
+                  </DialogHeader>
+                  {selectedDetailComponent && (
+                    <div className="space-y-4">
+                      <div className="space-y-3">
+                        <p className="text-sm">
+                          Sie entfernen die Komponente <strong>{selectedDetailComponent.name}</strong>.
+                        </p>
+                        <p className="text-sm text-red-600">
+                          Diese Aktion kann nicht rückgängig gemacht werden.
+                        </p>
+                        <div className="flex justify-end pt-4 border-t">
+                          <Button
+                            variant="destructive"
+                            onClick={() => {
+                              handleComponentRemove(selectedDetailComponent.name)
+                              toast.success("Komponente entfernt!")
+                              setSelectedDetailComponent(null)
+                            }}
+                          >
+                            Entfernen
+                          </Button>
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </TabsContent>
+              </Tabs>
             </DialogContent>
           </Dialog>
 
@@ -418,14 +582,14 @@ const Panel = () => {
                           <Button
                             variant="ghost"
                             size="sm"
-                            onClick={() => showComponentDetails(component)}
+                            onClick={() => showComponentDetails(component, 'details')}
                           >
                             <Info className="size-4" />
                           </Button>
                           <Button
                             variant="outline"
                             size="sm"
-                            onClick={() => toast("Komponent bearbeiten")}
+                            onClick={() => showComponentDetails(component, 'edit')}
                           >
                             Bearbeiten
                           </Button>
@@ -433,7 +597,7 @@ const Panel = () => {
                         <Button
                           variant="destructive"
                           size="sm"
-                          onClick={() => toast("Komponente entfernen")}
+                          onClick={() => showComponentDetails(component, 'delete')}
                         >
                           Entfernen
                         </Button>
@@ -444,6 +608,41 @@ const Panel = () => {
               </div>
             </CollapsibleContent>
           </Collapsible>))}
+        </TabsContent>
+        <TabsContent value='add'>
+          <div className='w-full px-[30%] pt-1'>
+            <form className='w-full' onSubmit={null}>
+              <h1 className='text-4xl font-bold text-white'>Komponent Hinzufügen</h1>
+              <div>
+                <Label className='text-white'>Wählen Sie eine Komponente aus:</Label>
+                <Select
+                  onValueChange={(value) => handleComponentSelect(activeComponent, value)}
+                >
+                  <SelectTrigger className="w-full p-2 border rounded-md mt-2">
+                    <SelectValue placeholder="-- Bitte wählen --" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {componentGroup.map((componentType, index) => (
+                      <SelectItem key={index} value={componentType}>
+                        {componentType.charAt(0).toUpperCase() + componentType.slice(1)}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className='my-2'>
+                <Label className='text-white'>Benutzername:</Label>
+                <Input required onChange={null}/>
+                {(<p className='text-[#d9534f]'>Bitte geben sie einen Benutzernamen ein</p>) }
+              </div>
+              <div className='my-2 relative'>
+                <Label className='text-white'>Passwort:</Label>
+                <Input type="text" required onChange={null}/>
+                {(<p className='text-[#d9534f]'>Bitte geben sie ein Passwort ein</p>) }
+              </div>
+              <Button className='w-full mt-4' type='submit'>Login</Button>
+            </form>
+          </div>
         </TabsContent>
       </Tabs>
     </div>
