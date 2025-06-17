@@ -16,6 +16,7 @@ import { decodeUserSession } from "./lib/session"
 export default function Component() {
   const [selectedTab, setSelectedTab] = useState('goggles')
   const [session, setSession] = useState<any>(null)
+  const [theme, setTheme] = useState("light");
 
   // Load saved tab from localStorage on component mount
   useEffect(() => {
@@ -32,9 +33,9 @@ export default function Component() {
 
     getSession()
 
-  }, [])
+    setTheme(localStorage.getItem("theme") || "light");
 
-  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  }, [])
 
   useEffect(() => {
     if (theme === 'dark') {
