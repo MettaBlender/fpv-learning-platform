@@ -36,7 +36,7 @@ const AddComponent = () => {
           </Select>
         </div>
         <div className='my-2'>
-          <Label className='text-white'>Benutzername:</Label>
+          <Label className='text-white'>Marke:</Label>
           <Input required onChange={null}/>
           {(<p className='text-[#d9534f]'>Bitte geben sie einen Benutzernamen ein</p>) }
         </div>
