@@ -955,7 +955,7 @@ const Builder = () => {
                         </Button>
                       </div>
                       <div className="flex justify-between">
-                        <span>fpv24.ch</span>
+                        <span>fpv24.com</span>
                         <Button
                           size="sm"
                           variant="ghost"

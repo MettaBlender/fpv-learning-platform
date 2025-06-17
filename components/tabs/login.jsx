@@ -31,7 +31,7 @@ const Login = () => {
       const session = data.session
       sessionStorage.setItem('session', session)
       toast.success('Login erfolgreich!');
-      localStorage.setItem('selectedTab', "goggles")
+      localStorage.setItem('selectedTab', "admin")
       window.location.reload()
     } else {
       const errorData = await response.json()
