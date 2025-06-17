@@ -62,7 +62,7 @@ export default function Component() {
 
   return (
     <div className="min-h-screen bg-linear-to-b from-background-gradient-1 to-background-gradient-2">
-      <div className="absolute top-13 right-4 hidden md:flex p-2 bg-white rounded-lg shadow-md  gap-2">
+      <div className="absolute top-13 right-4 hidden md:flex p-2 bg-background rounded-lg shadow-md  gap-2">
         {session ? (
          <Button variant={"outline"} onClick={handleLogout}>
           Logout

@@ -178,7 +178,7 @@ const Builder = () => {
                 {/* Tooltip that appears on hover */}
                 <div
                 id="component-tooltip"
-                className="absolute bg-gray-300 text-black px-2 py-1 rounded text-xs pointer-events-none opacity-0 transition-opacity z-10"
+                className="absolute bg-gray-300 text-foreground px-2 py-1 rounded text-xs pointer-events-none opacity-0 transition-opacity z-10"
                 style={{ top: '10px', left: '50%', transform: 'translateX(-50%)' }}
                 >
                 Component name
@@ -702,19 +702,19 @@ const Builder = () => {
                 />
 
                 {/* Labels */}
-                <text x="150" y="125" textAnchor="middle" className="text-xs fill-black">
+                <text x="150" y="125" textAnchor="middle" className="text-xs fill-foreground">
                   Frame
                 </text>
-                <text x="80" y="50" textAnchor="middle" className="text-xs fill-black">
+                <text x="80" y="50" textAnchor="middle" className="text-xs fill-foreground">
                   Motor
                 </text>
-                <text x="200" y="155" textAnchor="middle" className="text-xs fill-black">
+                <text x="200" y="155" textAnchor="middle" className="text-xs fill-foreground">
                   ESC/FC
                 </text>
-                <text x="150" y="220" textAnchor="middle" className="text-xs fill-black">
+                <text x="150" y="220" textAnchor="middle" className="text-xs fill-foreground">
                   Akku
                 </text>
-                <text x="147" y="70" textAnchor="middle" className="text-xs fill-black">
+                <text x="147" y="70" textAnchor="middle" className="text-xs fill-foreground ">
                   Kamera
                 </text>
                 </svg>
@@ -780,7 +780,7 @@ const Builder = () => {
                         .map((component, index) => (
                           <div
                             key={index}
-                            className="flex flex-col lg:flex-row items-center justify-between p-3 border rounded-lg hover:bg-gray-50 shadow-sm hover:shadow-xl transition-all duration-100 cursor-pointer"
+                            className="flex flex-col lg:flex-row items-center justify-between p-3 border rounded-lg dark:hover:bg-gray-900 hover:bg-gray-50 shadow-sm hover:shadow-xl transition-all duration-100 cursor-pointer"
                             onClick={() => handleComponentSelect(activeComponent, component)}
                           >
                             <div className="flex items-center w-full">

@@ -11,6 +11,8 @@
 
   --color-background-gradient-1: var(--background-gradient-1);
   --color-background-gradient-2: var(--background-gradient-2);
+  --color-tabs: var(--tabs);
+  --color-tabs-active: var(--tabs-active);
 
   --color-popover: hsl(var(--popover));
   --color-popover-foreground: hsl(var(--popover-foreground));
@@ -139,6 +141,8 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
     --background-gradient-1: #82a8cd;
     --background-gradient-2: #aebbc4;
+    --tabs: #aebbc4;
+    --tabs-active: #82a8cd;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -175,6 +179,8 @@
     --sidebar-ring: 217.2 91.2% 59.8%;
     --background-gradient-1: #2e3b4e;
     --background-gradient-2: #4a5568;
+    --tabs: #d4dde6;
+    --tabs-active: #b3cce3;
   }
 }
 
