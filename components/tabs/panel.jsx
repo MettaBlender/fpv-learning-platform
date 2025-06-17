@@ -46,6 +46,7 @@ const Panel = () => {
     camera: true,
   })
   const [dialogeTab, setDialogTab] = useState("details")
+  const [tabsValue, setTabsValue] = useState("components")
 
   const componentGroup = ["frame", "motors", "esc", "fc", "props", "battery", "camera"]
 
@@ -68,6 +69,8 @@ const Panel = () => {
     }
 
     getData();
+
+    setTabsValue(localStorage.getItem('panelTab') || 'components')
 
   }, [])
 
@@ -199,10 +202,15 @@ const Panel = () => {
     setDialogTab(mode || "details")
   }
 
+  const changeTabsValue = (value) => {
+    setTabsValue(value)
+    localStorage.setItem('panelTab', value)
+  }
+
   return (
     <div className='w-full'>
-      <Tabs>
-        <TabsList value='components'>
+      <Tabs value={tabsValue} onValueChange={changeTabsValue}>
+        <TabsList>
           <TabsTrigger value='components'>Alle Komponenten</TabsTrigger>
           <TabsTrigger value='add'>Komponenten hinzufügen</TabsTrigger>
         </TabsList>
