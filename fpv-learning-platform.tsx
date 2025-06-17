@@ -61,7 +61,7 @@ export default function Component() {
   }
 
   return (
-    <div className="min-h-screen bg-linear-to-b from-[#82a8cd] to-[#aebbc4]">
+    <div className="min-h-screen bg-linear-to-b from-background-gradient-1 to-background-gradient-2">
       <div className="absolute top-13 right-4 hidden md:flex p-2 bg-white rounded-lg shadow-md  gap-2">
         {session ? (
          <Button variant={"outline"} onClick={handleLogout}>
@@ -71,7 +71,7 @@ export default function Component() {
           Login
         </Button>
         )}
-        <Button onClick={toggleTheme} className="p-2">
+        <Button variant={"outline"} onClick={toggleTheme} className="p-2">
           Theme wechseln
         </Button>
       </div>
