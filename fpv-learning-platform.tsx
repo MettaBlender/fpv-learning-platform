@@ -34,7 +34,7 @@ export default function Component() {
 
   }, [])
 
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
 
   useEffect(() => {
     if (theme === 'dark') {
@@ -46,6 +46,7 @@ export default function Component() {
 
   const toggleTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
+    localStorage.setItem("theme", theme  === 'light' ? 'dark' : 'light');
   };
 
   // Funktion zum Speichern des ausgewählten Tabs im Local Storage
