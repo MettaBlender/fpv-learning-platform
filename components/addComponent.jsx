@@ -24,13 +24,17 @@ const AddComponent = () => {
 
   const [options, setOptions] = useState([
     {frame: [["grösse", "", 1], ["marke", "", 2]]},
-    {motor: [["grösse", "", 1], ["marke", "", 2], ["anzahl", 0, 3], ["props", "", 4], ["serials", "", 5], ["kv", "", 6]]},
+    {motors: [["grösse", "", 1], ["marke", "", 2], ["anzahl", "0", 3], ["props", "", 4], ["serials", "", 5], ["kv", "", 6]]},
     {esc: [["grösse", "", 1], ["marke", "", 2]]},
     {fc: [["grösse", "", 1], ["marke", "", 2]]},
     {props: [["grösse", "", 1], ["marke", "", 2]]},
     {battery: [["c-rate", "", 1], ["marke", "", 2]]},
     {camera: [["marke", "", 1]]
   }]);
+
+  const mapOptionsToArray = (optionsObj) => {
+    return Object.entries(optionsObj).map(([key, { value }]) => ({ [key]: value }));
+  };
 
   const handleAddComponent = async (e) => {
     e.preventDefault();
@@ -39,13 +43,19 @@ const AddComponent = () => {
       return;
     }
 
+    let shipComponent = {...component};
+
+    if (component.options) {
+      shipComponent = {...component, options: mapOptionsToArray(component.options) };
+    }
+
     try {
       const response = await fetch('/api', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(component),
+        body: JSON.stringify(shipComponent),
       });
 
       if (!response.ok) {
@@ -60,6 +70,20 @@ const AddComponent = () => {
       console.error('Fehler:', error);
       toast.error("Fehler beim Hinzufügen der Komponente");
     }
+  }
+
+  const handleComponentChange = (value) => {
+    setComponent(prev => ({ ...prev, component: value }))
+    const selectedOptions = options.find((opt) => opt[value]);
+    const optionsWithIds = {};
+    selectedOptions[value].forEach(([key, val, id]) => {
+      optionsWithIds[key] = { value: val, id };
+    });
+    setComponent((prev) => ({
+      ...prev,
+      type: value,
+      options: optionsWithIds,
+    }));
   }
 
   // Synchronisiere component.options mit dem options-Array basierend auf component.type
@@ -164,7 +188,7 @@ const AddComponent = () => {
         <div>
           <Label className='text-white'>Wählen Sie eine Komponente aus: <span className={`${component.component === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
           <Select
-            onValueChange={(value) => setComponent(prev => ({ ...prev, component: value }))}
+            onValueChange={handleComponentChange}
           >
             <SelectTrigger className="w-full p-2 border rounded-md mt-2">
               <SelectValue placeholder="-- Bitte wählen --" />
@@ -190,7 +214,7 @@ const AddComponent = () => {
         </div>
         <div className='my-2 relative'>
           <Label className='text-white'>Preis: <span className={`${component.imageUrl == 0 || component.price < 0 ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
-          <Input type="number" min="0" onChange={(e) => setComponent(prev => ({ ...prev, price: e.target.value }))} value={component.price}/>
+          <Input type="number" min="0" step="0.05" onChange={(e) => setComponent(prev => ({ ...prev, price: e.target.value }))} value={component.price}/>
           {component.price == 0 && (<p className='text-[#d9534f]'>Bitte geben sie einen Preis ein</p>) }
           {component.price < 0 && (<p className='text-[#d9534f]'>Preis muss grösser als 0 sein</p>) }
         </div>
@@ -237,7 +261,7 @@ const AddComponent = () => {
         <div className="my-2 relative">
           <Label className="text-white">Optionen: </Label>
           {/* Komponenten-Auswahl */}
-          <Select
+          {/* <Select
             onValueChange={(value) => {
               const selectedOptions = options.find((opt) => opt[value]);
               const optionsWithIds = {};
@@ -262,10 +286,10 @@ const AddComponent = () => {
                 </SelectItem>
               ))}
             </SelectContent>
-          </Select>
+          </Select> */}
 
           {/* Eingabefelder zum Hinzufügen neer Optionen */}
-          {component.type && (
+          {component.component && (
             <div className="flex gap-2 my-2">
               <Button type='button' onClick={handleAddOption}>Option Hinzufügen</Button>
             </div>
@@ -291,7 +315,7 @@ const AddComponent = () => {
                       onChange={(e) => handleUpdateOption(key, e.target.value)}
                       className="p-2 bg-gray-800 text-white border-gray-600 rounded-md"
                     />
-                    <span className="text-white text-sm">ID: {optionData.id}</span>
+                    {/* <span className="text-white text-sm">ID: {optionData.id}</span> */}
                     <Button variant="destructive" onClick={() => handleRemoveOption(key)}>
                       Entfernen
                     </Button>
@@ -306,7 +330,7 @@ const AddComponent = () => {
             <p className="text-gray-400">Keine Optionen hinzugefügt</p>
           ) : null}
           </div>
-        <Button className='w-full mt-4' type='submit'>Kompnent hinzufügen</Button>
+        <Button className='w-full mt-4' type='submit' disabled={component.component === "" || component.title.trim() === "" || component.description.trim() === "" || component.price <= 0 || component.shop.trim() === "" || component.link.trim() === "" || component.imageUrl.trim() === ""}>Kompnent hinzufügen</Button>
       </form>
     </div>
   )

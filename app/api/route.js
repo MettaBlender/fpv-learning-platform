@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { get_components_with_options } from "../../lib/db";
+import { get_components_with_options, add_component } from "../../lib/db";
 
 export async function GET(request) {
 
@@ -16,6 +16,13 @@ export async function POST(request) {
         return NextResponse.json({error: "Fehlende erforderliche Felder"}, { status: 400 })
     }
 
-    console.log("Received data:", data);
-    return NextResponse.json({data: data}, { status: 400 })
+    const response = await add_component(data);
+
+    console.log("Received data:", response);
+
+    if (!response) {
+        return NextResponse.json({data: data}, { status: 400 })
+    }
+
+    return NextResponse.json({data: response}, { status: 200 })
 }
