@@ -106,10 +106,6 @@ const Panel = () => {
     }
   }
 
-  const getTotalPrice = () => {
-    return Object.values(selectedComponents).reduce((total, component) => total + (component?.price || 0), 0)
-  }
-
   const openShop = (e, shop) => {
     e.stopPropagation()
     window.open(shop, "_blank", "noopener,noreferrer")
@@ -123,18 +119,6 @@ const Panel = () => {
       [index]: !prev[index],
     }));
   };
-
-  // Einzigartige Optionen für die Dropdowns extrahieren
-  const getUniqueOptions = (key) => {
-    const options = droneComponents[activeComponent]
-      ?.flatMap((component) => component.options || [])
-      .filter((option) => option[key])
-      .map((option) => option[key]);
-    return [...new Set(options)]; // Entfernt Duplikate
-  };
-
-  const sizes = getUniqueOptions('size');
-  const marken = getUniqueOptions('marke');
 
   // Gefilterte Komponenten basierend auf den ausgewählten Filtern
   const filteredComponents = droneComponents[activeComponent]?.filter((component) => {
@@ -323,104 +307,7 @@ const Panel = () => {
                     </DialogDescription>
                   </DialogHeader>
                   {selectedDetailComponent && (
-                    <div className="space-y-4">
-                      <div className="space-y-3">
-                        <div>
-                          <label className="block text-sm font-medium mb-1">Name</label>
-                          <input
-                            type="text"
-                            value={selectedDetailComponent.name}
-                            onChange={(e) => {
-                              setSelectedDetailComponent((prev) => ({
-                                ...prev,
-                                name: e.target.value,
-                              }))
-                            }}
-                            className="w-full p-2 border rounded-md"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium mb-1">Beschreibung</label>
-                          <textarea
-                            value={selectedDetailComponent.description}
-                            onChange={(e) => {
-                              setSelectedDetailComponent((prev) => ({
-                                ...prev,
-                                description: e.target.value,
-                              }))
-                            }}
-                            className="w-full p-2 border rounded-md"
-                          />
-                        </div>
-
-                        <div>
-                          <label className="block text-sm font-medium mb-1">Preis</label>
-                          <input
-                            type="number"
-                            value={selectedDetailComponent.price}
-                            onChange={(e) => {
-                              setSelectedDetailComponent((prev) => ({
-                                ...prev,
-                                price: parseFloat(e.target.value),
-                              }))
-                            }}
-                            className="w-full p-2 border rounded-md"
-                          />
-                        </div>
-
-                        {selectedDetailComponent.options && selectedDetailComponent.options.length > 0 && (
-                          <div>
-                            <h4 className="font-semibold text-lg">Verfügbare Optionen</h4>
-                            {selectedDetailComponent.options.map((option, i) => (
-                              <div key={i} className="bg-gray-50 p-3 rounded-lg mb-2">
-                                {Object.entries(option).map(([key, value]) => (
-                                  <div key={key} className="flex justify-between mb-1">
-                                    <span className="font-medium capitalize">{key}:</span>
-                                    <input
-                                      type="text"
-                                      value={value}
-                                      onChange={(e) => {
-                                        const newOptions = [...selectedDetailComponent.options]
-                                        newOptions[i][key] = e.target.value
-                                        setSelectedDetailComponent((prev) => ({
-                                          ...prev,
-                                          options: newOptions,
-                                        }))
-                                      }}
-                                      className="ml-2 p-1 border rounded-md"
-                                    />
-                                  </div>
-                                ))}
-                              </div>
-                            ))}
-                          </div>
-                        )}
-                        <div className="flex justify-end pt-4 border-t">
-                          <Button
-                            variant="outline"
-                            onClick={() => {
-                              toast.success("Änderungen gespeichert!")
-                              setSelectedDetailComponent(null)
-                            }}
-                          >
-                            Speichern
-                          </Button>
-                          <Button
-                            variant="destructive"
-                            onClick={() => {
-                              // Hier würden Sie die Komponente entfernen
-                              handleComponentRemove(selectedDetailComponent.name)
-                              toast.success("Komponente entfernt!")
-                              setSelectedDetailComponent(null)
-                            }}
-                            className="ml-2"
-                          >
-                            Entfernen
-                          </Button>
-                        </div>
-                      </div>
-                    </div>
+                    <AddComponent componentProps={selectedDetailComponent}/>
                   )}
                 </TabsContent>
                 <TabsContent value="delete" className="pt-5">
@@ -463,11 +350,11 @@ const Panel = () => {
             key={index}
           >
             <CollapsibleTrigger asChild>
-              <button className="flex items-center justify-between gap-4 px-4 mb-1 sticky top-4 bg-background rounded-md ring-1 ring-black">
+              <button className="flex items-center justify-between gap-4 px-4 mb-1 sticky top-4 bg-background hover:bg-accent rounded-md ring-1 ring-black">
                 <h4 className="text-sm font-semibold">
                   {componentType.charAt(0).toUpperCase() + componentType.slice(1)}
                 </h4>
-                <div variant="ghost" size="icon" className="size-8">
+                <div className="size-8  hover:text-accent-foreground flex items-center justify-center">
                   <ChevronsUpDown />
                   <span className="sr-only">Toggle</span>
                 </div>
@@ -621,7 +508,7 @@ const Panel = () => {
           </Collapsible>))}
         </TabsContent>
         <TabsContent value='add'>
-          <AddComponent/>
+          <AddComponent />
         </TabsContent>
       </Tabs>
     </div>

@@ -13,6 +13,7 @@ export async function POST(request) {
     //const formData = await request.formData()
     const data = await request.json();
     if (!data || !data.component || !data.title || !data.description || !data.price || !data.shop || !data.link || !data.imageUrl) {
+        console.log("Fehlende erforderliche Felder", data);
         return NextResponse.json({error: "Fehlende erforderliche Felder"}, { status: 400 })
     }
 

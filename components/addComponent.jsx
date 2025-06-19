@@ -10,7 +10,7 @@ import {
 import { Button } from "@/components/ui/button"
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { title } from 'process';
+import { name } from 'process';
 import { Textarea } from './ui/textarea';
 import Image from 'next/image';
 import { toast } from 'sonner';
@@ -20,7 +20,7 @@ const AddComponent = () => {
   const componentGroup = ["frame", "motors", "esc", "fc", "props", "battery", "camera"]
   const shops = ["Fpvracing", "FPVFrame", "Dronefactory", "FPV24", "Quadmula"]
 
-  const [component, setComponent] = useState({component: "frame", title: "", description: "", price: "", shop: "", link: "", imageUrl: "", options: {}})
+  const [component, setComponent] = useState({component: "frame", name: "", description: "", price: "", shop: "", link: "", imageUrl: "", options: {}})
   const [hasError, setHasError] = useState(false);
 
   const [options, setOptions] = useState([
@@ -45,7 +45,7 @@ const AddComponent = () => {
   }, []);
 
    useEffect(() => {
-    if (!(component.title === "" && component.description === "" && component.price == "" && component.shop === "" && component.link === "" && component.imageUrl === "")) {
+    if (!(component.name === "" && component.description === "" && component.price == "" && component.shop === "" && component.link === "" && component.imageUrl === "")) {
       console.log("Component updated:", component);
       // Speichere den aktuellen Zustand in sessionStorage
       sessionStorage.setItem('component', JSON.stringify(component).toString());
@@ -75,7 +75,7 @@ const AddComponent = () => {
 
   const handleAddComponent = async (e) => {
     e.preventDefault();
-    if (component.title.trim() === "" || component.description.trim() === "" || component.price <= 0 || component.shop.trim() === "" || component.link.trim() === "" || component.imageUrl.trim() === "") {
+    if (component.name.trim() === "" || component.description.trim() === "" || component.price <= 0 || component.shop.trim() === "" || component.link.trim() === "" || component.imageUrl.trim() === "") {
       toast.error("Bitte füllen Sie alle Felder korrekt aus.");
       return;
     }
@@ -225,9 +225,9 @@ const AddComponent = () => {
           </Select>
         </div>
         <div className='my-2'>
-          <Label className='text-white'>Titel: <span className={`${component.title === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
-          <Input placeholder="Komponent Titel" onChange={(e) => setComponent(prev => ({ ...prev, title: e.target.value }))} value={component.title}/>
-          {component.title.trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie einen Titel ein</p>) }
+          <Label className='text-white'>Titel: <span className={`${component.name === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
+          <Input placeholder="Komponent Titel" onChange={(e) => setComponent(prev => ({ ...prev, name: e.target.value }))} value={component.name}/>
+          {component.name.trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie einen Titel ein</p>) }
         </div>
         <div className='my-2 relative'>
           <Label className='text-white'>Beschreibung: <span className={`${component.description === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
@@ -323,7 +323,7 @@ const AddComponent = () => {
             <p className="text-gray-400">Keine Optionen hinzugefügt</p>
           ) : null}
           </div>
-        <Button className='w-full mt-4' type='submit' disabled={component.component === "" || component.title.trim() === "" || component.description.trim() === "" || component.price <= 0 || component.shop.trim() === "" || component.link.trim() === "" || component.imageUrl.trim() === ""}>Kompnent hinzufügen</Button>
+        <Button className='w-full mt-4' type='submit' disabled={component.component === "" || component.name.trim() === "" || component.description.trim() === "" || component.price <= 0 || component.shop.trim() === "" || component.link.trim() === "" || component.imageUrl.trim() === ""}>Kompnent hinzufügen</Button>
       </form>
     </div>
   )
