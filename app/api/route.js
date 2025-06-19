@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { get_components_with_options, add_component } from "../../lib/db";
+import { get_components_with_options, add_component, delete_component } from "../../lib/db";
 
 export async function GET(request) {
 
@@ -22,6 +22,24 @@ export async function POST(request) {
 
     if (!response) {
         return NextResponse.json({data: data}, { status: 400 })
+    }
+
+    return NextResponse.json({data: response}, { status: 200 })
+}
+
+export async function DELETE(request) {
+    const {id, type} = await request.json();
+
+    if (!id || !type) {
+        console.error("Fehlende ID oder Typ:", id, type);
+        return NextResponse.json({error: "Fehlende ID oder Typ"}, { status: 400 })
+    }
+
+    console.log("Received ID for deletion:", id, type);
+    const response = await delete_component(type, id);
+
+    if (!response) {
+        return NextResponse.json({error: "Fehler beim Löschen des Eintrags"}, { status: 400 })
     }
 
     return NextResponse.json({data: response}, { status: 200 })

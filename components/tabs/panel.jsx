@@ -36,6 +36,7 @@ const Panel = () => {
   const [expandedDescriptions, setExpandedDescriptions] = useState({})
   const [droneComponents, setDroneComponents] = useState({})
   const [selectedDetailComponent, setSelectedDetailComponent] = useState(null)
+  const [selectedComponentType, setSelectedComponentType] = useState(null)
   const [isOpen, setIsOpen] = useState({
     frame: true,
     motors: true,
@@ -102,29 +103,6 @@ const Panel = () => {
         setActiveComponent(null)
       default:
         setActiveComponent(null)
-    }
-  }
-
-  const handleComponentRemove = (componentType) => {
-    setSelectedComponents((prev) => {
-      const newComponents = { ...prev }
-      delete newComponents[componentType]
-      return newComponents
-    })
-    if (componentType === "frame") {
-      setActiveComponent("frame")
-    } else if (componentType === "motors") {
-      setActiveComponent("motors")
-    } else if (componentType === "esc") {
-      setActiveComponent("esc")
-    } else if (componentType === "fc") {
-      setActiveComponent("fc")
-    } else if (componentType === "props") {
-      setActiveComponent("props")
-    } else if (componentType === "battery") {
-      setActiveComponent("battery")
-    } else if (componentType === "camera") {
-      setActiveComponent("camera")
     }
   }
 
@@ -197,7 +175,8 @@ const Panel = () => {
 
   const { keys, optionsByKey } = getOptionKeysAndValues();
 
-  const showComponentDetails = (component, mode) => {
+  const showComponentDetails = (component, mode, type) => {
+    setSelectedComponentType(type)
     setSelectedDetailComponent(component)
     setDialogTab(mode || "details")
   }
@@ -216,6 +195,28 @@ const Panel = () => {
   const handleImageLoad = (imageUrl) => {
     setImageErrors((prev) => ({ ...prev, [imageUrl]: false }));
   };
+
+  const handleDeleteComponent = async () => {
+    try {
+      const response = await fetch('/api', {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ id: selectedDetailComponent.id, type: selectedComponentType }),
+      });
+      if(response.ok) {
+        setSelectedDetailComponent(null)
+        toast.success("Komponente erfolgreich gelöscht!");
+        window.location.reload(); // Seite neu laden, um die Änderungen zu reflektieren
+      } else {
+        throw new Error("Fehler beim Löschen der Komponente");
+      }
+    } catch (error) {
+      console.error("Fehler beim Löschen der Komponente:", error);
+      toast.error("Fehler beim Löschen der Komponente");
+    }
+  }
 
   return (
     <div className='w-full'>
@@ -442,11 +443,7 @@ const Panel = () => {
                         <div className="flex justify-end pt-4 border-t">
                           <Button
                             variant="destructive"
-                            onClick={() => {
-                              handleComponentRemove(selectedDetailComponent.name)
-                              toast.success("Komponente entfernt!")
-                              setSelectedDetailComponent(null)
-                            }}
+                            onClick={handleDeleteComponent}
                           >
                             Entfernen
                           </Button>
@@ -466,17 +463,17 @@ const Panel = () => {
             className="flex w-full flex-col gap-2 relative"
             key={index}
           >
-            <div className="flex items-center justify-between gap-4 px-4 mb-1 sticky top-4 bg-background rounded-md ring-1 ring-black">
-              <h4 className="text-sm font-semibold">
-                {componentType.charAt(0).toUpperCase() + componentType.slice(1)}
-              </h4>
-              <CollapsibleTrigger asChild>
-                <Button variant="ghost" size="icon" className="size-8">
+            <CollapsibleTrigger asChild>
+              <button className="flex items-center justify-between gap-4 px-4 mb-1 sticky top-4 bg-background rounded-md ring-1 ring-black">
+                <h4 className="text-sm font-semibold">
+                  {componentType.charAt(0).toUpperCase() + componentType.slice(1)}
+                </h4>
+                <div variant="ghost" size="icon" className="size-8">
                   <ChevronsUpDown />
                   <span className="sr-only">Toggle</span>
-                </Button>
-              </CollapsibleTrigger>
-            </div>
+                </div>
+              </button>
+            </CollapsibleTrigger>
             <CollapsibleContent className="flex flex-col gap-2 w-full px-4">
               <div className="space-y-3">
                 {droneComponents[componentType]?.some((component) => component.options) && (
@@ -597,14 +594,14 @@ const Panel = () => {
                             <Button
                               variant="ghost"
                               size="sm"
-                              onClick={() => showComponentDetails(component, 'details')}
+                              onClick={() => showComponentDetails(component, 'details', componentType)}
                             >
                               <Info className="size-4" />
                             </Button>
                             <Button
                               variant="outline"
                               size="sm"
-                              onClick={() => showComponentDetails(component, 'edit')}
+                              onClick={() => showComponentDetails(component, 'edit', componentType)}
                             >
                               Bearbeiten
                             </Button>
@@ -612,7 +609,7 @@ const Panel = () => {
                           <Button
                             variant="destructive"
                             size="sm"
-                            onClick={() => showComponentDetails(component, 'delete')}
+                            onClick={() => showComponentDetails(component, 'delete', componentType)}
                           >
                             Entfernen
                           </Button>
