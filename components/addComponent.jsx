@@ -16,11 +16,20 @@ import Image from 'next/image';
 import { toast } from 'sonner';
 import { Trash2 } from 'lucide-react';
 
-const AddComponent = () => {
+const AddComponent = (componentProps = {}) => {
   const componentGroup = ["frame", "motors", "esc", "fc", "props", "battery", "camera"]
   const shops = ["Fpvracing", "FPVFrame", "Dronefactory", "FPV24", "Quadmula"]
 
-  const [component, setComponent] = useState({component: "frame", name: "", description: "", price: "", shop: "", link: "", imageUrl: "", options: {}})
+  const [component, setComponent] = useState({
+    component: componentProps.component || "frame",
+    name: componentProps.name || "",
+    description: componentProps.description || "",
+    price: componentProps.price || "",
+    shop: componentProps.shop || "",
+    link: componentProps.link || "",
+    imageUrl: componentProps.imageUrl || "",
+    options: componentProps.options || {}
+  })
   const [hasError, setHasError] = useState(false);
 
   const [options, setOptions] = useState([
@@ -41,8 +50,20 @@ const AddComponent = () => {
       console.log("Session Component:", sesssionComponent);
       setComponent(sesssionComponent);
       console.log("Component from sessionStorage:", component);
+    } else if (componentProps && Object.keys(componentProps).length > 0) {
+      // Initialize with props if no session data
+      setComponent({
+        component: componentProps.component || "frame",
+        name: componentProps.name || "",
+        description: componentProps.description || "",
+        price: componentProps.price || "",
+        shop: componentProps.shop || "",
+        link: componentProps.link || "",
+        imageUrl: componentProps.imageUrl || "",
+        options: componentProps.options || {}
+      });
     }
-  }, []);
+  }, [componentProps]);
 
    useEffect(() => {
     if (!(component.name === "" && component.description === "" && component.price == "" && component.shop === "" && component.link === "" && component.imageUrl === "")) {
@@ -75,7 +96,7 @@ const AddComponent = () => {
 
   const handleAddComponent = async (e) => {
     e.preventDefault();
-    if (component.name.trim() === "" || component.description.trim() === "" || component.price <= 0 || component.shop.trim() === "" || component.link.trim() === "" || component.imageUrl.trim() === "") {
+    if ((component.name || "").trim() === "" || (component.description || "").trim() === "" || component.price <= 0 || (component.shop || "").trim() === "" || (component.link || "").trim() === "" || (component.imageUrl || "").trim() === "") {
       toast.error("Bitte füllen Sie alle Felder korrekt aus.");
       return;
     }
@@ -225,25 +246,25 @@ const AddComponent = () => {
           </Select>
         </div>
         <div className='my-2'>
-          <Label className='text-white'>Titel: <span className={`${component.name === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
-          <Input placeholder="Komponent Titel" onChange={(e) => setComponent(prev => ({ ...prev, name: e.target.value }))} value={component.name}/>
-          {component.name.trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie einen Titel ein</p>) }
+          <Label className='text-white'>Titel: <span className={`${(component.name || "") === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
+          <Input placeholder="Komponent Titel" onChange={(e) => setComponent(prev => ({ ...prev, name: e.target.value }))} value={component.name || ""}/>
+          {(component.name || "").trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie einen Titel ein</p>) }
         </div>
         <div className='my-2 relative'>
-          <Label className='text-white'>Beschreibung: <span className={`${component.description === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
-          <Textarea placeholder='Komponente Beschreibung' onChange={(e) => setComponent(prev => ({ ...prev, description: e.target.value }))} value={component.description}/>
-          {component.description.trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie eine Beschreibung ein</p>) }
+          <Label className='text-white'>Beschreibung: <span className={`${(component.description || "") === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
+          <Textarea placeholder='Komponente Beschreibung' onChange={(e) => setComponent(prev => ({ ...prev, description: e.target.value }))} value={component.description || ""}/>
+          {(component.description || "").trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie eine Beschreibung ein</p>) }
         </div>
         <div className='my-2 relative'>
-          <Label className='text-white'>Preis: <span className={`${component.imageUrl == 0 || component.price < 0 ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
-          <Input type="number" min="0" step="0.05" onChange={(e) => setComponent(prev => ({ ...prev, price: e.target.value }))} value={component.price}/>
-          {component.price == 0 && (<p className='text-[#d9534f]'>Bitte geben sie einen Preis ein</p>) }
-          {component.price < 0 && (<p className='text-[#d9534f]'>Preis muss grösser als 0 sein</p>) }
+          <Label className='text-white'>Preis: <span className={`${component.price == 0 || component.price < 0 ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
+          <Input type="number" min="0" step="0.05" onChange={(e) => setComponent(prev => ({ ...prev, price: e.target.value }))} value={component.price || ""}/>
+          {(component.price || 0) == 0 && (<p className='text-[#d9534f]'>Bitte geben sie einen Preis ein</p>) }
+          {(component.price || 0) < 0 && (<p className='text-[#d9534f]'>Preis muss grösser als 0 sein</p>) }
         </div>
         <div className='my-2 relative'>
-          <Label className='text-white'>Shop: <span className={`${component.shop === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
+          <Label className='text-white'>Shop: <span className={`${(component.shop || "") === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
           <Select
-            key={component.shop} // Erzwingt Re-Rendering wenn sich der Wert ändert
+            key={component.shop}
             onValueChange={(value) => {
               setComponent((prev) => ({ ...prev, shop: value }));
             }}
@@ -260,18 +281,18 @@ const AddComponent = () => {
               ))}
             </SelectContent>
           </Select>
-          {component.shop.trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie einen Shop ein</p>) }
+          {(component.shop || "").trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie einen Shop ein</p>) }
         </div>
         <div className='my-2 relative'>
-          <Label className='text-white'>Link zum Produkt: <span className={`${component.link === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
-          <Input type="text" value={component.link} onChange={(e) => setComponent(prev => ({...prev, link: e.target.value}))}/>
-          {component.link.trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie einen Link zum Produkt ein</p>) }
+          <Label className='text-white'>Link zum Produkt: <span className={`${(component.link || "") === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
+          <Input type="text" value={component.link || ""} onChange={(e) => setComponent(prev => ({...prev, link: e.target.value}))}/>
+          {(component.link || "").trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie einen Link zum Produkt ein</p>) }
         </div>
         <div className='my-2 relative'>
-          <Label className='text-white'>Bild url: <span className={`${component.imageUrl === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
-          <Input type="text" onChange={(e) => setComponent(prev => ({ ...prev, imageUrl: e.target.value }))} value={component.imageUrl}/>
-          {component.imageUrl.trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie ein Bild url ein ein</p>) }
-          {component.imageUrl.trimEnd() !== "" && (
+          <Label className='text-white'>Bild url: <span className={`${(component.imageUrl || "") === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
+          <Input type="text" onChange={(e) => setComponent(prev => ({ ...prev, imageUrl: e.target.value }))} value={component.imageUrl || ""}/>
+          {(component.imageUrl || "").trimEnd() === "" && (<p className='text-[#d9534f]'>Bitte geben sie ein Bild url ein ein</p>) }
+          {(component.imageUrl || "").trimEnd() !== "" && (
             <Image
               src={hasError ? "/img_not_found.png" : component.imageUrl}
               alt="Bild vorschau"
@@ -313,7 +334,7 @@ const AddComponent = () => {
                       <Trash2/>
                     </Button>
                   </div>
-                  {optionData.value.trimEnd() === '' && (
+                  {(optionData.value || "").trimEnd() === '' && (
                     <p className="text-[#d9534f] ml-25">Bitte geben Sie einen Wert ein</p>
                   )}
                 </div>
@@ -323,7 +344,7 @@ const AddComponent = () => {
             <p className="text-gray-400">Keine Optionen hinzugefügt</p>
           ) : null}
           </div>
-        <Button className='w-full mt-4' type='submit' disabled={component.component === "" || component.name.trim() === "" || component.description.trim() === "" || component.price <= 0 || component.shop.trim() === "" || component.link.trim() === "" || component.imageUrl.trim() === ""}>Kompnent hinzufügen</Button>
+        <Button className='w-full mt-4' type='submit' disabled={(component.component || "") === "" || (component.name || "").trim() === "" || (component.description || "").trim() === "" || (component.price || 0) <= 0 || (component.shop || "").trim() === "" || (component.link || "").trim() === "" || (component.imageUrl || "").trim() === ""}>Kompnent hinzufügen</Button>
       </form>
     </div>
   )
