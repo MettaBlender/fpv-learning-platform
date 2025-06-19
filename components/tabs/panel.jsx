@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/card"
 import { toast } from "sonner"
 import AddComponent from '@/components/addComponent'
+import UpdateComponent from '@/components/updateComponent'
 
 
 const Panel = () => {
@@ -307,7 +308,7 @@ const Panel = () => {
                     </DialogDescription>
                   </DialogHeader>
                   {selectedDetailComponent && (
-                    <AddComponent componentProps={selectedDetailComponent}/>
+                    <UpdateComponent componentProps={selectedDetailComponent} update={true}/>
                   )}
                 </TabsContent>
                 <TabsContent value="delete" className="pt-5">
