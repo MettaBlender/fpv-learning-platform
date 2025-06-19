@@ -251,10 +251,12 @@ const Panel = () => {
                       {selectedDetailComponent.imageurl && (
                         <div className="flex justify-center">
                           <Image
-                            src={selectedDetailComponent.imageurl}
+                            src={imageErrors[selectedDetailComponent.imageurl] ? '/img_not_found_dark.png' : selectedDetailComponent.imageurl}
                             alt={selectedDetailComponent.name}
-                            width={200}
-                            height={200}
+                            width={80}
+                            height={80}
+                            onError={() => handleImageError(selectedDetailComponent.imageurl)}
+                            onLoadingComplete={() => handleImageLoad(selectedDetailComponent.imageurl)}
                             className="rounded-md object-cover"
                           />
                         </div>
@@ -561,7 +563,7 @@ const Panel = () => {
                           <div className="flex items-center gap-4">
                             {component.imageurl && (
                               <Image
-                                src={imageErrors[component.imageurl] ? '/img_not_found.png' : component.imageurl}
+                                src={imageErrors[component.imageurl] ? '/img_not_found_dark.png' : component.imageurl}
                                 alt={component.name}
                                 width={80}
                                 height={80}
