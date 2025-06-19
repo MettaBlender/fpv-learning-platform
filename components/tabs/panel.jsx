@@ -207,6 +207,16 @@ const Panel = () => {
     localStorage.setItem('panelTab', value)
   }
 
+  const [imageErrors, setImageErrors] = useState({}); // Zustand für Fehlerstatus aller Bilder
+
+  const handleImageError = (imageUrl) => {
+    setImageErrors((prev) => ({ ...prev, [imageUrl]: true }));
+  };
+
+  const handleImageLoad = (imageUrl) => {
+    setImageErrors((prev) => ({ ...prev, [imageUrl]: false }));
+  };
+
   return (
     <div className='w-full'>
       <Tabs value={tabsValue} onValueChange={changeTabsValue}>
@@ -510,101 +520,103 @@ const Panel = () => {
                     });
                   })
                   .map((component, index) => (
-                    <Card className="w-[23dvw] h-[23dvw] flex flex-col">
-                      <CardHeader className="h-[9dvw] flex-shrink-0 mb-6">
-                        <CardTitle className="flex items-center justify-between h-[5dvw] m-0">
-                          {component.name}
-                          <Button
-                            variant="ghost"
-                            size="icon"
-                            onClick={(e) => openShop(e, component.shop)}
-                          >
-                            <ExternalLink className="size-4" />
-                          </Button>
-                        </CardTitle>
-                        <CardDescription className="text-sm">
-                          {component.description && (
-                            <div className="mt-2 h-[6dvw] overflow-auto">
-                              <p
-                                className={`text-sm text-gray-600 transition-all duration-200 ${
-                                  expandedDescriptions[index] ? 'line-clamp-none' : 'line-clamp-2'
-                                }`}
-                              >
-                                {component.description}
-                              </p>
-                              {component.description.length > 100 && (
-                                <button
-                                  onClick={(e) => {
-                                    e.stopPropagation();
-                                    toggleDescription(index);
-                                  }}
-                                  className="text-xs text-blue-500 hover:underline mt-1"
+                      <Card className="w-[23dvw] h-[23dvw] flex flex-col" key={index}>
+                        <CardHeader className="h-[9dvw] flex-shrink-0 mb-6">
+                          <CardTitle className="flex items-center justify-between h-[5dvw] m-0">
+                            {component.name}
+                            <Button
+                              variant="ghost"
+                              size="icon"
+                              onClick={(e) => openShop(e, component.shop)}
+                            >
+                              <ExternalLink className="size-4" />
+                            </Button>
+                          </CardTitle>
+                          <CardDescription className="text-sm">
+                            {component.description && (
+                              <div className="mt-2 h-[6dvw] overflow-auto">
+                                <p
+                                  className={`text-sm text-gray-600 transition-all duration-200 ${
+                                    expandedDescriptions[index] ? 'line-clamp-none' : 'line-clamp-2'
+                                  }`}
                                 >
-                                  {expandedDescriptions[index] ? 'Weniger anzeigen' : 'Mehr anzeigen'}
-                                </button>
-                              )}
-                            </div>
-                          )}
-                        </CardDescription>
-                      </CardHeader>
-                      <CardContent className="h-[12dvw] flex-grow m-0 overflow-hidden">
-                        <div className="flex items-center gap-4">
-                          {component.imageurl && (
-                            <Image
-                              src={component.imageurl}
-                              alt={component.name}
-                              width={80}
-                              height={80}
-                              className="rounded-md object-cover"
-                            />
-                          )}
-                          <div className="flex flex-col">
-                            <span className="text-sm font-medium">
-                              Preis: {component.price} €
-                            </span>
-                            {component.options && (
-                              <div className="mt-2 space-y-1 max-h-[6dvw] overflow-auto">
-                                {component.options.map((option, i) => (
-                                  <div key={i} className="text-xs text-muted-foreground">
-                                    {Object.entries(option).map(([key, value]) => (
-                                      <span key={key}>
-                                        {key}: {value}{' '}
-                                      </span>
-                                    ))}
-                                  </div>
-                                ))}
+                                  {component.description}
+                                </p>
+                                {component.description.length > 100 && (
+                                  <button
+                                    onClick={(e) => {
+                                      e.stopPropagation();
+                                      toggleDescription(index);
+                                    }}
+                                    className="text-xs text-blue-500 hover:underline mt-1"
+                                  >
+                                    {expandedDescriptions[index] ? 'Weniger anzeigen' : 'Mehr anzeigen'}
+                                  </button>
+                                )}
                               </div>
                             )}
+                          </CardDescription>
+                        </CardHeader>
+                        <CardContent className="h-[12dvw] flex-grow m-0 overflow-hidden">
+                          <div className="flex items-center gap-4">
+                            {component.imageurl && (
+                              <Image
+                                src={imageErrors[component.imageurl] ? '/img_not_found.png' : component.imageurl}
+                                alt={component.name}
+                                width={80}
+                                height={80}
+                                onError={() => handleImageError(component.imageurl)}
+                                onLoadingComplete={() => handleImageLoad(component.imageurl)}
+                                className="rounded-md object-cover"
+                              />
+                            )}
+                            <div className="flex flex-col">
+                              <span className="text-sm font-medium">
+                                Preis: {component.price} €
+                              </span>
+                              {component.options && (
+                                <div className="mt-2 space-y-1 max-h-[6dvw] overflow-auto">
+                                  {component.options.map((option, i) => (
+                                    <div key={i} className="text-xs text-muted-foreground">
+                                      {Object.entries(option).map(([key, value]) => (
+                                        <span key={key}>
+                                          {key}: {value}{' '}
+                                        </span>
+                                      ))}
+                                    </div>
+                                  ))}
+                                </div>
+                              )}
+                            </div>
                           </div>
-                        </div>
-                      </CardContent>
-                      <CardFooter className="h-[3dvw] flex-shrink-0 flex justify-between items-center m-0">
-                        <div className="flex gap-1">
+                        </CardContent>
+                        <CardFooter className="h-[3dvw] flex-shrink-0 flex justify-between items-center m-0">
+                          <div className="flex gap-1">
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              onClick={() => showComponentDetails(component, 'details')}
+                            >
+                              <Info className="size-4" />
+                            </Button>
+                            <Button
+                              variant="outline"
+                              size="sm"
+                              onClick={() => showComponentDetails(component, 'edit')}
+                            >
+                              Bearbeiten
+                            </Button>
+                          </div>
                           <Button
-                            variant="ghost"
+                            variant="destructive"
                             size="sm"
-                            onClick={() => showComponentDetails(component, 'details')}
+                            onClick={() => showComponentDetails(component, 'delete')}
                           >
-                            <Info className="size-4" />
+                            Entfernen
                           </Button>
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            onClick={() => showComponentDetails(component, 'edit')}
-                          >
-                            Bearbeiten
-                          </Button>
-                        </div>
-                        <Button
-                          variant="destructive"
-                          size="sm"
-                          onClick={() => showComponentDetails(component, 'delete')}
-                        >
-                          Entfernen
-                        </Button>
-                      </CardFooter>
-                    </Card>
-                  ))}
+                        </CardFooter>
+                      </Card>
+                    ))}
                 </div>
               </div>
             </CollapsibleContent>

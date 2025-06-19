@@ -14,6 +14,7 @@ import { title } from 'process';
 import { Textarea } from './ui/textarea';
 import Image from 'next/image';
 import { toast } from 'sonner';
+import { Trash2 } from 'lucide-react';
 
 const AddComponent = () => {
   const componentGroup = ["frame", "motors", "esc", "fc", "props", "battery", "camera"]
@@ -31,6 +32,42 @@ const AddComponent = () => {
     {battery: [["c-rate", "", 1], ["marke", "", 2]]},
     {camera: [["marke", "", 1]]
   }]);
+
+  useEffect(() => {
+    const sesssionComponent = sessionStorage.getItem('component')
+      ? JSON.parse(sessionStorage.getItem('component'))
+      : null;
+    if (sesssionComponent) {
+      console.log("Session Component:", sesssionComponent);
+      setComponent(sesssionComponent);
+      console.log("Component from sessionStorage:", component);
+    }
+  }, []);
+
+   useEffect(() => {
+    if (!(component.title === "" && component.description === "" && component.price == "" && component.shop === "" && component.link === "" && component.imageUrl === "")) {
+      console.log("Component updated:", component);
+      // Speichere den aktuellen Zustand in sessionStorage
+      sessionStorage.setItem('component', JSON.stringify(component).toString());
+    }
+  }, [component]);
+
+  useEffect(() => {
+    if (!component.type) return;
+
+    const selectedOptions = options.find((opt) => opt[component.type]);
+    if (selectedOptions && !component.options) {
+      // Convert array structure [key, value, id] to object with IDs
+      const optionsWithIds = {};
+      selectedOptions[component.type].forEach(([key, value, id]) => {
+        optionsWithIds[key] = { value, id };
+      });
+      setComponent((prev) => ({
+        ...prev,
+        options: optionsWithIds,
+      }));
+    }
+  }, [component.type, component.options, options, setComponent]);
 
   const mapOptionsToArray = (optionsObj) => {
     return Object.entries(optionsObj).map(([key, { value }]) => ({ [key]: value }));
@@ -86,23 +123,6 @@ const AddComponent = () => {
     }));
   }
 
-  // Synchronisiere component.options mit dem options-Array basierend auf component.type
-  useEffect(() => {
-    if (!component.type) return;
-
-    const selectedOptions = options.find((opt) => opt[component.type]);
-    if (selectedOptions && !component.options) {
-      // Convert array structure [key, value, id] to object with IDs
-      const optionsWithIds = {};
-      selectedOptions[component.type].forEach(([key, value, id]) => {
-        optionsWithIds[key] = { value, id };
-      });
-      setComponent((prev) => ({
-        ...prev,
-        options: optionsWithIds,
-      }));
-    }
-  }, [component.type, component.options, options, setComponent]);
 
   // Aktualisiere options-Array basierend auf Änderungen in component.options
   const updateOptionsArray = (updatedOptions) => {
@@ -188,7 +208,9 @@ const AddComponent = () => {
         <div>
           <Label className='text-white'>Wählen Sie eine Komponente aus: <span className={`${component.component === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
           <Select
+            key={component.component}
             onValueChange={handleComponentChange}
+            value={component.component || ''} // Fallback auf leeren String
           >
             <SelectTrigger className="w-full p-2 border rounded-md mt-2">
               <SelectValue placeholder="-- Bitte wählen --" />
@@ -221,16 +243,18 @@ const AddComponent = () => {
         <div className='my-2 relative'>
           <Label className='text-white'>Shop: <span className={`${component.shop === "" ? 'text-[#d9534f]' : 'text-[#8ccd82]'}`}>*</span></Label>
           <Select
+            key={component.shop} // Erzwingt Re-Rendering wenn sich der Wert ändert
             onValueChange={(value) => {
-              setComponent((prev) => ({...prev, shop: value}));
+              setComponent((prev) => ({ ...prev, shop: value }));
             }}
+            value={component.shop || ''}
           >
             <SelectTrigger className="w-full p-2 border rounded-md mt-2">
               <SelectValue placeholder="-- Bitte wählen --" />
             </SelectTrigger>
             <SelectContent>
-              {shops.map((shop, index) => (
-                <SelectItem key={index} value={shop}>
+              {shops.map((shop) => (
+                <SelectItem key={shop} value={shop}>
                   {shop}
                 </SelectItem>
               ))}
@@ -260,42 +284,11 @@ const AddComponent = () => {
         </div>
         <div className="my-2 relative">
           <Label className="text-white">Optionen: </Label>
-          {/* Komponenten-Auswahl */}
-          {/* <Select
-            onValueChange={(value) => {
-              const selectedOptions = options.find((opt) => opt[value]);
-              const optionsWithIds = {};
-              selectedOptions[value].forEach(([key, val, id]) => {
-                optionsWithIds[key] = { value: val, id };
-              });
-              setComponent((prev) => ({
-                ...prev,
-                type: value,
-                options: optionsWithIds,
-              }));
-            }}
-            value={component.type || ''}
-          >
-            <SelectTrigger className="w-full p-2 border rounded-md mt-2">
-              <SelectValue placeholder="-- Komponente wählen --" />
-            </SelectTrigger>
-            <SelectContent>
-              {options.map((opt, index) => (
-                <SelectItem key={index} value={Object.keys(opt)[0]}>
-                  {Object.keys(opt)[0]}
-                </SelectItem>
-              ))}
-            </SelectContent>
-          </Select> */}
-
-          {/* Eingabefelder zum Hinzufügen neer Optionen */}
           {component.component && (
             <div className="flex gap-2 my-2">
               <Button type='button' onClick={handleAddOption}>Option Hinzufügen</Button>
             </div>
           )}
-
-          {/* Anzeige und Bearbeitung der Optionen */}
           {component.options && Object.keys(component.options).length > 0 ? (
             <div className="flex flex-col">
               {Object.entries(component.options)
@@ -317,7 +310,7 @@ const AddComponent = () => {
                     />
                     {/* <span className="text-white text-sm">ID: {optionData.id}</span> */}
                     <Button variant="destructive" onClick={() => handleRemoveOption(key)}>
-                      Entfernen
+                      <Trash2/>
                     </Button>
                   </div>
                   {optionData.value.trimEnd() === '' && (
