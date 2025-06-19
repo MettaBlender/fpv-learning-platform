@@ -400,7 +400,6 @@ const Panel = () => {
                           <Button
                             variant="outline"
                             onClick={() => {
-                              // Hier würden Sie die Änderungen speichern
                               toast.success("Änderungen gespeichert!")
                               setSelectedDetailComponent(null)
                             }}
