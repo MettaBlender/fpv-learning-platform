@@ -28,6 +28,7 @@ import {
 import { toast } from "sonner"
 import AddComponent from '@/components/addComponent'
 import UpdateComponent from '@/components/updateComponent'
+import ComponentFrom from '@/components/componentForm'
 
 
 const Panel = () => {
@@ -308,7 +309,7 @@ const Panel = () => {
                     </DialogDescription>
                   </DialogHeader>
                   {selectedDetailComponent && (
-                    <UpdateComponent componentProps={selectedDetailComponent} update={true}/>
+                    <ComponentFrom componentProps={selectedDetailComponent} update={true}/>
                   )}
                 </TabsContent>
                 <TabsContent value="delete" className="pt-5">
@@ -509,7 +510,7 @@ const Panel = () => {
           </Collapsible>))}
         </TabsContent>
         <TabsContent value='add'>
-          <AddComponent />
+          <ComponentFrom/>
         </TabsContent>
       </Tabs>
     </div>

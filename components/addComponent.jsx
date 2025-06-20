@@ -16,7 +16,7 @@ import Image from 'next/image';
 import { toast } from 'sonner';
 import { Trash2 } from 'lucide-react';
 
-const AddComponent = (componentProps = {}, update = false) => {
+const AddComponent = (componentProps, update) => {
   const componentGroup = ["frame", "motors", "esc", "fc", "props", "battery", "camera"]
   const shops = ["Fpvracing", "FPVFrame", "Dronefactory", "FPV24", "Quadmula"]
 
