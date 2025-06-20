@@ -52,6 +52,7 @@ const Panel = () => {
   const [dialogeTab, setDialogTab] = useState("details")
   const [tabsValue, setTabsValue] = useState("components")
   const [deleteName, setDeleteName] = useState("")
+  const [theme, setTheme] = useState(false)
 
   const componentGroup = ["frame", "motors", "esc", "fc", "props", "battery", "camera"]
 
@@ -78,6 +79,11 @@ const Panel = () => {
     setTabsValue(localStorage.getItem('panelTab') || 'components')
 
   }, [])
+
+  useEffect(() => {
+    setTheme(localStorage.getItem('theme') === 'dark')
+  }, [localStorage.getItem('theme')])
+
 
   const handleComponentSelect = (componentType, component) => {
     setSelectedComponents((prev) => ({
@@ -464,7 +470,7 @@ const Panel = () => {
                           <div className="flex items-center gap-4">
                             {component.imageurl && (
                               <Image
-                                src={imageErrors[component.imageurl] ? '/img_not_found_dark.png' : component.imageurl}
+                                src={imageErrors[component.imageurl] ? theme ? '/img_not_found.png' : '/img_not_found_dark.png' : component.imageurl}
                                 alt={component.name}
                                 width={80}
                                 height={80}
