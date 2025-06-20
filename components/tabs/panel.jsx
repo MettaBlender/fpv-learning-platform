@@ -264,7 +264,7 @@ const Panel = () => {
 
                         <div>
                           <h4 className="font-semibold text-lg">Preis</h4>
-                          <p className="text-2xl font-bold text-green-600">{selectedDetailComponent.price} €</p>
+                          <p className="text-2xl font-bold text-green-600">{selectedDetailComponent.price} CHF</p>
                         </div>
 
                         {selectedDetailComponent.options && selectedDetailComponent.options.length > 0 && (
@@ -475,7 +475,7 @@ const Panel = () => {
                             )}
                             <div className="flex flex-col">
                               <span className="text-sm font-medium">
-                                Preis: {component.price} €
+                                Preis: {component.price} CHF
                               </span>
                               {component.options && (
                                 <div className="mt-2 space-y-1 max-h-[6dvw] overflow-auto">
