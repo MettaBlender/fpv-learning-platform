@@ -58,6 +58,7 @@ const OPTIONS_CONFIG = [
 
 interface ComponentFormProps {
   componentProps?: {
+    id?: number
     component?: string
     name?: string
     description?: string
@@ -131,6 +132,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
     lastProcessedProps.current = { props: componentProps, update: update }
 
     return {
+      id: initialState.id || null,
       component: initialState.component,
       name: initialState.name || "",
       description: initialState.description || "",
@@ -266,6 +268,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
         options: mapOptionsToArray(component.options as { [key: string]: { value: string; id: number } }),
       }
     }
+    console.log("Komponente zum Senden:", shipComponent)
 
     try {
       const method = update ? "PUT" : "POST" // Assuming PUT for update, POST for add
