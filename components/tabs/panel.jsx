@@ -306,6 +306,7 @@ const Panel = () => {
                     <DialogTitle>Komponente bearbeiten</DialogTitle>
                     <DialogDescription>
                       Hier können Sie die Details der Komponente bearbeiten.
+                      {JSON.stringify(selectedDetailComponent)}
                     </DialogDescription>
                   </DialogHeader>
                   {selectedDetailComponent && (

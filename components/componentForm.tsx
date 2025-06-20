@@ -66,7 +66,7 @@ interface ComponentFormProps {
     link?: string
     imageurl?: string
     imageUrl?: string // For backward compatibility with original code
-    options?: { [key: string]: { value: string; id: number } }
+    options?: { [key: string]: { value: string; id: number } } | Array<{ [key: string]: string }> // Updated type for incoming options
     type?: string // Added type based on usage in original code
   }
   update?: boolean
@@ -100,6 +100,22 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
     initialState.type = currentType
     initialState.component = currentType
 
+    // Handle incoming options: convert array format to internal object format if necessary
+    if (Array.isArray(initialState.options)) {
+      const convertedOptions: { [key: string]: { value: string; id: number } } = {}
+      let idCounter = 1 // Start ID counter for new options
+
+      initialState.options.forEach((optionObj: { [key: string]: string }) => {
+        const key = Object.keys(optionObj)[0]
+        const value = optionObj[key]
+        if (key) {
+          convertedOptions[key] = { value, id: idCounter++ }
+        }
+      })
+      initialState.options = convertedOptions
+    }
+
+    // If options are still not set (e.g., was undefined/null initially, or empty array), initialize from OPTIONS_CONFIG
     if (!initialState.options || Object.keys(initialState.options).length === 0) {
       const selectedOptions = OPTIONS_CONFIG.find((opt) => opt[currentType])
       if (selectedOptions) {
@@ -155,6 +171,22 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
     newStateCandidate.type = currentType
     newStateCandidate.component = currentType
 
+    // Handle incoming options: convert array format to internal object format if necessary
+    if (Array.isArray(newStateCandidate.options)) {
+      const convertedOptions: { [key: string]: { value: string; id: number } } = {}
+      let idCounter = 1 // Start ID counter for new options
+
+      newStateCandidate.options.forEach((optionObj: { [key: string]: string }) => {
+        const key = Object.keys(optionObj)[0]
+        const value = optionObj[key]
+        if (key) {
+          convertedOptions[key] = { value, id: idCounter++ }
+        }
+      })
+      newStateCandidate.options = convertedOptions
+    }
+
+    // If options are still not set (e.g., was undefined/null initially, or empty array), initialize from OPTIONS_CONFIG
     if (!newStateCandidate.options || Object.keys(newStateCandidate.options).length === 0) {
       const selectedOptions = OPTIONS_CONFIG.find((opt) => opt[currentType])
       if (selectedOptions) {
@@ -191,8 +223,9 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
   }, [componentProps, update]) // Dependencies: componentProps, update
 
   useEffect(() => {
-    // Only save to session storage if component data is not empty
+    // Only save to session storage if component data is not empty AND not in update mode
     if (
+      !update && // <-- Added this condition
       !(
         component.name === "" &&
         component.description === "" &&
@@ -204,7 +237,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
     ) {
       sessionStorage.setItem("component", JSON.stringify(component))
     }
-  }, [component])
+  }, [component, update]) // Added 'update' to dependencies
 
   const mapOptionsToArray = (optionsObj: { [key: string]: { value: string; id: number } }) => {
     return Object.entries(optionsObj).map(([key, { value }]) => ({ [key]: value }))
@@ -228,7 +261,10 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
     let shipComponent = { ...component }
 
     if (component.options) {
-      shipComponent = { ...component, options: mapOptionsToArray(component.options) }
+      shipComponent = {
+        ...component,
+        options: mapOptionsToArray(component.options as { [key: string]: { value: string; id: number } }),
+      }
     }
 
     try {
@@ -262,7 +298,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
     const optionsWithIds: { [key: string]: { value: string; id: number } } = {}
     if (selectedOptions) {
       selectedOptions[value].forEach(([key, val, id]) => {
-        optionsWithIds[key] = { value: val, id }
+        optionsWithIds[key] = { value, id }
       })
     }
     setComponent((prev) => ({
