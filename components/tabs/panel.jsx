@@ -29,6 +29,7 @@ import { toast } from "sonner"
 import AddComponent from '@/components/addComponent'
 import UpdateComponent from '@/components/updateComponent'
 import ComponentFrom from '@/components/componentForm'
+import { Input } from '../ui/input'
 
 
 const Panel = () => {
@@ -50,6 +51,7 @@ const Panel = () => {
   })
   const [dialogeTab, setDialogTab] = useState("details")
   const [tabsValue, setTabsValue] = useState("components")
+  const [deleteName, setDeleteName] = useState("")
 
   const componentGroup = ["frame", "motors", "esc", "fc", "props", "battery", "camera"]
 
@@ -204,6 +206,11 @@ const Panel = () => {
     }
   }
 
+  const closeDialog = () => {
+    setSelectedDetailComponent(null);
+    setDeleteName("");
+  }
+
   return (
     <div className='w-full'>
       <Tabs value={tabsValue} onValueChange={changeTabsValue}>
@@ -216,7 +223,7 @@ const Panel = () => {
             <h3 className="text-lg font-semibold">Drohnen Komponenten</h3>
           </div>
 
-          <Dialog open={!!selectedDetailComponent} onOpenChange={() => setSelectedDetailComponent(null)}>
+          <Dialog open={!!selectedDetailComponent} onOpenChange={closeDialog}>
             <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
               <Tabs className='relative' value={dialogeTab} onValueChange={setDialogTab}>
                 <div className='sticky w-[calc(100% + 3rem)] m-[-1.5rem] top-[-1.5rem] pt-6 pb-3 backdrop-blur-lg z-20'>
@@ -330,9 +337,16 @@ const Panel = () => {
                         <p className="text-sm text-red-600">
                           Diese Aktion kann nicht rückgängig gemacht werden.
                         </p>
-                        <div className="flex justify-end pt-4 border-t">
+                        <div className="flex justify-between items-center pt-4 border-t">
+                          <div className='flex flex-col gap-2'>
+                            <p className="text-sm text-foreground flex">
+                              Geben sie "<p className='select-none'>{selectedDetailComponent.name}</p>" ein, um fortzufahren.
+                            </p>
+                            <Input value={deleteName} onChange={(e) => {setDeleteName(e.target.value)}}/>
+                          </div>
                           <Button
                             variant="destructive"
+                            disabled={deleteName !== selectedDetailComponent.name}
                             onClick={handleDeleteComponent}
                           >
                             Entfernen
