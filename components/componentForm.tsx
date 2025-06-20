@@ -515,13 +515,13 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
                         type="text"
                         value={key || ""}
                         onChange={(e) => handleUpdateKey(key, e.target.value)}
-                        className="p-2 bg-gray-800 text-white border-gray-600 rounded-md"
+                        className="p-2 bg-background text-forground border-foreground rounded-md"
                       />
                       <Input
                         type="text"
                         value={optionData.value || ""}
                         onChange={(e) => handleUpdateOption(key, e.target.value)}
-                        className="p-2 bg-gray-800 text-white border-gray-600 rounded-md"
+                        className="p-2 bg-background text-forground border-foreground rounded-md"
                       />
                       <Button variant="destructive" onClick={() => handleRemoveOption(key)}>
                         <Trash2 />

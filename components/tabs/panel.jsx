@@ -219,7 +219,7 @@ const Panel = () => {
           <Dialog open={!!selectedDetailComponent} onOpenChange={() => setSelectedDetailComponent(null)}>
             <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
               <Tabs className='relative' value={dialogeTab} onValueChange={setDialogTab}>
-                <div className='sticky w-[calc(100% + 3rem)] m-[-1.5rem] top-[-1.5rem] pt-6 pb-3 backdrop-blur-lg'>
+                <div className='sticky w-[calc(100% + 3rem)] m-[-1.5rem] top-[-1.5rem] pt-6 pb-3 backdrop-blur-lg z-20'>
                   <TabsList className="w-[95%] mx-auto grid grid-cols-3 gap-2 mb-4 sticky top-0">
                     <TabsTrigger value="details" className="flex items-center gap-2">Details</TabsTrigger>
                     <TabsTrigger value="edit" className="flex items-center gap-2">Bearbeiten</TabsTrigger>
@@ -306,11 +306,12 @@ const Panel = () => {
                     <DialogTitle>Komponente bearbeiten</DialogTitle>
                     <DialogDescription>
                       Hier können Sie die Details der Komponente bearbeiten.
-                      {JSON.stringify(selectedDetailComponent)}
                     </DialogDescription>
                   </DialogHeader>
                   {selectedDetailComponent && (
-                    <ComponentFrom componentProps={selectedDetailComponent} update={true}/>
+                    <div className='z-0'>
+                      <ComponentFrom componentProps={selectedDetailComponent} update={true}/>
+                    </div>
                   )}
                 </TabsContent>
                 <TabsContent value="delete" className="pt-5">
