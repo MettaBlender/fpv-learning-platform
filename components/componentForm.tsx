@@ -1,7 +1,7 @@
 "use client"
 
 import type React from "react"
-import { useState, useEffect, useRef } from "react" // Import useRef
+import { useState, useEffect, useRef } from "react"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
@@ -56,6 +56,12 @@ const OPTIONS_CONFIG = [
   { camera: [["marke", "", 1]] },
 ]
 
+interface OptionItem {
+  key: string
+  value: string
+  id: number
+}
+
 interface ComponentFormProps {
   componentProps?: {
     id?: number
@@ -67,7 +73,7 @@ interface ComponentFormProps {
     link?: string
     imageurl?: string
     imageUrl?: string // For backward compatibility with original code
-    options?: { [key: string]: { value: string; id: number } } | Array<{ [key: string]: string }> // Updated type for incoming options
+    options?: { [key: string]: { value: string; id: number } } | Array<{ [key: string]: string }> | OptionItem[] // Updated type for incoming options
     type?: string // Added type based on usage in original code
   }
   update?: boolean
@@ -101,30 +107,37 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
     initialState.type = currentType
     initialState.component = currentType
 
-    // Handle incoming options: convert array format to internal object format if necessary
-    if (Array.isArray(initialState.options)) {
-      const convertedOptions: { [key: string]: { value: string; id: number } } = {}
-      let idCounter = 1 // Start ID counter for new options
+    const processedOptions: OptionItem[] = []
+    let idCounter = 1 // Start ID counter for new options
 
-      initialState.options.forEach((optionObj: { [key: string]: string }) => {
-        const key = Object.keys(optionObj)[0]
-        const value = optionObj[key]
-        if (key) {
-          convertedOptions[key] = { value, id: idCounter++ }
+    // Handle incoming options: convert various formats to internal OptionItem[] format
+    if (Array.isArray(initialState.options)) {
+      // Case: options is Array<{ [key: string]: string }> or OptionItem[]
+      initialState.options.forEach((option: any) => {
+        if (option.key && option.value && option.id) {
+          // Already in OptionItem format
+          processedOptions.push(option)
+        } else if (typeof option === "object" && Object.keys(option).length === 1) {
+          // Format: { "key": "value" }
+          const key = Object.keys(option)[0]
+          const value = option[key]
+          processedOptions.push({ key, value, id: idCounter++ })
         }
       })
-      initialState.options = convertedOptions
+    } else if (typeof initialState.options === "object" && initialState.options !== null) {
+      // Case: options is { [key: string]: { value: string; id: number } } (old internal format)
+      Object.entries(initialState.options).forEach(([key, optionData]) => {
+        processedOptions.push({ key, value: optionData.value, id: optionData.id || idCounter++ })
+      })
     }
 
-    // If options are still not set (e.g., was undefined/null initially, or empty array), initialize from OPTIONS_CONFIG
-    if (!initialState.options || Object.keys(initialState.options).length === 0) {
+    // If no options were provided or processed, initialize from OPTIONS_CONFIG
+    if (processedOptions.length === 0) {
       const selectedOptions = OPTIONS_CONFIG.find((opt) => opt[currentType])
       if (selectedOptions) {
-        const optionsWithIds: { [key: string]: { value: string; id: number } } = {}
         selectedOptions[currentType].forEach(([key, value, id]) => {
-          optionsWithIds[key] = { value, id }
+          processedOptions.push({ key, value, id })
         })
-        initialState.options = optionsWithIds
       }
     }
 
@@ -140,7 +153,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
       shop: initialState.shop || "",
       link: initialState.link || "",
       imageurl: initialState.imageurl || initialState.imageUrl || "",
-      options: initialState.options || {},
+      options: processedOptions, // Use the processed options
       type: initialState.type,
     }
   })
@@ -173,34 +186,38 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
     newStateCandidate.type = currentType
     newStateCandidate.component = currentType
 
-    // Handle incoming options: convert array format to internal object format if necessary
-    if (Array.isArray(newStateCandidate.options)) {
-      const convertedOptions: { [key: string]: { value: string; id: number } } = {}
-      let idCounter = 1 // Start ID counter for new options
+    const processedOptions: OptionItem[] = []
+    let idCounter = 1 // Start ID counter for new options
 
-      newStateCandidate.options.forEach((optionObj: { [key: string]: string }) => {
-        const key = Object.keys(optionObj)[0]
-        const value = optionObj[key]
-        if (key) {
-          convertedOptions[key] = { value, id: idCounter++ }
+    // Handle incoming options: convert various formats to internal OptionItem[] format
+    if (Array.isArray(newStateCandidate.options)) {
+      newStateCandidate.options.forEach((option: any) => {
+        if (option.key && option.value && option.id) {
+          processedOptions.push(option)
+        } else if (typeof option === "object" && Object.keys(option).length === 1) {
+          const key = Object.keys(option)[0]
+          const value = option[key]
+          processedOptions.push({ key, value, id: idCounter++ })
         }
       })
-      newStateCandidate.options = convertedOptions
+    } else if (typeof newStateCandidate.options === "object" && newStateCandidate.options !== null) {
+      Object.entries(newStateCandidate.options).forEach(([key, optionData]) => {
+        processedOptions.push({ key, value: optionData.value, id: optionData.id || idCounter++ })
+      })
     }
 
-    // If options are still not set (e.g., was undefined/null initially, or empty array), initialize from OPTIONS_CONFIG
-    if (!newStateCandidate.options || Object.keys(newStateCandidate.options).length === 0) {
+    // If no options were provided or processed, initialize from OPTIONS_CONFIG
+    if (processedOptions.length === 0) {
       const selectedOptions = OPTIONS_CONFIG.find((opt) => opt[currentType])
       if (selectedOptions) {
-        const optionsWithIds: { [key: string]: { value: string; id: number } } = {}
         selectedOptions[currentType].forEach(([key, value, id]) => {
-          optionsWithIds[key] = { value, id }
+          processedOptions.push({ key, value, id })
         })
-        newStateCandidate.options = optionsWithIds
       }
     }
 
     const finalNewState = {
+      id: newStateCandidate.id || null,
       component: newStateCandidate.component,
       name: newStateCandidate.name || "",
       description: newStateCandidate.description || "",
@@ -208,7 +225,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
       shop: newStateCandidate.shop || "",
       link: newStateCandidate.link || "",
       imageurl: newStateCandidate.imageurl || newStateCandidate.imageUrl || "",
-      options: newStateCandidate.options || {},
+      options: processedOptions, // Use the processed options
       type: newStateCandidate.type,
     }
 
@@ -241,8 +258,9 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
     }
   }, [component, update]) // Added 'update' to dependencies
 
-  const mapOptionsToArray = (optionsObj: { [key: string]: { value: string; id: number } }) => {
-    return Object.entries(optionsObj).map(([key, { value }]) => ({ [key]: value }))
+  // Converts internal OptionItem[] to API-expected Array<{ [key: string]: string }>
+  const mapOptionsToApiFormat = (optionsArray: OptionItem[]) => {
+    return optionsArray.map((option) => ({ [option.key]: option.value }))
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -262,11 +280,14 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
 
     let shipComponent = { ...component }
 
-    if (component.options) {
+    if (component.options && component.options.length > 0) {
       shipComponent = {
         ...component,
-        options: mapOptionsToArray(component.options as { [key: string]: { value: string; id: number } }),
+        options: mapOptionsToApiFormat(component.options),
       }
+    } else {
+      // Ensure options is an empty array if there are none
+      shipComponent = { ...component, options: [] }
     }
     console.log("Komponente zum Senden:", shipComponent)
 
@@ -289,6 +310,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
       const data = await response.json()
       console.log(`Komponente erfolgreich ${update ? "aktualisiert" : "hinzugefügt"}:`, data)
       toast.success(`Komponente erfolgreich ${update ? "aktualisiert" : "hinzugefügt"}`)
+      sessionStorage.removeItem("component")
     } catch (error) {
       console.error("Fehler:", error)
       toast.error(`Fehler beim ${update ? "Aktualisieren" : "Hinzufügen"} der Komponente`)
@@ -296,81 +318,69 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
   }
 
   const handleComponentTypeChange = (value: string) => {
-    setComponent((prev) => ({ ...prev, component: value, type: value }))
-    const selectedOptions = OPTIONS_CONFIG.find((opt) => opt[value])
-    const optionsWithIds: { [key: string]: { value: string; id: number } } = {}
-    if (selectedOptions) {
-      selectedOptions[value].forEach(([key, val, id]) => {
-        optionsWithIds[key] = { value, id }
-      })
-    }
-    setComponent((prev) => ({
-      ...prev,
-      options: optionsWithIds,
-    }))
+    setComponent((prev) => {
+      const selectedOptionsConfig = OPTIONS_CONFIG.find((opt) => opt[value])
+      const newOptions: OptionItem[] = []
+      if (selectedOptionsConfig) {
+        selectedOptionsConfig[value].forEach(([key, val, id]) => {
+          newOptions.push({ key, value: val, id })
+        })
+      }
+      return {
+        ...prev,
+        component: value,
+        type: value,
+        options: newOptions, // Reset options based on new component type
+      }
+    })
   }
 
   const handleAddOption = () => {
-    const existingIds = Object.values(component.options || {}).map((opt) => opt.id)
-    const newId = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1
+    setComponent((prev) => {
+      const existingIds = prev.options.map((opt) => opt.id)
+      const newId = existingIds.length > 0 ? Math.max(...existingIds) + 1 : 1
+      const newOption: OptionItem = { key: "", value: "", id: newId }
+      return {
+        ...prev,
+        options: [...prev.options, newOption],
+      }
+    })
+  }
 
-    const updatedOptions = {
-      ...component.options,
-      [""]: { value: "", id: newId },
-    }
+  const handleRemoveOption = (idToRemove: number) => {
     setComponent((prev) => ({
       ...prev,
-      options: updatedOptions,
+      options: prev.options.filter((option) => option.id !== idToRemove),
     }))
   }
 
-  const handleRemoveOption = (key: string) => {
-    const updatedOptions = { ...component.options }
-    delete updatedOptions[key]
+  const handleUpdateOption = (idToUpdate: number, newValue: string) => {
     setComponent((prev) => ({
       ...prev,
-      options: updatedOptions,
+      options: prev.options.map((option) => (option.id === idToUpdate ? { ...option, value: newValue } : option)),
     }))
   }
 
-  const handleUpdateOption = (key: string, newValue: string) => {
-    const updatedOptions = {
-      ...component.options,
-      [key]: { ...component.options[key], value: newValue },
-    }
-    setComponent((prev) => ({
-      ...prev,
-      options: updatedOptions,
-    }))
-  }
-
-  const handleUpdateKey = (oldKey: string, newKey: string) => {
+  const handleUpdateKey = (idToUpdate: number, newKey: string) => {
     if (newKey.trim() === "") {
       toast.error("Der neue Schlüssel darf nicht leer sein.")
       return
     }
-    if (component.options[newKey] && newKey !== oldKey) {
-      toast.error("Dieser Schlüssel existiert bereits.")
-      return
-    }
-
-    const updatedOptions = { ...component.options }
-    const optionData = updatedOptions[oldKey]
-    delete updatedOptions[oldKey]
-    updatedOptions[newKey] = optionData
-
+    // No check for duplicate keys needed as per requirement
     setComponent((prev) => ({
       ...prev,
-      options: updatedOptions,
+      options: prev.options.map((option) => (option.id === idToUpdate ? { ...option, key: newKey } : option)),
     }))
   }
 
   return (
     <div className={`w-full ${!update ? "px-[30%]" : ""} pt-1`}>
       <form className="w-full" onSubmit={handleSubmit}>
-        <h1 className={`text-4xl font-bold ${update ? 'text-foreground' : 'text-white'}`}>Komponent {!update ? "Hinzufügen" : "Bearbeiten"}</h1>
+        <h1 className={`text-4xl font-bold ${update ? "text-foreground" : "text-white"}`}>
+          Komponent {!update ? "Hinzufügen" : "Bearbeiten"}
+        </h1>
         <div>
-          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
+          <Label className={`${update ? "text-foreground" : "text-white"}`}>
             Wählen Sie eine Komponente aus:{" "}
             <span className={`${component.component === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
@@ -388,7 +398,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           </Select>
         </div>
         <div className="my-2">
-          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
+          <Label className={`${update ? "text-foreground" : "text-white"}`}>
             Titel: <span className={`${(component.name || "") === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
           <Input
@@ -399,7 +409,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           {(component.name || "").trimEnd() === "" && <p className="text-[#d9534f]">Bitte geben sie einen Titel ein</p>}
         </div>
         <div className="my-2 relative">
-          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
+          <Label className={`${update ? "text-foreground" : "text-white"}`}>
             Beschreibung:{" "}
             <span className={`${(component.description || "") === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
@@ -413,7 +423,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           )}
         </div>
         <div className="my-2 relative">
-          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
+          <Label className={`${update ? "text-foreground" : "text-white"}`}>
             Preis:{" "}
             <span
               className={`${component.price === "" || Number.parseFloat(component.price as string) <= 0 ? "text-[#d9534f]" : "text-[#8ccd82]"}`}
@@ -436,7 +446,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           )}
         </div>
         <div className="my-2 relative">
-          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
+          <Label className={`${update ? "text-foreground" : "text-white"}`}>
             Shop: <span className={`${(component.shop || "") === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
           <Select
@@ -460,7 +470,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           {(component.shop || "").trimEnd() === "" && <p className="text-[#d9534f]">Bitte geben sie einen Shop ein</p>}
         </div>
         <div className="my-2 relative">
-          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
+          <Label className={`${update ? "text-foreground" : "text-white"}`}>
             Link zum Produkt:{" "}
             <span className={`${(component.link || "") === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
@@ -474,7 +484,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           )}
         </div>
         <div className="my-2 relative">
-          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
+          <Label className={`${update ? "text-foreground" : "text-white"}`}>
             Bild url:{" "}
             <span className={`${(component.imageurl || "") === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
@@ -499,7 +509,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           )}
         </div>
         <div className="my-2 relative">
-          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>Optionen: </Label>
+          <Label className={`${update ? "text-foreground" : "text-white"}`}>Optionen: </Label>
           {component.component && (
             <div className="flex gap-2 my-2">
               <Button type="button" onClick={handleAddOption}>
@@ -507,26 +517,26 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
               </Button>
             </div>
           )}
-          {component.options && Object.keys(component.options).length > 0 ? (
+          {component.options && component.options.length > 0 ? (
             <div className="flex flex-col">
-              {Object.entries(component.options)
-                .sort(([, a], [, b]) => a.id - b.id)
-                .map(([key, optionData]) => (
+              {component.options
+                .sort((a, b) => a.id - b.id) // Sort by ID for consistent order
+                .map((optionData) => (
                   <div key={optionData.id}>
                     <div className="my-2 relative flex items-center gap-2">
                       <Input
                         type="text"
-                        value={key || ""}
-                        onChange={(e) => handleUpdateKey(key, e.target.value)}
+                        value={optionData.key || ""}
+                        onChange={(e) => handleUpdateKey(optionData.id, e.target.value)}
                         className="p-2 bg-background text-forground border-foreground rounded-md"
                       />
                       <Input
                         type="text"
                         value={optionData.value || ""}
-                        onChange={(e) => handleUpdateOption(key, e.target.value)}
+                        onChange={(e) => handleUpdateOption(optionData.id, e.target.value)}
                         className="p-2 bg-background text-forground border-foreground rounded-md"
                       />
-                      <Button variant="destructive" onClick={() => handleRemoveOption(key)}>
+                      <Button variant="destructive" onClick={() => handleRemoveOption(optionData.id)}>
                         <Trash2 />
                       </Button>
                     </div>
