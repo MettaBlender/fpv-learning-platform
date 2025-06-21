@@ -436,7 +436,7 @@ const Panel = () => {
                             <Button
                               variant="ghost"
                               size="icon"
-                              onClick={(e) => openShop(e, component.shop)}
+                              onClick={(e) => openShop(e, component.link)}
                             >
                               <ExternalLink className="size-4" />
                             </Button>

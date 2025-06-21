@@ -769,7 +769,28 @@ const Builder = () => {
                         {droneComponents[activeComponent]
                         ?.filter((component) => {
                           const hasOptions = component.options;
-                          if (!hasOptions) return true; // Zeige Komponenten ohne Optionen (z.B. Motoren)
+                          if (!hasOptions) return true;
+                          switch (activeComponent) {
+                            case 'frame':
+                              return true
+                            case 'fc':
+                              return component.options.some((opt) => opt.grösse === selectedComponents.frame?.options?.filter(obj => "stackGrösse" in obj).map(obj => obj["stackGrösse"])[0]);
+                            case 'esc':
+                              return component.options.some((opt) => opt.grösse === selectedComponents.frame?.options?.filter(obj => "stackGrösse" in obj).map(obj => obj["stackGrösse"])[0]);
+                            case 'motors':
+                              return true
+                            case 'props':
+                              return component.options.some((opt) => opt.grösse === selectedComponents.motors?.options?.filter(obj => "props" in obj).map(obj => obj["props"])[0]);
+                            case 'battery':
+                              // return component.options.some((opt) => opt.serials === selectedComponents.motors?.options?.filter(obj => "serials" in obj).map(obj => obj["serials"])[0]);
+                              return true
+                            default:
+                              return true;
+                          }
+                        })
+                        ?.filter((component) => {
+                          const hasOptions = component.options;
+                          if (!hasOptions) return true;
                           return keys.every((key) => {
                             const filterValue = filters[key];
                             return filterValue
