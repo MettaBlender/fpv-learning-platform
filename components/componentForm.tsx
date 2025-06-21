@@ -368,9 +368,9 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
   return (
     <div className={`w-full ${!update ? "px-[30%]" : ""} pt-1`}>
       <form className="w-full" onSubmit={handleSubmit}>
-        <h1 className="text-4xl font-bold text-white">Komponent {!update ? "Hinzufügen" : "Bearbeiten"}</h1>
+        <h1 className={`text-4xl font-bold ${update ? 'text-foreground' : 'text-white'}`}>Komponent {!update ? "Hinzufügen" : "Bearbeiten"}</h1>
         <div>
-          <Label className="text-white">
+          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
             Wählen Sie eine Komponente aus:{" "}
             <span className={`${component.component === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
@@ -388,7 +388,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           </Select>
         </div>
         <div className="my-2">
-          <Label className="text-white">
+          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
             Titel: <span className={`${(component.name || "") === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
           <Input
@@ -399,7 +399,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           {(component.name || "").trimEnd() === "" && <p className="text-[#d9534f]">Bitte geben sie einen Titel ein</p>}
         </div>
         <div className="my-2 relative">
-          <Label className="text-white">
+          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
             Beschreibung:{" "}
             <span className={`${(component.description || "") === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
@@ -413,7 +413,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           )}
         </div>
         <div className="my-2 relative">
-          <Label className="text-white">
+          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
             Preis:{" "}
             <span
               className={`${component.price === "" || Number.parseFloat(component.price as string) <= 0 ? "text-[#d9534f]" : "text-[#8ccd82]"}`}
@@ -436,7 +436,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           )}
         </div>
         <div className="my-2 relative">
-          <Label className="text-white">
+          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
             Shop: <span className={`${(component.shop || "") === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
           <Select
@@ -460,7 +460,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           {(component.shop || "").trimEnd() === "" && <p className="text-[#d9534f]">Bitte geben sie einen Shop ein</p>}
         </div>
         <div className="my-2 relative">
-          <Label className="text-white">
+          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
             Link zum Produkt:{" "}
             <span className={`${(component.link || "") === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
@@ -474,7 +474,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           )}
         </div>
         <div className="my-2 relative">
-          <Label className="text-white">
+          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>
             Bild url:{" "}
             <span className={`${(component.imageurl || "") === "" ? "text-[#d9534f]" : "text-[#8ccd82]"}`}>*</span>
           </Label>
@@ -499,7 +499,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
           )}
         </div>
         <div className="my-2 relative">
-          <Label className="text-white">Optionen: </Label>
+          <Label className={`${update ? 'text-foreground' : 'text-white'}`}>Optionen: </Label>
           {component.component && (
             <div className="flex gap-2 my-2">
               <Button type="button" onClick={handleAddOption}>

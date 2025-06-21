@@ -30,6 +30,7 @@ import AddComponent from '@/components/addComponent'
 import UpdateComponent from '@/components/updateComponent'
 import ComponentFrom from '@/components/componentForm'
 import { Input } from '../ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 
 const Panel = () => {
@@ -278,7 +279,7 @@ const Panel = () => {
                             <h4 className="font-semibold text-lg">Verfügbare Optionen</h4>
                             <div className="space-y-2">
                               {selectedDetailComponent.options.map((option, i) => (
-                                <div key={i} className="bg-gray-50 p-3 rounded-lg">
+                                <div key={i} className="bg-background p-3 rounded-lg">
                                   {Object.entries(option).map(([key, value]) => (
                                     <div key={key} className="flex justify-between">
                                       <span className="font-medium capitalize">{key}:</span>
@@ -315,12 +316,6 @@ const Panel = () => {
                   )}
                 </TabsContent>
                 <TabsContent value="edit" className="pt-5">
-                  <DialogHeader>
-                    <DialogTitle>Komponente bearbeiten</DialogTitle>
-                    <DialogDescription>
-                      Hier können Sie die Details der Komponente bearbeiten.
-                    </DialogDescription>
-                  </DialogHeader>
                   {selectedDetailComponent && (
                     <div className='z-0'>
                       <ComponentFrom componentProps={selectedDetailComponent} update={true}/>
@@ -396,21 +391,22 @@ const Panel = () => {
                         >
                           {key}:
                         </label>
-                        <select
-                          id={`${key}-filter`}
-                          className="p-2 border rounded-md"
+                        <Select
                           value={filters[key] || ''}
-                          onChange={(e) =>
-                            setFilters({ ...filters, [key]: e.target.value || '' })
-                          }
+                          onValueChange={(value) => setFilters({ ...filters, [key]: value || '' })}
                         >
-                          <option value="">Alle</option>
-                          {optionsByKey[key]?.map((value, i) => (
-                            <option key={i} value={value}>
-                              {value}
-                            </option>
-                          ))}
-                        </select>
+                          <SelectTrigger className="p-2 border rounded-md" id={`${key}-filter`}>
+                            <SelectValue placeholder="Alle" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            <SelectItem value={null}>Alle</SelectItem>
+                            {optionsByKey[key]?.map((value, i) => (
+                              <SelectItem key={i} value={value}>
+                                {value}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
                       </div>
                     ))}
                   </div>
@@ -420,7 +416,7 @@ const Panel = () => {
                   {droneComponents[componentType]
                   ?.filter((component) => {
                     const hasOptions = component.options;
-                    if (!hasOptions) return true; // Zeige Komponenten ohne Optionen (z.B. Motoren)
+                    if (!hasOptions) return true;
                     return keys.every((key) => {
                       const filterValue = filters[key];
                       return filterValue

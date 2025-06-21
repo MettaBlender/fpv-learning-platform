@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { ExternalLink, Play, FileText, ShoppingCart, Zap, X, Camera, Cpu, AppWindow } from "lucide-react"
 import Image from "next/image"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
 const Builder = () => {
 
@@ -738,28 +739,29 @@ const Builder = () => {
                       {droneComponents[activeComponent]?.some((component) => component.options) && (
                         <div className="flex space-x-4 mb-4 flex-wrap">
                           {keys.map((key) => (
-                            <div key={key} className="mb-2">
+                            <div key={key} className="mb-2 flex items-center">
                               <label
                                 htmlFor={`${key}-filter`}
-                                className="text-sm font-medium mr-2 capitalize"
+                                className="text-sm font-medium mr-1 ml-2 capitalize"
                               >
                                 {key}:
                               </label>
-                              <select
-                                id={`${key}-filter`}
-                                className="p-2 border rounded-md"
+                              <Select
                                 value={filters[key] || ''}
-                                onChange={(e) =>
-                                  setFilters({ ...filters, [key]: e.target.value || '' })
-                                }
+                                onValueChange={(value) => setFilters({ ...filters, [key]: value || '' })}
                               >
-                                <option value="">Alle</option>
-                                {optionsByKey[key]?.map((value, i) => (
-                                  <option key={i} value={value}>
-                                    {value}
-                                  </option>
-                                ))}
-                              </select>
+                                <SelectTrigger className="p-2 border rounded-md" id={`${key}-filter`}>
+                                  <SelectValue placeholder="Alle" />
+                                </SelectTrigger>
+                                <SelectContent>
+                                  <SelectItem value={null}>Alle</SelectItem>
+                                  {optionsByKey[key]?.map((value, i) => (
+                                    <SelectItem key={i} value={value}>
+                                      {value}
+                                    </SelectItem>
+                                  ))}
+                                </SelectContent>
+                              </Select>
                             </div>
                           ))}
                         </div>

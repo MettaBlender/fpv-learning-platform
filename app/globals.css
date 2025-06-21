@@ -1,5 +1,7 @@
 @import 'tailwindcss';
 
+@plugin 'tailwind-scrollbar';
+
 @custom-variant dark (&:is(.dark *));
 
 @theme {
@@ -92,6 +94,20 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
+
+  ::-webkit-scrollbar {
+    width: 8px; /* Breite der vertikalen Scrollbar */
+    height: 8px; /* Höhe der horizontalen Scrollbar */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: var(--scrollbar-gradient); /* Hintergrund der Scrollbar-Spur */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: var(--scrollbar); /* Farbe des Scrollbar-Griffs */
+    border-radius: 4px;
+  }
 }
 
 @utility text-balance {
@@ -143,6 +159,8 @@
     --background-gradient-2: #aebbc4;
     --tabs: #aebbc4;
     --tabs-active: #82a8cd;
+    --scrollbar: #181818;
+    --scrollbar-gradient: linear-gradient(to bottom, #82a8cd, #aebbc4);
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -181,6 +199,8 @@
     --background-gradient-2: #4a5568;
     --tabs: #d4dde6;
     --tabs-active: #b3cce3;
+    --scrollbar: #ffffff;
+    --scrollbar-gradient: linear-gradient(to bottom, var(--background-gradient-1), var(--background-gradient-2));
   }
 }
 
