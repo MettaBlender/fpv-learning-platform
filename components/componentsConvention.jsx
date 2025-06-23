@@ -7,32 +7,58 @@ const convention =  [
     convention: [
       'Grösse',
       'Marke',
-      "Stack-grösse"
+      "stack-size",
+      'motor-mounting-size',
     ]
   },
   {
     name: 'Motors',
-    convention: []
+    convention: [
+      'motor-mounting-size',
+      'marke',
+      'anzahl',
+      'props-size',
+      'serials',
+      'kv: 2400',
+    ]
   },
   {
-    name: 'Flight Controller',
-    convention: []
+    name: 'Fligt Controller',
+    convention: [
+      'stack-size',
+      'marke'
+    ]
   },
   {
     name: 'ESC',
-    convention: []
+    convention: [
+      'stack-size',
+      'marke'
+    ]
   },
   {
     name: 'Props',
-    convention: []
+    convention: [
+      'marke',
+      'props-size',
+      'blätter',
+      'pitch',
+      'anzahl',
+      'drehrichtung',
+    ]
   },
   {
     name: 'Batteries',
-    convention: []
+    convention: [
+      'C-Rate',
+      'Marke'
+    ]
   },
   {
     name: 'Cameras',
-    convention: []
+    convention: [
+      'Marke',
+    ]
   },
 ]
 
