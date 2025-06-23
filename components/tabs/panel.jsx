@@ -18,6 +18,7 @@ import { Checkbox } from "@/components/ui/checkbox" // Added Checkbox
 import { Badge } from "@/components/ui/badge" // Added Badge (assuming it's available)
 import { cn } from "@/lib/utils" // Added cn utility for conditional classes
 import { CommandList } from "@/components/ui/command"
+import ComponentsConvention from "@/components/componentsConvention" // Assuming this is a component for conventions
 
 const Panel = () => {
   const [selectedComponents, setSelectedComponents] = useState({})
@@ -204,6 +205,7 @@ const Panel = () => {
         <TabsList>
           <TabsTrigger value="components">Alle Komponenten</TabsTrigger>
           <TabsTrigger value="add">Komponenten hinzufügen</TabsTrigger>
+          <TabsTrigger value="convention">Komponenten Option vorlagen</TabsTrigger>
         </TabsList>
         <TabsContent value="components">
           <div className="flex justify-between items-center mb-4 px-4">
@@ -541,11 +543,15 @@ const Panel = () => {
                                 <span className="text-sm font-medium">Preis: {component.price} CHF</span>
                                 {component.options && (
                                   <div className="mt-2 space-y-1 max-h-[6dvw] overflow-auto">
-                                    {Object.entries(component.options[0] || {}).map(([key, value]) => (
-                                      <div key={key} className="text-xs text-muted-foreground">
-                                        <span>
-                                          {key}: {value}{" "}
-                                        </span>
+                                    {component.options.map((option, i) => (
+                                      <div key={i}>
+                                        {Object.entries(option).map(([key, value]) => (
+                                          <div key={key} className="text-xs text-muted-foreground">
+                                            <span>
+                                              {key}: {value}{" "}
+                                            </span>
+                                          </div>
+                                        ))}
                                       </div>
                                     ))}
                                   </div>
@@ -588,6 +594,9 @@ const Panel = () => {
         </TabsContent>
         <TabsContent value="add">
           <ComponentFrom />
+        </TabsContent>
+        <TabsContent value="convention">
+          <ComponentsConvention />
         </TabsContent>
       </Tabs>
     </div>
