@@ -9,45 +9,34 @@ const websiteConfigs = {
   "fpvracing.ch": {
     priceSelector: ".product-price", // Primary selector for the price
     currencyCode: "CHF", // Currency code to look for if selectors fail
-    useHeadless: true, // Reverted to false, as fpvracing.ch usually works without headless
+    useHeadless: true, // This site seems to work without a headless browser
   },
   "fpvframe.ch": {
     // Common WooCommerce price selectors. You might need to adjust based on actual HTML.
     priceSelector: ".woocommerce-Price-amount bdi", // More specific than just 'bdi'
-    fallbackPriceSelectors: ["p.price .amount", "ins .amount", ".price .amount"],
     currencyCode: "CHF",
-    useHeadless: false, // Set to true, as this site might require headless for dynamic content
+    useHeadless: false, // Set to true, as this site might require a headless browser due to previous 404 or dynamic content
   },
   "dronefactory.ch": {
     priceSelector: "bdi", // Check if this is specific enough, or if a parent class is needed
-    fallbackPriceSelectors: [".woocommerce-Price-currencySymbol", "span.amount"],
     currencyCode: "CHF",
     useHeadless: false,
   },
   "skystars-rc.com": {
     priceSelector: "bdi", // Check specificity
-    fallbackPriceSelectors: [".woocommerce-Price-currencySymbol", "span.amount"],
     currencyCode: "$",
     useHeadless: false, // Often international sites use more dynamic loading
   },
   "fpv24.com": {
     currencyCode: "€",
     priceSelector: ".product--price", // Example for FPV24, verify with inspection
-    fallbackPriceSelectors: [".price--default"],
     useHeadless: false,
   },
   "quadmula.com": {
     priceSelector: ".sale-price", // Changed to class selector
     currencyCode: "$",
-    fallbackPriceSelectors: [".price-item--regular"], // Common for Shopify themes
     useHeadless: false, // Shopify sites often use client-side rendering
   },
-  // Add more configurations for other websites here
-  // 'example-dynamic-site.com': {
-  //   priceSelector: '#dynamic-price',
-  //   currencyCode: 'USD',
-  //   useHeadless: true, // Mark as needing headless
-  // },
 }
 
 // Helper function to try scraping with multiple selectors
@@ -130,28 +119,8 @@ function extractPriceNumber(priceString) {
   return isNaN(price) ? null : price
 }
 
-export async function GET(request) {
-  const { searchParams } = new URL(request.url)
-  const productUrl = searchParams.get("link")
-
-  if (!productUrl) {
-    return NextResponse.json({ error: "Missing product URL (use 'link' parameter)" }, { status: 400 })
-  }
-
-  let urlObj
-  try {
-    urlObj = new URL(productUrl)
-  } catch (e) {
-    return NextResponse.json({ error: "Invalid URL format" }, { status: 400 })
-  }
-
-  const hostname = urlObj.hostname.replace(/^www\./, "")
-  const config = websiteConfigs[hostname]
-
-  if (!config) {
-    return NextResponse.json({ error: `No scraping configuration found for ${hostname}` }, { status: 404 })
-  }
-
+// This is the core scraping logic for a single URL
+async function scrapeSingleUrl(productUrl, config) {
   let htmlContent = null
   let fetchMethodUsed = "none"
   const requestHeaders = {
@@ -159,73 +128,58 @@ export async function GET(request) {
       "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36",
   }
 
-  // --- NEW LOGIC: Use external scraping service if config.useHeadless is true ---
+  // Use external scraping service if config.useHeadless is true
   if (config.useHeadless) {
-    const BROWSERLESS_API_URL = "https://fpv-scrapper.onrender.com/scrape-html" // Default Browserless content endpoint
+    const CUSTOM_SCRAPING_SERVICE_URL =
+      process.env.CUSTOM_SCRAPING_SERVICE_URL || 'http://localhost:3002/scrape-html' // "https://fpv-scrapper.onrender.com/scrape-html"
+
+    if (!CUSTOM_SCRAPING_SERVICE_URL) {
+      return {
+        url: productUrl,
+        status: "error",
+        message: "Custom scraping service URL not configured.",
+      }
+    }
 
     try {
-      console.log(`Attempting to fetch ${productUrl} using Browserless.io headless service...`)
+      console.log(`[Batch Scraper] Attempting to fetch ${productUrl} via custom headless service...`)
+      const serviceCallUrl = `${CUSTOM_SCRAPING_SERVICE_URL}?url=${encodeURIComponent(productUrl)}`
 
-      console.log(`Versuche, ${productUrl} über Ihren benutzerdefinierten Render-Scraping-Dienst abzurufen...`)
-
-      // Codieren Sie die Ziel-URL korrekt für den Query-Parameter
-      const serviceCallUrl = `${BROWSERLESS_API_URL}?url=${encodeURIComponent(productUrl)}`;
-
-      // Verwenden Sie native fetch, um Ihren Render-Dienst aufzurufen
       const serviceResponse = await fetch(serviceCallUrl, {
-        method: "GET", // Ihr Render-Dienst verwendet GET für /scrape-html
-        signal: AbortSignal.timeout(60000), // Längeres Timeout (z.B. 60 Sekunden), da Headless-Operationen länger dauern können
+        method: "GET",
       })
 
-      // const headers = {
-      //   "Cache-Control": "no-cache",
-      //   "Content-Type": "application/json",
-      // }
-
-      // const serviceResponse = await fetch(`${BROWSERLESS_API_URL}?token=${BROWSERLESS_API_KEY}`, {
-      //   method: "POST",
-      //   headers: headers,
-      //   body: JSON.stringify({
-      //     url: productUrl,
-      //     // Optional Browserless.io parameters:
-      //     // waitFor: 5000, // Wait for 5 seconds after page load
-      //     // waitForSelector: config.priceSelector || 'body', // Wait for a specific element to appear
-      //     // blockAds: true,
-      //     // stealth: true,
-      //   }),
-      //   timeout: 30000, // Longer timeout for headless browser operations
-      // })
-
       if (!serviceResponse.ok) {
-        const errorText = await serviceResponse.text()
-        throw new Error(`Browserless API error! Status: ${serviceResponse.status}, Response: ${errorText}`)
+        const errorDetails = await serviceResponse.text()
+        throw new Error(`Service error! Status: ${serviceResponse.status}, Details: ${errorDetails}`)
       }
 
-      htmlContent = await serviceResponse.text() // Correctly get text content
-      fetchMethodUsed = "browserless_headless"
+      htmlContent = await serviceResponse.text()
+      fetchMethodUsed = "custom_headless_service"
     } catch (serviceError) {
-      console.error(`Browserless.io headless service failed for ${productUrl}:`, serviceError.message)
-      return NextResponse.json(
-        { error: `Failed to fetch URL with Browserless.io: ${serviceError.message}` },
-        { status: 500 },
-      )
+      console.error(`[Batch Scraper] Custom headless service failed for ${productUrl}:`, serviceError.message)
+      return {
+        url: productUrl,
+        status: "error",
+        message: `Failed to fetch via custom headless service: ${serviceError.message}`,
+      }
     }
   } else {
-    // --- EXISTING LOGIC: Use axios/fetch fallback for non-headless sites ---
+    // Fallback for non-headless sites (axios/fetch)
     try {
-      console.log(`Attempting to fetch ${productUrl} with axios...`)
+      console.log(`[Batch Scraper] Attempting to fetch ${productUrl} with axios...`)
       const axiosResponse = await axios.get(productUrl, {
         headers: requestHeaders,
-        timeout: 10000,
+        timeout: 100000,
       })
       htmlContent = axiosResponse.data
       fetchMethodUsed = "axios"
     } catch (axiosError) {
-      console.warn(`Axios failed for ${productUrl}: ${axiosError.message}. Trying fetch...`)
+      console.warn(`[Batch Scraper] Axios failed for ${productUrl}: ${axiosError.message}. Trying fetch...`)
       try {
         const fetchResponse = await fetch(productUrl, {
           headers: requestHeaders,
-          signal: AbortSignal.timeout(10000), // 10 seconds timeout for fetch
+          signal: AbortSignal.timeout(100000),
         })
 
         if (!fetchResponse.ok) {
@@ -234,20 +188,21 @@ export async function GET(request) {
         htmlContent = await fetchResponse.text()
         fetchMethodUsed = "fetch"
       } catch (fetchError) {
-        console.error(`Fetch also failed for ${productUrl}: ${fetchError.message}`)
-        return NextResponse.json(
-          { error: `Failed to fetch URL with both axios and fetch: ${fetchError.message}` },
-          { status: 500 },
-        )
+        console.error(`[Batch Scraper] Fetch also failed for ${productUrl}: ${fetchError.message}`)
+        return {
+          url: productUrl,
+          status: "error",
+          message: `Failed to fetch URL with both axios and fetch: ${fetchError.message}`,
+        }
       }
     }
   }
 
   if (!htmlContent) {
-    return NextResponse.json({ error: "Could not retrieve HTML content from the URL." }, { status: 500 })
+    return { url: productUrl, status: "error", message: "Could not retrieve HTML content." }
   }
 
-  console.log(`Successfully fetched ${productUrl} using ${fetchMethodUsed}. Scraping with config:`, config)
+  console.log(`[Batch Scraper] Successfully fetched HTML for ${productUrl} using ${fetchMethodUsed}.`)
 
   const $ = cheerio.load(htmlContent)
   let result = null
@@ -286,25 +241,106 @@ export async function GET(request) {
   }
 
   if (result) {
-    // Attempt to extract numerical price if a price-related type was found
     let numericalPrice = null
     if (result.type.startsWith("price_")) {
       numericalPrice = extractPriceNumber(result.value)
     }
 
-    return NextResponse.json({
+    return {
       url: productUrl,
+      status: "success",
       type: result.type,
-      rawValue: result.value, // The raw text found
-      numericalValue: numericalPrice, // The cleaned numerical price
-    })
+      rawValue: result.value,
+      numericalValue: numericalPrice,
+    }
   } else {
-    return NextResponse.json(
-      {
-        error: "No price or specified element content found using configured methods.",
-        pageSnippet: htmlContent.substring(0, 500) + "...", // Return snippet of page for debugging
-      },
-      { status: 404 },
-    )
+    return {
+      url: productUrl,
+      status: "not_found",
+      message: "No price or specified element content found using configured methods.",
+      pageSnippet: htmlContent.substring(0, 500) + "...",
+    }
   }
+}
+
+// Main Route Handler for batch scraping
+export async function POST(request) {
+  let links = []
+  try {
+    const body = await request.json()
+    links = body.links // Expecting { links: ["url1", "url2", ...] }
+    if (!Array.isArray(links)) {
+      return NextResponse.json({ error: "Request body must contain a 'links' array." }, { status: 400 })
+    }
+  } catch (e) {
+    return NextResponse.json({ error: "Invalid JSON body or missing 'links' array." }, { status: 400 })
+  }
+
+  if (links.length === 0) {
+    return NextResponse.json({ message: "No links provided for scraping." }, { status: 200 })
+  }
+
+  console.log(`[Batch Scraper] Starting batch scrape for ${links.length} links.`)
+
+  const results = []
+  let successCount = 0
+  let errorCount = 0
+  let notFoundCount = 0
+  const failedLinksByHostname = {} // Neues Objekt zum Speichern der Fehler pro Hostname
+  const successfulLinksByHostname = {} // Optional: Array für erfolgreiche Links, falls benötigt
+
+  // Use Promise.allSettled to ensure all promises resolve/reject and we get all results
+  const promises = links.map(async (link) => {
+    let urlObj
+    let hostname = "unknown" // Default hostname for error logging
+    try {
+      urlObj = new URL(link)
+      hostname = urlObj.hostname.replace(/^www\./, "")
+    } catch (e) {
+      errorCount++
+      // Zähle Fehler für ungültige URLs unter 'unknown' oder einer speziellen Kategorie
+      failedLinksByHostname[hostname] = (failedLinksByHostname[hostname] || 0) + 1
+      return { url: link, status: "error", message: "Invalid URL format." }
+    }
+
+    const config = websiteConfigs[hostname]
+
+    if (!config) {
+      errorCount++
+      failedLinksByHostname[hostname] = (failedLinksByHostname[hostname] || 0) + 1
+      return { url: link, status: "error", message: `No scraping configuration found for ${hostname}.` }
+    }
+
+    const scrapeResult = await scrapeSingleUrl(link, config)
+    if (scrapeResult.status === "success") {
+      successCount++
+      successfulLinksByHostname[hostname] = (successfulLinksByHostname[hostname] || 0) + 1
+    } else if (scrapeResult.status === "not_found") {
+      notFoundCount++
+      failedLinksByHostname[hostname] = (failedLinksByHostname[hostname] || 0) + 1
+    } else {
+      // Status is "error"
+      errorCount++
+      failedLinksByHostname[hostname] = (failedLinksByHostname[hostname] || 0) + 1
+    }
+    return scrapeResult
+  })
+
+  const allResults = await Promise.all(promises) // Wait for all scraping operations to complete
+
+  console.log("results", allResults)
+
+  console.log(
+    `[Batch Scraper] Batch scrape finished. Successes: ${successCount}, Not Found: ${notFoundCount}, Errors: ${errorCount}.`,
+  )
+
+  return NextResponse.json({
+    totalLinks: links.length,
+    successCount,
+    notFoundCount,
+    errorCount,
+    failedLinksByHostname, // Fügen Sie die neue Statistik hier hinzu
+    successfulLinksByHostname, // Optional: Fügen Sie erfolgreiche Links pro Hostname hinzu
+    results: allResults,
+  })
 }
