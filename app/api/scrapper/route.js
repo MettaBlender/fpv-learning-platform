@@ -161,38 +161,40 @@ export async function GET(request) {
 
   // --- NEW LOGIC: Use external scraping service if config.useHeadless is true ---
   if (config.useHeadless) {
-    const BROWSERLESS_API_URL = process.env.BROWSERLESS_API_URL || "https://production-sfo.browserless.io/content" // Default Browserless content endpoint
-    const BROWSERLESS_API_KEY = process.env.BROWSERLESS_API_KEY // Your API key
-
-    if (!BROWSERLESS_API_KEY) {
-      return NextResponse.json(
-        {
-          error: "Browserless API Key not configured. Set BROWSERLESS_API_KEY environment variable.",
-        },
-        { status: 500 },
-      )
-    }
+    const BROWSERLESS_API_URL = "https://fpv-scrapper.onrender.com/scrape-html" // Default Browserless content endpoint
 
     try {
       console.log(`Attempting to fetch ${productUrl} using Browserless.io headless service...`)
-      const headers = {
-        "Cache-Control": "no-cache",
-        "Content-Type": "application/json",
-      }
 
-      const serviceResponse = await fetch(`${BROWSERLESS_API_URL}?token=${BROWSERLESS_API_KEY}`, {
-        method: "POST",
-        headers: headers,
-        body: JSON.stringify({
-          url: productUrl,
-          // Optional Browserless.io parameters:
-          // waitFor: 5000, // Wait for 5 seconds after page load
-          // waitForSelector: config.priceSelector || 'body', // Wait for a specific element to appear
-          // blockAds: true,
-          // stealth: true,
-        }),
-        timeout: 30000, // Longer timeout for headless browser operations
+      console.log(`Versuche, ${productUrl} über Ihren benutzerdefinierten Render-Scraping-Dienst abzurufen...`)
+
+      // Codieren Sie die Ziel-URL korrekt für den Query-Parameter
+      const serviceCallUrl = `${BROWSERLESS_API_URL}?url=${encodeURIComponent(productUrl)}`;
+
+      // Verwenden Sie native fetch, um Ihren Render-Dienst aufzurufen
+      const serviceResponse = await fetch(serviceCallUrl, {
+        method: "GET", // Ihr Render-Dienst verwendet GET für /scrape-html
+        signal: AbortSignal.timeout(60000), // Längeres Timeout (z.B. 60 Sekunden), da Headless-Operationen länger dauern können
       })
+
+      // const headers = {
+      //   "Cache-Control": "no-cache",
+      //   "Content-Type": "application/json",
+      // }
+
+      // const serviceResponse = await fetch(`${BROWSERLESS_API_URL}?token=${BROWSERLESS_API_KEY}`, {
+      //   method: "POST",
+      //   headers: headers,
+      //   body: JSON.stringify({
+      //     url: productUrl,
+      //     // Optional Browserless.io parameters:
+      //     // waitFor: 5000, // Wait for 5 seconds after page load
+      //     // waitForSelector: config.priceSelector || 'body', // Wait for a specific element to appear
+      //     // blockAds: true,
+      //     // stealth: true,
+      //   }),
+      //   timeout: 30000, // Longer timeout for headless browser operations
+      // })
 
       if (!serviceResponse.ok) {
         const errorText = await serviceResponse.text()
