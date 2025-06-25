@@ -17,24 +17,89 @@ const Scrapper = () => {
   const componentGroup = ["frame", "motors", "esc", "fc", "props", "battery", "camera"]
   const statusIntervalRef = useRef(null) // Ref für den Interval-Timer
 
+  // Environment variable for the scraping service URL
+  const CUSTOM_SCRAPING_SERVICE_URL = process.env.NEXT_PUBLIC_CUSTOM_SCRAPING_SERVICE_URL || "http://localhost:3001"
+
+  // Funktion zum Abfragen des aktuellen Scraping-Status vom Server
+  const fetchScrapingStatus = async () => {
+    try {
+      const response = await fetch(`${CUSTOM_SCRAPING_SERVICE_URL}/scrape-status`, {
+        method: "GET",
+        signal: AbortSignal.timeout(10000), // Kurzes Timeout für Statusabfrage
+      })
+
+      if (response.ok) {
+        const statusData = await response.json()
+        console.log("Scraping status:", statusData)
+        setAnzLinks(statusData.totalLinks)
+        setAnzScrappedLinks(statusData.processedLinks)
+        setSuccess(statusData.successCount)
+        setError(statusData.errorCount + statusData.notFoundCount)
+        setActualLink(statusData.currentLink || "N/A")
+        setLastScrapedValue(statusData.lastScrapedValue || 0.0)
+        setIsScrapingRunning(statusData.isRunning)
+
+        // Interval-Timer basierend auf dem Server-Status verwalten
+        if (statusData.isRunning) {
+          // Starte den Interval nur, wenn er noch nicht läuft
+          if (!statusIntervalRef.current) {
+            statusIntervalRef.current = setInterval(fetchScrapingStatus, 15000) // Alle 15 Sekunden abfragen
+            console.log("Started polling for scraping status.")
+          }
+        } else {
+          // Stoppe den Interval, wenn der Job beendet ist
+          if (statusIntervalRef.current) {
+            clearInterval(statusIntervalRef.current)
+            statusIntervalRef.current = null // Ref zurücksetzen
+            setStatus("Scraping job finished.")
+            console.log("Scraping job finished. Final results:", statusData.results)
+          }
+        }
+      } else {
+        const errorData = await response.json()
+        console.error("Failed to fetch scraping status:", errorData)
+        setStatus(`Failed to fetch status: ${errorData.error || "Unknown error"}`)
+        setIsScrapingRunning(false)
+        // Stoppe den Interval auch bei Fehlern
+        if (statusIntervalRef.current) {
+          clearInterval(statusIntervalRef.current)
+          statusIntervalRef.current = null
+        }
+      }
+    } catch (err) {
+      console.error("Error fetching scraping status:", err)
+      setStatus(`Error fetching status: ${err.message}`)
+      setIsScrapingRunning(false)
+      // Stoppe den Interval auch bei Netzwerkfehlern
+      if (statusIntervalRef.current) {
+        clearInterval(statusIntervalRef.current)
+        statusIntervalRef.current = null
+      }
+    }
+  }
+
   useEffect(() => {
-    const loadInitialData = async () => {
-      await getServerStatus() // Prüft den Render-Dienst
+    const loadInitialDataAndStatus = async () => {
+      await getServerStatus() // Prüft den Render-Dienst-Status
       const data = await getData() // Holt die Links aus Ihrer Next.js API
       if (data) {
         setComponentsOld(data)
       }
+      // Sofort den aktuellen Scraping-Status vom Server abfragen
+      // Dies wird auch den Polling-Interval starten, falls ein Job läuft
+      await fetchScrapingStatus()
     }
 
-    loadInitialData()
+    loadInitialDataAndStatus()
 
-    // Cleanup-Funktion für den Interval-Timer
+    // Cleanup-Funktion für den Interval-Timer beim Unmounten der Komponente
     return () => {
       if (statusIntervalRef.current) {
         clearInterval(statusIntervalRef.current)
+        statusIntervalRef.current = null
       }
     }
-  }, [])
+  }, []) // Leeres Dependency-Array bedeutet, dass dies nur einmal beim Mounten ausgeführt wird
 
   const getData = async () => {
     // Diese API-Route muss die Komponenten-Links liefern
@@ -84,8 +149,8 @@ const Scrapper = () => {
     setIsScrapingRunning(true)
 
     try {
-      // Sende die Links an Ihre Next.js API Route, die sie an den Render-Dienst weiterleitet
-      const response = await fetch("/api/price", {
+      // Sende die Links direkt an den Render-Dienst
+      const response = await fetch(`${CUSTOM_SCRAPING_SERVICE_URL}/start-batch-scrape`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -98,11 +163,8 @@ const Scrapper = () => {
         const data = await response.json()
         console.log("Scraping job initiation response:", data)
         setStatus("Scraping job initiated on Render service.")
-        // Starte das Polling für den Status
-        if (statusIntervalRef.current) {
-          clearInterval(statusIntervalRef.current)
-        }
-        statusIntervalRef.current = setInterval(fetchScrapingStatus, 5000) // Alle 5 Sekunden abfragen
+        // Sofort den Status abfragen, um UI zu aktualisieren und Polling zu starten
+        await fetchScrapingStatus()
       } else {
         const errorData = await response.json()
         console.error("Failed to initiate scraping job:", errorData)
@@ -116,52 +178,8 @@ const Scrapper = () => {
     }
   }
 
-  const fetchScrapingStatus = async () => {
-    try {
-      // Frage den Status direkt von Ihrer Next.js API Route ab
-      const response = await fetch("/api/price", {
-        method: "GET",
-        signal: AbortSignal.timeout(10000), // Kurzes Timeout für Statusabfrage
-      })
-
-      if (response.ok) {
-        const statusData = await response.json()
-        console.log("Scraping status:", statusData)
-        setAnzLinks(statusData.totalLinks)
-        setAnzScrappedLinks(statusData.processedLinks)
-        setSuccess(statusData.successCount)
-        setError(statusData.errorCount + statusData.notFoundCount)
-        setActualLink(statusData.currentLink || "N/A")
-        setLastScrapedValue(statusData.lastScrapedValue || 0.0)
-        setIsScrapingRunning(statusData.isRunning)
-
-        if (!statusData.isRunning && statusIntervalRef.current) {
-          clearInterval(statusIntervalRef.current) // Stoppe das Polling, wenn der Job beendet ist
-          setStatus("Scraping job finished.")
-          console.log("Scraping job finished. Final results:", statusData.results)
-        }
-      } else {
-        const errorData = await response.json()
-        console.error("Failed to fetch scraping status:", errorData)
-        setStatus(`Failed to fetch status: ${errorData.error || "Unknown error"}`)
-        setIsScrapingRunning(false)
-        if (statusIntervalRef.current) {
-          clearInterval(statusIntervalRef.current)
-        }
-      }
-    } catch (err) {
-      console.error("Error fetching scraping status:", err)
-      setStatus(`Error fetching status: ${err.message}`)
-      setIsScrapingRunning(false)
-      if (statusIntervalRef.current) {
-        clearInterval(statusIntervalRef.current)
-      }
-    }
-  }
-
   const getServerStatus = async () => {
     // Prüft den Health-Check-Endpunkt des Render-Dienstes direkt
-    const CUSTOM_SCRAPING_SERVICE_URL = process.env.NEXT_PUBLIC_CUSTOM_SCRAPING_SERVICE_URL || "http://localhost:3001"
     try {
       const response = await fetch(CUSTOM_SCRAPING_SERVICE_URL)
       if (response.ok) {
