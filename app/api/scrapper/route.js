@@ -130,8 +130,7 @@ async function scrapeSingleUrl(productUrl, config) {
 
   // Use external scraping service if config.useHeadless is true
   if (config.useHeadless) {
-    const CUSTOM_SCRAPING_SERVICE_URL =
-      process.env.CUSTOM_SCRAPING_SERVICE_URL || 'http://localhost:3002/scrape-html' // "https://fpv-scrapper.onrender.com/scrape-html"
+    const CUSTOM_SCRAPING_SERVICE_URL = process.env.CUSTOM_SCRAPING_SERVICE_URL ||  "https://fpv-scrapper.onrender.com/scrape-html" //"http://localhost:3002/scrape-html"
 
     if (!CUSTOM_SCRAPING_SERVICE_URL) {
       return {
@@ -147,6 +146,8 @@ async function scrapeSingleUrl(productUrl, config) {
 
       const serviceResponse = await fetch(serviceCallUrl, {
         method: "GET",
+        // Timeout für headless-Service-Aufruf beibehalten, um Hängenbleiben zu vermeiden
+        signal: AbortSignal.timeout(600000), // 10 Minuten Timeout
       })
 
       if (!serviceResponse.ok) {
@@ -282,35 +283,49 @@ export async function POST(request) {
 
   console.log(`[Batch Scraper] Starting batch scrape for ${links.length} links.`)
 
-  const results = []
+  const allResults = []
   let successCount = 0
   let errorCount = 0
   let notFoundCount = 0
-  const failedLinksByHostname = {} // Neues Objekt zum Speichern der Fehler pro Hostname
-  const successfulLinksByHostname = {} // Optional: Array für erfolgreiche Links, falls benötigt
+  const failedLinksByHostname = {}
+  const successfulLinksByHostname = {}
 
-  // Use Promise.allSettled to ensure all promises resolve/reject and we get all results
-  const promises = links.map(async (link) => {
+  // Trenne Links in Headless- und Non-Headless-Kategorien
+  const headlessLinks = []
+  const nonHeadlessLinks = []
+
+  for (const link of links) {
     let urlObj
-    let hostname = "unknown" // Default hostname for error logging
+    let hostname = "unknown"
     try {
       urlObj = new URL(link)
       hostname = urlObj.hostname.replace(/^www\./, "")
     } catch (e) {
+      // Fehler bei der URL-Formatierung sofort behandeln
       errorCount++
-      // Zähle Fehler für ungültige URLs unter 'unknown' oder einer speziellen Kategorie
       failedLinksByHostname[hostname] = (failedLinksByHostname[hostname] || 0) + 1
-      return { url: link, status: "error", message: "Invalid URL format." }
+      allResults.push({ url: link, status: "error", message: "Invalid URL format." })
+      continue // Springe zum nächsten Link
     }
 
     const config = websiteConfigs[hostname]
-
     if (!config) {
       errorCount++
       failedLinksByHostname[hostname] = (failedLinksByHostname[hostname] || 0) + 1
-      return { url: link, status: "error", message: `No scraping configuration found for ${hostname}.` }
+      allResults.push({ url: link, status: "error", message: `No scraping configuration found for ${hostname}.` })
+      continue // Springe zum nächsten Link
     }
 
+    if (config.useHeadless) {
+      headlessLinks.push({ link, config, hostname })
+    } else {
+      nonHeadlessLinks.push({ link, config, hostname })
+    }
+  }
+
+  // 1. Verarbeite Non-Headless-Links parallel
+  console.log(`[Batch Scraper] Processing ${nonHeadlessLinks.length} non-headless links in parallel...`)
+  const nonHeadlessPromises = nonHeadlessLinks.map(async ({ link, config, hostname }) => {
     const scrapeResult = await scrapeSingleUrl(link, config)
     if (scrapeResult.status === "success") {
       successCount++
@@ -319,14 +334,30 @@ export async function POST(request) {
       notFoundCount++
       failedLinksByHostname[hostname] = (failedLinksByHostname[hostname] || 0) + 1
     } else {
-      // Status is "error"
       errorCount++
       failedLinksByHostname[hostname] = (failedLinksByHostname[hostname] || 0) + 1
     }
     return scrapeResult
   })
+  const nonHeadlessResults = await Promise.all(nonHeadlessPromises)
+  allResults.push(...nonHeadlessResults)
 
-  const allResults = await Promise.all(promises) // Wait for all scraping operations to complete
+  // 2. Verarbeite Headless-Links sequentiell
+  console.log(`[Batch Scraper] Processing ${headlessLinks.length} headless links sequentially...`)
+  for (const { link, config, hostname } of headlessLinks) {
+    const scrapeResult = await scrapeSingleUrl(link, config)
+    if (scrapeResult.status === "success") {
+      successCount++
+      successfulLinksByHostname[hostname] = (successfulLinksByHostname[hostname] || 0) + 1
+    } else if (scrapeResult.status === "not_found") {
+      notFoundCount++
+      failedLinksByHostname[hostname] = (failedLinksByHostname[hostname] || 0) + 1
+    } else {
+      errorCount++
+      failedLinksByHostname[hostname] = (failedLinksByHostname[hostname] || 0) + 1
+    }
+    allResults.push(scrapeResult)
+  }
 
   console.log("results", allResults)
 
