@@ -374,7 +374,7 @@ const ComponentForm: React.FC<ComponentFormProps> = ({ componentProps = {}, upda
   }
 
   return (
-    <div className={`w-full ${!update ? "px-[30%]" : ""} pt-1`}>
+    <div className={`w-full ${!update ? "md:px-[30%]" : ""} pt-1`}>
       <form className="w-full" onSubmit={handleSubmit}>
         <h1 className={`text-4xl font-bold ${update ? "text-foreground" : "text-white"}`}>
           Komponent {!update ? "Hinzufügen" : "Bearbeiten"}

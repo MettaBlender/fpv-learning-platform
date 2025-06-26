@@ -18,7 +18,7 @@ const Scrapper = () => {
   const statusIntervalRef = useRef(null) // Ref für den Interval-Timer
 
   // Environment variable for the scraping service URL
-  const CUSTOM_SCRAPING_SERVICE_URL = process.env.NEXT_PUBLIC_CUSTOM_SCRAPING_SERVICE_URL || "https://fpv-scrapper.onrender.com"
+  const CUSTOM_SCRAPING_SERVICE_URL = process.env.NEXT_PUBLIC_CUSTOM_SCRAPING_SERVICE_URL || "http://localhost:3001" //"https://fpv-scrapper.onrender.com"
 
   // Funktion zum Abfragen des aktuellen Scraping-Status vom Server
   const fetchScrapingStatus = async () => {
@@ -155,7 +155,7 @@ const Scrapper = () => {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ links: linksToScrape }),
+        body: JSON.stringify({ components: componentsOld }),
         signal: AbortSignal.timeout(60000), // Timeout für die Startanfrage
       })
 

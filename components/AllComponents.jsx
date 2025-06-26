@@ -448,7 +448,7 @@ const AllComponent = () => {
                     })
                   })
                   .map((component, index) => (
-                    <Card className="w-[23dvw] h-[23dvw] flex flex-col" key={index}>
+                    <Card className="w-full md:w-[23dvw] h-auto aspect-square md:aspect-auto md:h-[23dvw] flex flex-col" key={index}>
                       <CardHeader className="h-[9dvw] flex-shrink-0 mb-6">
                         <CardTitle className="flex items-center justify-between h-[5dvw] m-0">
                           {component.name}
