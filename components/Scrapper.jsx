@@ -21,7 +21,7 @@ const Scrapper = () => {
   const statusIntervalRef = useRef(null) // Ref für den Interval-Timer
 
   // Environment variable for the scraping service URL
-  const CUSTOM_SCRAPING_SERVICE_URL = process.env.NEXT_PUBLIC_CUSTOM_SCRAPING_SERVICE_URL || "http://localhost:3001" //"https://fpv-scrapper.onrender.com"
+  const CUSTOM_SCRAPING_SERVICE_URL = process.env.NEXT_PUBLIC_CUSTOM_SCRAPING_SERVICE_URL || "https://fpv-scrapper.onrender.com" //"http://localhost:3001"
 
 
   useEffect(() => {
