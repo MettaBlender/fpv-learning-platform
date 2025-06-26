@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import axios from "axios"
 import * as cheerio from "cheerio"
+import { update_component_price } from "@/lib/db"
 
 // Define configurations for different websites
 // IMPORTANT: You need to inspect the website's HTML to find the correct CSS selectors.
@@ -361,4 +362,23 @@ export async function GET(request) {
       { status: 500 },
     )
   }
+}
+
+
+export async function PUT(request) {
+    const data = await request.json();
+    if (!data || !data.component || !data.price || !data.link || !data.id) {
+        console.log("Fehlende erforderliche Felder", data);
+        return NextResponse.json({error: "Fehlende erforderliche Felder"}, { status: 400 })
+    }
+
+    const response = await update_component_price(data);
+
+    console.log("Received data:", response);
+
+    if (!response) {
+        return NextResponse.json({data: data}, { status: 400 })
+    }
+
+    return NextResponse.json({data: response}, { status: 200 })
 }

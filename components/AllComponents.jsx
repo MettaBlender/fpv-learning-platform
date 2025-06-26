@@ -105,7 +105,7 @@ const AllComponent = () => {
 
   const showComponentDetails = (component, mode, type) => {
     setSelectedComponentType(type)
-    setSelectedDetailComponent(component)
+    setSelectedDetailComponent({...component, component: type})
     setDialogTab(mode || "details")
   }
 
