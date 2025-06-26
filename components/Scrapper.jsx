@@ -21,7 +21,8 @@ const Scrapper = () => {
   const statusIntervalRef = useRef(null) // Ref für den Interval-Timer
 
   // Environment variable for the scraping service URL
-  const CUSTOM_SCRAPING_SERVICE_URL = process.env.NEXT_PUBLIC_CUSTOM_SCRAPING_SERVICE_URL || "https://fpv-scrapper.onrender.com" //"http://localhost:3001"
+  const CUSTOM_SCRAPING_SERVICE_URL = "https://fpv-scrapper.onrender.com"
+  // const CUSTOM_SCRAPING_SERVICE_URL = "http://localhost:3001"
 
 
   useEffect(() => {
@@ -253,7 +254,7 @@ const Scrapper = () => {
       <h1 className="text-4xl font-bold text-center mb-2">Scrapper</h1>
       <p className={`absolute top-[-1rem] right-1 flex items-center ${serverStatus ? 'text-green-500' : 'text-red-500'}`}><span className="text-6xl pt-0.5 mr-1">•</span> {serverStatus ? 'Server läuft' : 'Server Gestoppt'}</p>
       <div className="grid grid-cols-3 gap-4 mb-4 w-full">
-        <div className="h-[90dvh] col-span-2">
+        <div className="h-[90dvh] overflow-auto col-span-2">
           <p className="mb-4">{status}</p>
           <Button onClick={startScrapingJob} disabled={isScrapingRunning} className="mb-4">
             {isScrapingRunning ? "Scraping läuft..." : "Preise scrappen starten"}
