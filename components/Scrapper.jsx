@@ -13,12 +13,37 @@ const Scrapper = () => {
   const [success, setSuccess] = useState(0)
   const [error, setError] = useState(0)
   const [isScrapingRunning, setIsScrapingRunning] = useState(false)
+  const [serverStatus, setServerStatus] = useState(false)
 
   const componentGroup = ["frame", "motors", "esc", "fc", "props", "battery", "camera"]
   const statusIntervalRef = useRef(null) // Ref für den Interval-Timer
 
   // Environment variable for the scraping service URL
   const CUSTOM_SCRAPING_SERVICE_URL = process.env.NEXT_PUBLIC_CUSTOM_SCRAPING_SERVICE_URL || "http://localhost:3001" //"https://fpv-scrapper.onrender.com"
+
+
+  useEffect(() => {
+    const getServerStatus = async () => {
+      try {
+        const response = await fetch(CUSTOM_SCRAPING_SERVICE_URL)
+        if (response.ok) {
+          setServerStatus(true)
+        } else {
+          setServerStatus(false)
+        }
+      } catch (err) {
+        setServerStatus(false)
+      }
+    }
+
+    const Interval = setInterval(() => {
+      getServerStatus()}, 10000)
+
+    return () => {
+      clearInterval(Interval)
+    }
+  }, [])
+
 
   // Funktion zum Abfragen des aktuellen Scraping-Status vom Server
   const fetchScrapingStatus = async () => {
@@ -193,22 +218,29 @@ const Scrapper = () => {
   }
 
   return (
-    <div className="w-full flex flex-col items-center justify-center p-4">
-      <h1 className="text-4xl font-bold">Scrapper</h1>
-      <Button onClick={getServerStatus} className="mb-2">
-        Get Server Status
-      </Button>
-      <p className="mb-4">{status}</p>
-      <Button onClick={startScrapingJob} disabled={isScrapingRunning} className="mb-4">
-        {isScrapingRunning ? "Scraping läuft..." : "Preise scrappen starten"}
-      </Button>
-      <p>
-        Verarbeitete Links: {anzScrappedLinks} / {anzLinks}
-      </p>
-      <p>Aktueller Link: {actuelLink}</p>
-      <p>Letzter gescrappter Wert: {lastScrapedValue ? `${lastScrapedValue} CHF` : "N/A"}</p>
-      <p className="text-green-500">Erfolge: {success}</p>
-      <p className="text-red-500">Fehler: {error}</p>
+    <div className="w-full flex flex-col items-center justify-center p-4 relative">
+      <h1 className="text-4xl font-bold text-center mb-2">Scrapper</h1>
+      <p className={`absolute top-[-1rem] right-1 flex items-center ${serverStatus ? 'text-green-500' : 'text-red-500'}`}><span className="text-6xl pt-0.5 mr-1">•</span> {serverStatus ? 'Server läuft' : 'Server Gestoppt'}</p>
+      <div className="grid grid-cols-3 gap-4 mb-4 w-full">
+        <div className="h-64 col-span-2">
+          <Button onClick={getServerStatus} className="mb-2">
+            Get Server Status
+          </Button>
+          <p className="mb-4">{status}</p>
+          <Button onClick={startScrapingJob} disabled={isScrapingRunning} className="mb-4">
+            {isScrapingRunning ? "Scraping läuft..." : "Preise scrappen starten"}
+          </Button>
+        </div>
+        <div className="bg-background h-64 col-span-1 p-1 px-2 rounded-md">
+          <p>
+            Verarbeitete Links: {anzScrappedLinks} / {anzLinks}
+          </p>
+          <p>Aktueller Link: {actuelLink}</p>
+          <p>Letzter gescrappter Wert: {lastScrapedValue ? `${lastScrapedValue} CHF` : "N/A"}</p>
+          <p className="text-green-500">Erfolge: {success}</p>
+          <p className="text-red-500">Fehler: {error}</p>
+        </div>
+      </div>
     </div>
   )
 }

@@ -25,7 +25,7 @@ const Panel = () => {
   return (
     <div className="w-full">
       <Tabs value={tabsValue} onValueChange={changeTabsValue}>
-        <TabsList className="grid grid-1 md:grid-4 h-fit">
+        <TabsList className="grid md:grid-cols-4 h-fit">
           <TabsTrigger value="components">Alle Komponenten</TabsTrigger>
           <TabsTrigger value="add">Komponenten hinzufügen</TabsTrigger>
           <TabsTrigger value="convention">Komponenten Option vorlagen</TabsTrigger>
