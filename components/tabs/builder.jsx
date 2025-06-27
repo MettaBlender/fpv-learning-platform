@@ -2,9 +2,10 @@ import { useState, useEffect } from "react"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { ExternalLink, Play, FileText, ShoppingCart, Zap, X, Camera, Cpu, AppWindow } from "lucide-react"
+import { ExternalLink, Play, FileText, ShoppingCart, Zap, X, Camera, Cpu, Drone } from "lucide-react"
 import Image from "next/image"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { toast } from 'sonner'
 
 const Builder = () => {
 
@@ -92,7 +93,7 @@ const Builder = () => {
   }
 
   const getTotalPrice = () => {
-    return Object.values(selectedComponents).reduce((total, component) => total + (component?.price || 0), 0)
+    return Object.values(selectedComponents).reduce((total, component) => total + (component?.price || 0), 0).toFixed(2)
   }
 
   const openShop = (e, shop) => {
@@ -159,6 +160,39 @@ const Builder = () => {
   };
 
   const { keys, optionsByKey } = getOptionKeysAndValues();
+
+  const handleSaveBuild = async () => {
+    console.log("Speichere Drohne mit Komponenten:", selectedComponents);
+    const buildData = {};
+
+    Object.entries(selectedComponents).forEach(([key, component]) => {
+      buildData[key] = component.id;
+    });
+
+    console.log("Build data to save:", buildData);
+
+    try {
+      // Call your API to save the build
+      const response = await fetch('/api/builds', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          components: buildData,
+        })
+      });
+
+      if (response.ok) {
+        toast.success("Build wurde erfolgreich gespeichert!");
+      } else {
+        toast.error("Fehler beim Speichern des Builds");
+      }
+    } catch (error) {
+      console.error("Error saving build:", error);
+      toast.error("Fehler beim Speichern des Builds");
+    }
+  }
 
   return (
     <>
@@ -929,10 +963,14 @@ const Builder = () => {
                     </div>
 
                     {Object.keys(selectedComponents).length > 0 && (
-                      <div className="mt-4 pt-4 border-t">
+                      <div className="mt-4 pt-4 border-t space-y-3">
                         <Button className="w-full">
                           <ShoppingCart className="h-4 w-4 mr-2" />
                           Totaler Preis CHF {getTotalPrice()}
+                        </Button>
+                        <Button className="w-full" onClick={handleSaveBuild}>
+                          <Drone className="h-4 w-4 mr-2" />
+                          Build Speichern
                         </Button>
                       </div>
                     )}
