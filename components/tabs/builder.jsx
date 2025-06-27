@@ -6,13 +6,14 @@ import { ExternalLink, Play, FileText, ShoppingCart, Zap, X, Camera, Cpu, Drone 
 import Image from "next/image"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { toast } from 'sonner'
+import { decodeUserSession } from "@/lib/session"
 
 const Builder = () => {
 
   const [selectedComponents, setSelectedComponents] = useState({})
   const [activeComponent, setActiveComponent] = useState("frame")
   const [expandedDescriptions, setExpandedDescriptions] = useState({})
-
+  const [session, setSession] = useState(null)
   const [droneComponents, setDroneComponents] = useState({})
 
   useEffect(() => {
@@ -32,6 +33,14 @@ const Builder = () => {
         console.error('Error fetching drone components:', error);
       }
     }
+
+    const getSession = async () => {
+      const sessionkey = sessionStorage.getItem("session")
+      const sessionvalue = await decodeUserSession(sessionkey || "")
+      setSession(sessionvalue === 0 ? true : false)
+    }
+
+    getSession()
 
     getData();
 
@@ -968,9 +977,9 @@ const Builder = () => {
                           <ShoppingCart className="h-4 w-4 mr-2" />
                           Totaler Preis CHF {getTotalPrice()}
                         </Button>
-                        <Button className="w-full" onClick={handleSaveBuild}>
+                        <Button className="w-full" onClick={handleSaveBuild} disabled={!session}>
                           <Drone className="h-4 w-4 mr-2" />
-                          Build Speichern
+                          Build Speichern {session ? '' : '(Anmelden um zu speichern)'}
                         </Button>
                       </div>
                     )}

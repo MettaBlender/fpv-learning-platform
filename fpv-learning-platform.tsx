@@ -7,6 +7,7 @@ import Googles from "@/components/tabs/googles"
 import Controller from "@/components/tabs/controller"
 import Components from "@/components/tabs/components"
 import Builder from "@/components/tabs/builder"
+import Builds from "@/components/tabs/builds"
 import Tutorial from "@/components/tabs/tutorials"
 import Login from "@/components/tabs/login"
 import Panel from "@/components/tabs/panel"
@@ -94,11 +95,12 @@ export default function Component() {
         </div>
 
         <Tabs value={selectedTab} className="w-full h-fit" onValueChange={changeTab}>
-          <TabsList className={`grid w-full ${session ? "md:grid-cols-6": "md:grid-cols-5"} mb-8 h-fit text-black`}>
+          <TabsList className={`grid w-full ${session ? "md:grid-cols-7": "md:grid-cols-5"} mb-8 h-fit text-black`}>
             <TabsTrigger value="goggles">DJI Goggles</TabsTrigger>
             <TabsTrigger value="controller">RC Controller</TabsTrigger>
             <TabsTrigger value="components">Komponenten</TabsTrigger>
             <TabsTrigger value="builder">Drohnen Builder</TabsTrigger>
+            {session && (<TabsTrigger value="builds">Builds</TabsTrigger>)}
             <TabsTrigger value="tutorial">Weitere Tutorials</TabsTrigger>
             {session && (<TabsTrigger value="admin">Panel</TabsTrigger>)}
             {session && <TabsTrigger value="login" className="md:hidden" onClick={handleLogout}>Logout</TabsTrigger>}
@@ -124,6 +126,10 @@ export default function Component() {
           {/* Section 4: Drohnen Builder */}
           <TabsContent value="builder" className="space-y-6">
               <Builder/>
+          </TabsContent>
+
+          <TabsContent value="builds" className="space-y-6">
+              <Builds/>
           </TabsContent>
 
           {/* Section 5: Weitere Tutorials */}
