@@ -939,7 +939,7 @@ const Builds = () => {
                                   {(() => {
                                     const { keys, optionsByKey } = getEditOptionKeysAndValues();
                                     return keys.length > 0 && (
-                                      <div className="flex gap-4 mb-4">
+                                      <div className="flex gap-4 mb-4 flex-wrap flex-col md:flex-row">
                                         {keys.map((key) => (
                                           <Select key={key} value={filters[key] || "all"} onValueChange={(value) => setFilters(prev => ({ ...prev, [key]: value === "all" ? "" : value }))}>
                                             <SelectTrigger className="w-40">

@@ -66,9 +66,9 @@ const ComponentsConvention = () => {
   return (
     <div className='w-full'>
       <h1 className='mb-2'>Die Komponeten sollten folgende Optionen enthalten:</h1>
-       <div className='w-full flex flex-wrap justify-around items-start mb-4'>
+       <div className='w-full flex flex-col md:flex-row flex-wrap justify-around items-start mb-4'>
         {convention.map((component) => (
-          <Card key={component.name} className="w-[23dvw] h-[23dvw] flex flex-col mb-2">
+          <Card key={component.name} className="w-full md:w-[23dvw] h-auto md:h-[23dvw] aspect-square md:aspect-auto flex flex-col mb-2">
             <CardHeader>
               <CardTitle>{component.name}</CardTitle>
             </CardHeader>
