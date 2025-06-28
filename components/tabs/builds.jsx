@@ -3,7 +3,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { ExternalLink, Play, FileText, ShoppingCart, Zap, X, Camera, Cpu, Drone, ChevronDown, ChevronRight, Edit, Trash } from "lucide-react"
 import Image from "next/image"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
@@ -1014,9 +1014,14 @@ const Builds = () => {
                           </div>
 
                           <div className="flex justify-end gap-4 mt-6 pt-4 border-t">
-                            <Button variant="outline" onClick={() => setEditBuild(null)}>
-                              Abbrechen
-                            </Button>
+                            <DialogClose asChild>
+                              <Button variant="outline" onClick={(e) => {
+                                e.stopPropagation();
+                                setEditBuild(null);
+                              }}>
+                                Abbrechen
+                              </Button>
+                            </DialogClose>
                             <Button onClick={saveEditedBuild}>
                               Build speichern
                             </Button>
