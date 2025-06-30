@@ -53,6 +53,9 @@
   --color-sidebar-border: hsl(var(--sidebar-border));
   --color-sidebar-ring: hsl(var(--sidebar-ring));
 
+  --color-green: var(--green);
+  --color-red: var(--red);
+
   --radius-lg: var(--radius);
   --radius-md: calc(var(--radius) - 2px);
   --radius-sm: calc(var(--radius) - 4px);
@@ -161,6 +164,8 @@
     --tabs-active: #82a8cd;
     --scrollbar: #181818;
     --scrollbar-gradient: linear-gradient(to bottom, #82a8cd, #aebbc4);
+    --green: #8ccd82;
+    --red: #d67a7a;
   }
   .dark {
     --background: 0 0% 3.9%;
@@ -201,6 +206,8 @@
     --tabs-active: #b3cce3;
     --scrollbar: #ffffff;
     --scrollbar-gradient: linear-gradient(to bottom, var(--background-gradient-1), var(--background-gradient-2));
+    --green: #70a468;
+    --red: #ac5959;
   }
 }
 

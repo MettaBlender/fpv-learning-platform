@@ -342,7 +342,7 @@ const Builds = () => {
                       <span>Build {build.build_id}</span>
                     </div>
                     <div className="flex items-center gap-4">
-                      <span className="text-lg font-bold text-green-600">Total: CHF {totalPrice.toFixed(2)}</span>
+                      <span className="text-lg font-bold text-green">Total: CHF {totalPrice.toFixed(2)}</span>
                       <Dialog>
                         <DialogTrigger asChild>
                           <Button

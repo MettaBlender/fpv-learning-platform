@@ -252,7 +252,7 @@ const Scrapper = () => {
   return (
     <div className="w-full flex flex-col items-center justify-center p-4 relative">
       <h1 className="text-4xl font-bold text-center mb-2 mt-2 md:mt-0">Scrapper</h1>
-      <p className={`absolute top-[-1rem] right-1 flex items-center ${serverStatus ? 'text-green-500' : 'text-red-500'}`}><span className="text-6xl pt-0.5 mr-1">•</span> {serverStatus ? 'Server läuft' : 'Server Gestoppt'}</p>
+      <p className={`absolute top-[-1rem] right-1 flex items-center ${serverStatus ? 'text-green' : 'text-red'}`}><span className="text-6xl pt-0.5 mr-1">•</span> {serverStatus ? 'Server läuft' : 'Server Gestoppt'}</p>
       <div className="md:grid reverse grid-cols-3 gap-4 mb-4 w-full">
         <div className="bg-background h-fit md:h-[90dvh] col-start-3 row-start-1 col-span-1 p-1 px-2 rounded-md mb-4 md:mb-0">
           <p className="mb-3 mt-1">{status}</p>
@@ -261,8 +261,8 @@ const Scrapper = () => {
           </p>
           <p>Aktueller Link: {actuelLink}</p>
           <p>Letzter gescrappter Wert: {lastScrapedValue ? `${lastScrapedValue} CHF` : "N/A"}</p>
-          <p className="text-green-500">Erfolge: {success}</p>
-          <p className="text-red-500">Fehler: {error}</p>
+          <p className="text-green">Erfolge: {success}</p>
+          <p className="text-red">Fehler: {error}</p>
         </div>
         <div className="h-fit md:h-[90dvh] overflow-auto col-span-2 col-start-1 row-start-1">
           <Button onClick={startScrapingJob} disabled={isScrapingRunning} className="mb-4 mx-auto">
@@ -305,7 +305,7 @@ const Scrapper = () => {
                 return (
                   <div className="md:grid grid-cols-2 gap-4" key={index}>
                     {/* Alte Daten */}
-                    <div className="w-full p-2 bg-red-500 rounded-md">
+                    <div className="w-full p-2 bg-red rounded-md">
                       <h3 className="text-lg font-semibold mb-1 text-white">ALT</h3>
                       <h2 className="text-xl font-semibold mb-2">{component.name}</h2>
                       <p>Preis: {component.price} CHF</p>
@@ -315,7 +315,7 @@ const Scrapper = () => {
                     </div>
 
                     {/* Neue Daten */}
-                    <div className="w-full p-2 bg-green-500 rounded-md">
+                    <div className="w-full p-2 bg-green rounded-md">
                       <h3 className="text-lg font-semibold mb-1 text-white">NEU</h3>
                       <h2 className="text-xl font-semibold mb-2">{matchingNewComponent?.name || component.name}</h2>
                       <p>Preis: {matchingNewComponent?.price || 'N/A'} CHF</p>
