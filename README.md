@@ -53,8 +53,10 @@ The FPV Learning Platform is a modern web application for building, managing, an
 ## Project Structure
 
 - `components/` – UI components, drone builder, dialogs, forms
+  - `/tabs` - Tabs from the Tabbar
+  - `/ui` - Shadcn UI components
 - `app/` – Next.js app directory, pages, API routes
-- `lib/` – Utility functions, session handling
+- `lib/` – Utility functions, session handling and Database connection
 - `public/` – Images and static assets
 
 ## Contributing
